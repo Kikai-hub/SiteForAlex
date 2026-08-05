@@ -26,9 +26,20 @@ export async function proxy(request: NextRequest) {
     }
   }
 
+  if (pathname.startsWith("/courier") && pathname !== "/courier/login") {
+    const token = request.cookies.get(SESSION_COOKIE.courier)?.value;
+    const session = await verifySession(token, "courier");
+    if (!session) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/courier/login";
+      url.searchParams.set("next", pathname);
+      return NextResponse.redirect(url);
+    }
+  }
+
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/account/:path*"],
+  matcher: ["/admin/:path*", "/account/:path*", "/courier/:path*"],
 };

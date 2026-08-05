@@ -8,7 +8,7 @@ export const cartItemSchema = z.object({
 export const createOrderSchema = z.object({
   items: z.array(cartItemSchema).min(1, "Корзина пуста"),
   fulfillmentType: z.enum(["DELIVERY", "PICKUP"]),
-  paymentMethod: z.enum(["CASH", "CARD"]),
+  paymentMethod: z.enum(["CASH", "CARD", "ONLINE"]),
   guestName: z.string().trim().min(1, "Укажите имя").max(100),
   guestPhone: z.string().trim().min(1, "Укажите телефон"),
   addressId: z.string().optional().nullable(),

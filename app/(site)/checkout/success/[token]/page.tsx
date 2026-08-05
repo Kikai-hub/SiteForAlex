@@ -8,23 +8,30 @@ import { Stamp } from "@/components/ui/Stamp";
 export default async function CheckoutSuccessPage({
   params,
 }: {
-  params: Promise<{ orderId: string }>;
+  params: Promise<{ token: string }>;
 }) {
-  const { orderId } = await params;
-  const id = Number(orderId);
-  if (!Number.isInteger(id)) notFound();
+  const { token } = await params;
 
-  const order = await prisma.order.findUnique({ where: { id }, include: { items: true } });
+  // Looked up by the unguessable accessToken, never by the sequential Order.id —
+  // otherwise anyone could enumerate /checkout/success/1, /2, ... and read other
+  // customers' phone numbers and order details.
+  const order = await prisma.order.findUnique({ where: { accessToken: token }, include: { items: true } });
   if (!order) notFound();
+
+  const awaitingOnlinePayment = order.paymentMethod === "ONLINE" && order.paymentStatus !== "SUCCEEDED";
 
   return (
     <div className="mx-auto max-w-lg px-5 py-16 text-center">
       <Stamp tone="ember" className="mx-auto h-20 w-20 text-3xl">
-        ✓
+        {awaitingOnlinePayment ? "…" : "✓"}
       </Stamp>
-      <h1 className="mt-6 font-display text-3xl font-semibold text-char">Заказ №{order.id} принят</h1>
+      <h1 className="mt-6 font-display text-3xl font-semibold text-char">
+        {awaitingOnlinePayment ? `Заказ №${order.id} оформлен` : `Заказ №${order.id} принят`}
+      </h1>
       <p className="mt-2 text-char/60">
-        Мы свяжемся с вами по телефону {order.guestPhone} для подтверждения.
+        {awaitingOnlinePayment
+          ? "Ждём подтверждения оплаты от ЮKassa — это обычно занимает несколько секунд. Обновите страницу, если статус не изменился."
+          : `Мы свяжемся с вами по телефону ${order.guestPhone} для подтверждения.`}
       </p>
 
       <div className="mt-8 rounded-2xl bg-flatbread-2 p-6 text-left">

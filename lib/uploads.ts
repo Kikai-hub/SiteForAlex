@@ -2,14 +2,6 @@ import { mkdir, unlink, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { randomUUID } from "node:crypto";
 
-const ALLOWED_TYPES: Record<string, { ext: string; kind: "PHOTO" | "VIDEO" }> = {
-  "image/jpeg": { ext: "jpg", kind: "PHOTO" },
-  "image/png": { ext: "png", kind: "PHOTO" },
-  "image/webp": { ext: "webp", kind: "PHOTO" },
-  "video/mp4": { ext: "mp4", kind: "VIDEO" },
-  "video/webm": { ext: "webm", kind: "VIDEO" },
-};
-
 const MAX_SIZE_BYTES: Record<"PHOTO" | "VIDEO", number> = {
   PHOTO: 15 * 1024 * 1024,
   VIDEO: 100 * 1024 * 1024,
@@ -25,29 +17,79 @@ export class UploadError extends Error {
   }
 }
 
+interface DetectedFile {
+  ext: string;
+  kind: "PHOTO" | "VIDEO";
+}
+
+/**
+ * Identifies the real file format from its magic bytes. The client-supplied
+ * File.type is attacker-controlled (it's just a FormData field) and must never
+ * be trusted to decide the stored extension/kind — only the actual bytes can.
+ */
+function detectFileSignature(buffer: Buffer): DetectedFile | null {
+  if (buffer.length >= 3 && buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff) {
+    return { ext: "jpg", kind: "PHOTO" };
+  }
+  if (
+    buffer.length >= 8 &&
+    buffer[0] === 0x89 &&
+    buffer[1] === 0x50 &&
+    buffer[2] === 0x4e &&
+    buffer[3] === 0x47 &&
+    buffer[4] === 0x0d &&
+    buffer[5] === 0x0a &&
+    buffer[6] === 0x1a &&
+    buffer[7] === 0x0a
+  ) {
+    return { ext: "png", kind: "PHOTO" };
+  }
+  if (
+    buffer.length >= 12 &&
+    buffer.toString("ascii", 0, 4) === "RIFF" &&
+    buffer.toString("ascii", 8, 12) === "WEBP"
+  ) {
+    return { ext: "webp", kind: "PHOTO" };
+  }
+  if (buffer.length >= 12 && buffer.toString("ascii", 4, 8) === "ftyp") {
+    return { ext: "mp4", kind: "VIDEO" };
+  }
+  if (
+    buffer.length >= 4 &&
+    buffer[0] === 0x1a &&
+    buffer[1] === 0x45 &&
+    buffer[2] === 0xdf &&
+    buffer[3] === 0xa3
+  ) {
+    return { ext: "webm", kind: "VIDEO" };
+  }
+  return null;
+}
+
 export async function saveDishMedia(dishId: string, file: File) {
-  const meta = ALLOWED_TYPES[file.type];
-  if (!meta) {
+  const buffer = Buffer.from(await file.arrayBuffer());
+
+  const detected = detectFileSignature(buffer);
+  if (!detected) {
     throw new UploadError(
       "Неподдерживаемый формат файла. Разрешены: JPEG, PNG, WEBP, MP4, WEBM."
     );
   }
-  if (file.size > MAX_SIZE_BYTES[meta.kind]) {
-    const limitMb = MAX_SIZE_BYTES[meta.kind] / (1024 * 1024);
+  if (buffer.length > MAX_SIZE_BYTES[detected.kind]) {
+    const limitMb = MAX_SIZE_BYTES[detected.kind] / (1024 * 1024);
     throw new UploadError(`Файл слишком большой (максимум ${limitMb} МБ).`, 413);
   }
 
   const dir = path.join(UPLOAD_ROOT, dishId);
   await mkdir(dir, { recursive: true });
 
-  const filename = `${randomUUID()}.${meta.ext}`;
+  const filename = `${randomUUID()}.${detected.ext}`;
   const filePath = path.join(dir, filename);
-  const buffer = Buffer.from(await file.arrayBuffer());
   await writeFile(filePath, buffer);
 
   return {
     url: `/uploads/dishes/${dishId}/${filename}`,
-    type: meta.kind,
+    type: detected.kind,
   };
 }
 

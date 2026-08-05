@@ -4,6 +4,7 @@ import { useState, FormEvent, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Input, Label, FieldError } from "@/components/ui/Input";
+import { safeRedirectPath } from "@/lib/safe-redirect";
 
 function AdminLoginForm() {
   const router = useRouter();
@@ -28,7 +29,7 @@ function AdminLoginForm() {
         setError(data.error ?? "Не удалось войти");
         return;
       }
-      router.push(params.get("next") || "/admin");
+      router.push(safeRedirectPath(params.get("next"), "/admin"));
       router.refresh();
     } finally {
       setLoading(false);

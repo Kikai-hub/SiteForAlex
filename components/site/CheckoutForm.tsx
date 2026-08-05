@@ -23,9 +23,11 @@ interface SavedAddress {
 export function CheckoutForm({
   customer,
   addresses,
+  onlinePaymentEnabled = false,
 }: {
   customer: { name: string | null; phone: string } | null;
   addresses: SavedAddress[];
+  onlinePaymentEnabled?: boolean;
 }) {
   const router = useRouter();
   const cityRef = useRef<HTMLInputElement>(null);
@@ -35,7 +37,7 @@ export function CheckoutForm({
   const mounted = useHasMounted();
 
   const [fulfillmentType, setFulfillmentType] = useState<"DELIVERY" | "PICKUP">("DELIVERY");
-  const [paymentMethod, setPaymentMethod] = useState<"CASH" | "CARD">("CASH");
+  const [paymentMethod, setPaymentMethod] = useState<"CASH" | "CARD" | "ONLINE">("CASH");
   const [addressId, setAddressId] = useState(addresses.find((a) => a.isDefault)?.id ?? addresses[0]?.id ?? "");
   const [useNewAddress, setUseNewAddress] = useState(addresses.length === 0);
   const [promoCode, setPromoCode] = useState("");
@@ -117,8 +119,25 @@ export function CheckoutForm({
         setError(data.error ?? "Не удалось оформить заказ");
         return;
       }
+
+      if (paymentMethod === "ONLINE") {
+        const payRes = await fetch("/api/payments/yookassa/create", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token: data.token }),
+        });
+        const payData = await payRes.json();
+        if (!payRes.ok || !payData.confirmationUrl) {
+          setError(payData.error ?? "Не удалось перейти к оплате");
+          return;
+        }
+        clear();
+        window.location.href = payData.confirmationUrl;
+        return;
+      }
+
       clear();
-      router.push(`/checkout/success/${data.orderId}`);
+      router.push(`/checkout/success/${data.token}`);
     } finally {
       setSubmitting(false);
     }
@@ -246,8 +265,23 @@ export function CheckoutForm({
             >
               Картой курьеру
             </button>
+            {onlinePaymentEnabled && (
+              <button
+                type="button"
+                onClick={() => setPaymentMethod("ONLINE")}
+                className={`rounded-full px-4 py-2 text-sm font-semibold ${
+                  paymentMethod === "ONLINE" ? "bg-ember text-flatbread-2" : "bg-char/10 text-char/70"
+                }`}
+              >
+                Онлайн картой
+              </button>
+            )}
           </div>
-          <p className="mt-2 text-xs text-char/50">Оплата производится при получении заказа.</p>
+          <p className="mt-2 text-xs text-char/50">
+            {paymentMethod === "ONLINE"
+              ? "Вы будете перенаправлены на защищённую страницу оплаты ЮKassa."
+              : "Оплата производится при получении заказа."}
+          </p>
         </div>
 
         <div className="rounded-2xl bg-flatbread-2 p-5">

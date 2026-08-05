@@ -18,6 +18,7 @@ export default async function CheckoutPage() {
         <CheckoutForm
           customer={customer ? { name: customer.name, phone: customer.phone } : null}
           addresses={addresses}
+          onlinePaymentEnabled={Boolean(process.env.YOOKASSA_SHOP_ID && process.env.YOOKASSA_SECRET_KEY)}
         />
       </div>
     </div>

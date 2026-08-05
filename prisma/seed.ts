@@ -148,6 +148,11 @@ async function main() {
     variants: [{ label: "5 пицц 33 см", priceRubles: 3299 }],
   });
 
+  if (process.env.NODE_ENV === "production" && (!process.env.SEED_ADMIN_USERNAME || !process.env.SEED_ADMIN_PASSWORD)) {
+    throw new Error(
+      "SEED_ADMIN_USERNAME and SEED_ADMIN_PASSWORD must be set in production — refusing to seed the well-known dev admin credentials."
+    );
+  }
   const adminUsername = process.env.SEED_ADMIN_USERNAME ?? "admin";
   const adminPassword = process.env.SEED_ADMIN_PASSWORD ?? "adana-admin-2026";
   await prisma.adminUser.upsert({

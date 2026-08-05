@@ -5,6 +5,7 @@ export interface PromoValidationResult {
   promoCodeId: string;
   code: string;
   discountMinor: number;
+  maxUsesTotal: number | null;
 }
 
 export interface PromoValidationError {
@@ -69,5 +70,11 @@ export async function validatePromoCode(params: {
       ? Math.round((subtotalMinor * promo.value) / 100)
       : Math.min(promo.value, subtotalMinor);
 
-  return { ok: true, promoCodeId: promo.id, code: promo.code, discountMinor };
+  return {
+    ok: true,
+    promoCodeId: promo.id,
+    code: promo.code,
+    discountMinor,
+    maxUsesTotal: promo.maxUsesTotal,
+  };
 }

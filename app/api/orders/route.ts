@@ -106,6 +106,7 @@ export async function POST(request: NextRequest) {
   let discountMinor = 0;
   let promoCodeId: string | null = null;
   let promoCodeSnapshot: string | null = null;
+  let promoMaxUsesTotal: number | null = null;
 
   if (data.promoCode) {
     const result = await validatePromoCode({
@@ -120,36 +121,60 @@ export async function POST(request: NextRequest) {
     discountMinor = result.discountMinor;
     promoCodeId = result.promoCodeId;
     promoCodeSnapshot = result.code;
+    promoMaxUsesTotal = result.maxUsesTotal;
   }
 
   const totalMinor = Math.max(subtotalMinor - discountMinor, 0);
 
-  const order = await prisma.$transaction(async (tx) => {
-    const created = await tx.order.create({
-      data: {
-        customerId,
-        guestName: data.guestName,
-        guestPhone,
-        fulfillmentType: data.fulfillmentType,
-        paymentMethod: data.paymentMethod,
-        subtotalMinor,
-        discountMinor,
-        totalMinor,
-        promoCodeId,
-        promoCodeSnapshot,
-        notes: data.notes || null,
-        ...addressFields,
-        items: { create: orderItemsData },
-      },
-    });
-    if (promoCodeId) {
-      await tx.promoCode.update({
-        where: { id: promoCodeId },
-        data: { usedCount: { increment: 1 } },
-      });
-    }
-    return created;
-  });
+  const PROMO_EXHAUSTED = Symbol("PROMO_EXHAUSTED");
 
-  return NextResponse.json({ orderId: order.id });
+  let order;
+  try {
+    order = await prisma.$transaction(async (tx) => {
+      const created = await tx.order.create({
+        data: {
+          customerId,
+          guestName: data.guestName,
+          guestPhone,
+          fulfillmentType: data.fulfillmentType,
+          paymentMethod: data.paymentMethod,
+          subtotalMinor,
+          discountMinor,
+          totalMinor,
+          promoCodeId,
+          promoCodeSnapshot,
+          notes: data.notes || null,
+          ...addressFields,
+          items: { create: orderItemsData },
+        },
+      });
+      if (promoCodeId) {
+        // Conditional on usedCount at update time (not the value read earlier by
+        // validatePromoCode) so two concurrent orders can't both slip through
+        // when maxUsesTotal is about to be reached — the DB enforces the check
+        // atomically with the increment instead of trusting a stale read.
+        const incremented = await tx.promoCode.updateMany({
+          where: {
+            id: promoCodeId,
+            ...(promoMaxUsesTotal != null ? { usedCount: { lt: promoMaxUsesTotal } } : {}),
+          },
+          data: { usedCount: { increment: 1 } },
+        });
+        if (incremented.count === 0) {
+          throw PROMO_EXHAUSTED;
+        }
+      }
+      return created;
+    });
+  } catch (err) {
+    if (err === PROMO_EXHAUSTED) {
+      return NextResponse.json(
+        { error: "Промокод только что исчерпал лимит использований — оформите заказ без него" },
+        { status: 409 }
+      );
+    }
+    throw err;
+  }
+
+  return NextResponse.json({ orderId: order.id, token: order.accessToken });
 }

@@ -9,6 +9,7 @@ const links = [
   { href: "/admin/dishes", label: "Меню" },
   { href: "/admin/categories", label: "Категории" },
   { href: "/admin/promo-codes", label: "Промокоды" },
+  { href: "/admin/couriers", label: "Курьеры" },
 ];
 
 export function Sidebar() {

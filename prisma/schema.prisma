@@ -25,6 +25,15 @@ enum FulfillmentType {
 enum PaymentMethod {
   CASH
   CARD
+  ONLINE
+}
+
+enum PaymentStatus {
+  PENDING
+  WAITING_FOR_CAPTURE
+  SUCCEEDED
+  CANCELED
+  REFUNDED
 }
 
 enum OrderStatus {
@@ -42,6 +51,16 @@ model AdminUser {
   passwordHash String
   name         String?
   createdAt    DateTime @default(now())
+}
+
+model Courier {
+  id           String   @id @default(cuid())
+  username     String   @unique
+  passwordHash String
+  name         String
+  createdAt    DateTime @default(now())
+
+  orders Order[]
 }
 
 model Customer {
@@ -140,6 +159,10 @@ model PromoCode {
 model Order {
   id Int @id @default(autoincrement())
 
+  /** Unguessable lookup key for the public order-confirmation page — Order.id is
+   *  sequential and must never be used to authorize access to another customer's order. */
+  accessToken String @unique @default(cuid())
+
   customerId String?
   customer   Customer? @relation(fields: [customerId], references: [id])
   guestName  String
@@ -157,6 +180,18 @@ model Order {
 
   paymentMethod PaymentMethod
   status        OrderStatus   @default(NEW)
+
+  /** Only meaningful when paymentMethod is ONLINE — CASH/CARD orders are paid
+   *  on delivery/pickup and never go through YooKassa. */
+  paymentStatus     PaymentStatus @default(PENDING)
+  yookassaPaymentId String?       @unique
+  paidAt            DateTime?
+
+  /** Unassigned until a courier claims it from the "new orders" pool. */
+  courierId   String?
+  courier     Courier?  @relation(fields: [courierId], references: [id], onDelete: SetNull)
+  assignedAt  DateTime?
+  deliveredAt DateTime?
 
   subtotalMinor Int
   discountMinor Int @default(0)

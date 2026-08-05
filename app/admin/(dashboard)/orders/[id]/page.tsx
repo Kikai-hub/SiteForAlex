@@ -50,7 +50,11 @@ export default async function AdminOrderDetailPage({
             <p className="mt-1 text-char/80">Самовывоз из пиццерии</p>
           )}
           <p className="mt-2 text-sm text-char/60">
-            Оплата: {order.paymentMethod === "CASH" ? "наличными" : "картой"} при получении
+            {order.paymentMethod === "ONLINE"
+              ? order.paymentStatus === "SUCCEEDED"
+                ? "Оплата: онлайн — оплачено"
+                : "Оплата: онлайн — ожидает оплаты"
+              : `Оплата: ${order.paymentMethod === "CASH" ? "наличными" : "картой"} при получении`}
           </p>
         </div>
       </div>
