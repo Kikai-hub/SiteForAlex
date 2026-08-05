@@ -1,0 +1,39 @@
+{
+  "name": "adana-pizza",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "db:seed": "prisma db seed",
+    "db:studio": "prisma studio",
+    "db:migrate": "prisma migrate dev"
+  },
+  "dependencies": {
+    "@prisma/adapter-better-sqlite3": "^7.9.1",
+    "@prisma/client": "^7.9.1",
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^13.0.2",
+    "jose": "^6.2.8",
+    "next": "16.3.0",
+    "prisma": "^7.9.1",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "zod": "^4.4.3",
+    "zustand": "^5.0.14"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "dotenv": "^17.4.2",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.0",
+    "tailwindcss": "^4",
+    "tsx": "^4.23.5",
+    "typescript": "^5"
+  }
+}

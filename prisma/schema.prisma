@@ -1,0 +1,191 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum MediaType {
+  PHOTO
+  VIDEO
+}
+
+enum PromoType {
+  PERCENT
+  FIXED
+}
+
+enum FulfillmentType {
+  DELIVERY
+  PICKUP
+}
+
+enum PaymentMethod {
+  CASH
+  CARD
+}
+
+enum OrderStatus {
+  NEW
+  CONFIRMED
+  PREPARING
+  OUT_FOR_DELIVERY
+  DELIVERED
+  CANCELLED
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  username     String   @unique
+  passwordHash String
+  name         String?
+  createdAt    DateTime @default(now())
+}
+
+model Customer {
+  id           String   @id @default(cuid())
+  phone        String   @unique
+  passwordHash String
+  name         String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  addresses    Address[]
+  orders       Order[]
+}
+
+model Address {
+  id         String   @id @default(cuid())
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  label      String?
+  city       String   @default("Москва")
+  street     String
+  house      String
+  apartment  String?
+  entrance   String?
+  floor      String?
+  comment    String?
+  isDefault  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+}
+
+model Category {
+  id        String  @id @default(cuid())
+  name      String
+  slug      String  @unique
+  sortOrder Int     @default(0)
+  isActive  Boolean @default(true)
+  dishes    Dish[]
+}
+
+model Dish {
+  id              String   @id @default(cuid())
+  categoryId      String
+  category        Category @relation(fields: [categoryId], references: [id])
+  name            String
+  description     String?
+  caloriesPer100g Int?
+  isActive        Boolean  @default(true)
+  sortOrder       Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  variants DishVariant[]
+  media    MediaAsset[]
+}
+
+model DishVariant {
+  id          String   @id @default(cuid())
+  dishId      String
+  dish        Dish     @relation(fields: [dishId], references: [id], onDelete: Cascade)
+  label       String
+  priceMinor  Int
+  weightGrams Int?
+  sortOrder   Int      @default(0)
+  isActive    Boolean  @default(true)
+
+  orderItems OrderItem[]
+}
+
+model MediaAsset {
+  id        String    @id @default(cuid())
+  dishId    String
+  dish      Dish      @relation(fields: [dishId], references: [id], onDelete: Cascade)
+  type      MediaType
+  url       String
+  isPrimary Boolean   @default(false)
+  sortOrder Int       @default(0)
+  createdAt DateTime  @default(now())
+}
+
+model PromoCode {
+  id                  String    @id @default(cuid())
+  code                String    @unique
+  type                PromoType
+  value               Int
+  minOrderAmountMinor Int?
+  maxUsesTotal        Int?
+  maxUsesPerCustomer  Int?
+  usedCount           Int       @default(0)
+  startsAt            DateTime?
+  expiresAt           DateTime?
+  isActive            Boolean   @default(true)
+  createdAt           DateTime  @default(now())
+
+  orders Order[]
+}
+
+model Order {
+  id Int @id @default(autoincrement())
+
+  customerId String?
+  customer   Customer? @relation(fields: [customerId], references: [id])
+  guestName  String
+  guestPhone String
+
+  fulfillmentType FulfillmentType
+
+  addressCity      String?
+  addressStreet    String?
+  addressHouse     String?
+  addressApartment String?
+  addressEntrance  String?
+  addressFloor     String?
+  addressComment   String?
+
+  paymentMethod PaymentMethod
+  status        OrderStatus   @default(NEW)
+
+  subtotalMinor Int
+  discountMinor Int @default(0)
+  totalMinor    Int
+
+  promoCodeId       String?
+  promoCode         PromoCode? @relation(fields: [promoCodeId], references: [id])
+  promoCodeSnapshot String?
+
+  notes String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  items OrderItem[]
+}
+
+model OrderItem {
+  id      String @id @default(cuid())
+  orderId Int
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  dishId        String?
+  dishVariantId String?
+  dishVariant   DishVariant? @relation(fields: [dishVariantId], references: [id])
+
+  nameSnapshot         String
+  variantLabelSnapshot String
+  unitPriceMinor       Int
+  quantity             Int
+  lineTotalMinor       Int
+}

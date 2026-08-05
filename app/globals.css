@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+:root {
+  /* Adana Pizza brand tokens — warm, Turkish-grill palette (not the generic
+     cream+terracotta AI default): ember/saffron read as spice & fire, the
+     doughy "flatbread" cream is warmer/yellower than the usual beige. */
+  --color-char: #2a1b14;
+  --color-ember: #d6491f;
+  --color-ember-dark: #a8350f;
+  --color-saffron: #e8a33d;
+  --color-flatbread: #f7eedd;
+  --color-flatbread-2: #fbf6ea;
+  --color-herb: #6b7a4f;
+  --color-charcoal: #1c1410;
+  --color-charcoal-2: #2a211b;
+}
+
+@theme inline {
+  --color-char: var(--color-char);
+  --color-ember: var(--color-ember);
+  --color-ember-dark: var(--color-ember-dark);
+  --color-saffron: var(--color-saffron);
+  --color-flatbread: var(--color-flatbread);
+  --color-flatbread-2: var(--color-flatbread-2);
+  --color-herb: var(--color-herb);
+  --color-charcoal: var(--color-charcoal);
+  --color-charcoal-2: var(--color-charcoal-2);
+  --font-display: var(--font-serif);
+  --font-sans: var(--font-manrope);
+}
+
+body {
+  color: var(--color-char);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Hand-cut "stamp" shape — the site's signature motif (logo mark, category
+   icons, badges): an irregular scalloped disc, like a stamped round of dough. */
+.stamp-shape {
+  clip-path: polygon(
+    50% 0%, 63% 3%, 75% 2%, 85% 10%, 93% 18%, 98% 30%, 100% 43%,
+    97% 56%, 100% 68%, 94% 79%, 85% 88%, 74% 95%, 62% 99%, 50% 100%,
+    38% 98%, 26% 94%, 15% 87%, 6% 78%, 1% 66%, 0% 53%, 3% 40%,
+    2% 27%, 9% 16%, 19% 8%, 31% 3%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
