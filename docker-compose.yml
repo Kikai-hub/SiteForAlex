@@ -1,9 +1,10 @@
 name: adana-pizza
 
 services:
-  # One-shot: applies pending Prisma migrations, then exits. `web` waits for
-  # this to finish successfully before it starts, so the app never boots
-  # against a schema it doesn't match.
+  # One-shot: applies pending Prisma migrations, then (only on a brand new,
+  # empty database) loads the starter menu — see prisma/seed-initial-menu.ts.
+  # `web` waits for this to finish successfully before it starts, so the app
+  # never boots against a schema it doesn't match or an empty menu.
   migrate:
     build:
       context: .
@@ -15,9 +16,10 @@ services:
       # points at (that value is for local `npm run dev` only) — this wins.
       DATABASE_URL: file:/app/data/prod.db
       NODE_ENV: production
-    command: ["npx", "prisma", "migrate", "deploy"]
+    command: ["sh", "-c", "npx prisma migrate deploy && npx tsx prisma/seed-initial-menu.ts"]
     volumes:
       - db_data:/app/data
+      - uploads_data:/app/public/uploads
     restart: "no"
 
   web:

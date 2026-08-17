@@ -1,0 +1,6498 @@
+{
+  "categories": [
+    {
+      "id": "cmsu5h5o000007o02fsaapz7m",
+      "name": "Пиццы",
+      "slug": "pizzas",
+      "sortOrder": 0,
+      "isActive": true
+    },
+    {
+      "id": "cmsu5h5v7002w7o024a67t03f",
+      "name": "Сеты",
+      "slug": "sets",
+      "sortOrder": 1,
+      "isActive": true
+    },
+    {
+      "id": "cmsu5h5wo00397o022rbnho01",
+      "name": "Закуски",
+      "slug": "snacks",
+      "sortOrder": 2,
+      "isActive": true
+    },
+    {
+      "id": "cmsu5h5zd00437o02q7nfk7cb",
+      "name": "Горячие закуски",
+      "slug": "hot-snacks",
+      "sortOrder": 3,
+      "isActive": true
+    },
+    {
+      "id": "cmsu5h60b004c7o0280awzmks",
+      "name": "Салаты",
+      "slug": "salads",
+      "sortOrder": 4,
+      "isActive": true
+    },
+    {
+      "id": "cmsu5h614004j7o022twfdwip",
+      "name": "Соусы",
+      "slug": "sauces",
+      "sortOrder": 5,
+      "isActive": true
+    },
+    {
+      "id": "cmsu5h622004s7o02r2bdv0hg",
+      "name": "Напитки",
+      "slug": "drinks",
+      "sortOrder": 6,
+      "isActive": true
+    },
+    {
+      "id": "cmsu5h63900557o02bbbghenn",
+      "name": "Десерты",
+      "slug": "desserts",
+      "sortOrder": 7,
+      "isActive": true
+    }
+  ],
+  "dishes": [
+    {
+      "id": "cmsu5h5ot00017o02gftojuvj",
+      "categoryId": "cmsu5h5o000007o02fsaapz7m",
+      "name": "Дабл пепперони халяль",
+      "description": "Пепперони халяль, сыр моцарелла фирменный томатный соус (36 см)",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 0,
+      "variants": [
+        {
+          "id": "cmsu5h5ow00027o021l8v9o1g",
+          "label": "24 см",
+          "priceMinor": 47900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5ow00037o02xzsmnn0q",
+          "label": "33 см",
+          "priceMinor": 84900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5ow00047o02d8xjsr1n",
+          "label": "36 см",
+          "priceMinor": 101900,
+          "weightGrams": null,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "extras": [
+        {
+          "id": "cmsx16oho00000802dkovg0fu",
+          "name": "Сырный борт",
+          "priceMinor": 14900,
+          "maxQuantity": 1,
+          "sortOrder": 0,
+          "isActive": true,
+          "featured": true
+        },
+        {
+          "id": "cmsx16oho00010802swtwro54",
+          "name": "Лук Красный",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 1,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oho000208025jtidme0",
+          "name": "Перец Сладкий",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 2,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oho00030802esvi09wq",
+          "name": "Маслины",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 3,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oho00040802kprtkvk3",
+          "name": "Перец халапеньо",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 4,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oho00050802pxilbxgp",
+          "name": "Огурцы Маринованные",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 5,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oho00060802ei2b8voj",
+          "name": "Грибы",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 6,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oho00070802gt1gmwfk",
+          "name": "Томаты свежие",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 7,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oho00080802iv67wybo",
+          "name": "Ананас",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 8,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oho00090802cqxlxl8o",
+          "name": "Сыр Моцарелла",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 9,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oho000a0802q92w7912",
+          "name": "Сыр Чеддер",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 10,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oho000b0802mb6ag484",
+          "name": "Сыр с голубой плесенью",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 11,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oho000c0802nhmv8wdk",
+          "name": "Пепперони",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 12,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oho000d0802c4giogw6",
+          "name": "Ветчина свиная",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 13,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oho000e0802erqjndr6",
+          "name": "Говядина",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 14,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oho000f0802yi11eoxc",
+          "name": "Бекон",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 15,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oho000g0802qetpnk3x",
+          "name": "Куриное филе",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 16,
+          "isActive": true,
+          "featured": false
+        }
+      ],
+      "media": [
+        {
+          "id": "cmsu657xh00003k02agbbajur",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5ot00017o02gftojuvj/2e3d45b6-0da0-48bc-894b-3c72e4df02fc.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5vd002x7o022mpwsss6",
+      "categoryId": "cmsu5h5v7002w7o024a67t03f",
+      "name": "Набор №1",
+      "description": "3 пиццы 24 см: Пепперони, Маргарита и Ветчина-грибы. Подходит для компании из 3-х человек",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 0,
+      "variants": [
+        {
+          "id": "cmsu5h5vg002y7o02mth5heca",
+          "label": "3 пиццы 24 см",
+          "priceMinor": 139900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65blw000q3k02pwx39h7g",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5vd002x7o022mpwsss6/afc01364-d30e-4801-8fe5-17aa273653c0.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5wu003a7o02cxr6ztik",
+      "categoryId": "cmsu5h5wo00397o022rbnho01",
+      "name": "Куриные крылышки",
+      "description": "Куриные крылышки в панировке",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 0,
+      "variants": [
+        {
+          "id": "cmsu5h5ww003b7o0298naxrjz",
+          "label": "5 шт",
+          "priceMinor": 34900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5ww003c7o026tz5kw6r",
+          "label": "10 шт",
+          "priceMinor": 56900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5ww003d7o02etxy0rw4",
+          "label": "15 шт",
+          "priceMinor": 79900,
+          "weightGrams": null,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65cbg000w3k022g3ku2l7",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5wu003a7o02cxr6ztik/7089948e-0410-4c14-97b8-adcea7b7410f.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5zj00447o02mgj0escp",
+      "categoryId": "cmsu5h5zd00437o02q7nfk7cb",
+      "name": "Паста Барбекю микс",
+      "description": "Паста, сыр моцарелла, куриное филе, бекон, красный лук, соус барбекю.",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 0,
+      "variants": [
+        {
+          "id": "cmsu5h5zk00457o02u1dtoifa",
+          "label": "Порция",
+          "priceMinor": 30900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65e1900193k0222pmsiab",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5zj00447o02mgj0escp/1a50e49b-fe33-40c2-a30b-529ea3bfc192.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h60i004d7o02yuajikq8",
+      "categoryId": "cmsu5h60b004c7o0280awzmks",
+      "name": "Салат Греческий",
+      "description": "Салат айсберг, оливки, томаты Черри, лук красный, сыр Фета, свежие огурцы, итальянские травы, оливковое масло.",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 0,
+      "variants": [
+        {
+          "id": "cmsu5h60k004e7o02rf4jnefd",
+          "label": "230 г",
+          "priceMinor": 29900,
+          "weightGrams": 230,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65emw001d3k024tjvy5er",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h60i004d7o02yuajikq8/79b58849-8774-497e-aeb6-6cd086217b2d.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h61b004k7o02fekv2ce9",
+      "categoryId": "cmsu5h614004j7o022twfdwip",
+      "name": "Кетчуп",
+      "description": null,
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 0,
+      "variants": [
+        {
+          "id": "cmsu5h61c004l7o022rdqbwqk",
+          "label": "Порция",
+          "priceMinor": 4900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65f19001g3k02ocf4nysf",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h61b004k7o02fekv2ce9/ddc13f5d-0077-44e4-85c0-9f6a91312ad6.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h629004t7o0226r0hv9r",
+      "categoryId": "cmsu5h622004s7o02r2bdv0hg",
+      "name": "Добрый Апельсин",
+      "description": null,
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 0,
+      "variants": [
+        {
+          "id": "cmsu5h62b004u7o027fptqbjh",
+          "label": "0.5 л",
+          "priceMinor": 15900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65fil001k3k02smk15dx5",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h629004t7o0226r0hv9r/fdb6ed81-f74a-43dd-aa81-a0df3d72702c.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h63f00567o020gkfpcbt",
+      "categoryId": "cmsu5h63900557o02bbbghenn",
+      "name": "Чизкейк New-York",
+      "description": "Классика на все времена! Сливочно-нежный творожный сыр на тонкой песочной основе",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 0,
+      "variants": [
+        {
+          "id": "cmsu5h63h00577o027q8gfbwj",
+          "label": "Порция",
+          "priceMinor": 24900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65g7o001p3k02q7d74sot",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h63f00567o020gkfpcbt/aee6790e-9d4c-4714-a3b7-0c61299b24ee.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5p700057o028buvd60m",
+      "categoryId": "cmsu5h5o000007o02fsaapz7m",
+      "name": "Пепперони халяль",
+      "description": "Пепперони халяль, сыр моцарелла, фирменный томатный соус",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 1,
+      "variants": [
+        {
+          "id": "cmsu5h5p800067o02btr7mjw2",
+          "label": "24 см",
+          "priceMinor": 44900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5p800077o02jg5iu9n5",
+          "label": "33 см",
+          "priceMinor": 79900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5p800087o02xwzgqyfq",
+          "label": "36 см",
+          "priceMinor": 99000,
+          "weightGrams": null,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "extras": [
+        {
+          "id": "cmsx16oi2000h0802nm03k29j",
+          "name": "Сырный борт",
+          "priceMinor": 14900,
+          "maxQuantity": 1,
+          "sortOrder": 0,
+          "isActive": true,
+          "featured": true
+        },
+        {
+          "id": "cmsx16oi2000i080251dscm60",
+          "name": "Лук Красный",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 1,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oi2000j08029iwkruw8",
+          "name": "Перец Сладкий",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 2,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oi2000k0802cm2q91qc",
+          "name": "Маслины",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 3,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oi2000l0802hgzq5wr0",
+          "name": "Перец халапеньо",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 4,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oi2000m08022zepast0",
+          "name": "Огурцы Маринованные",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 5,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oi2000n0802zoqdfen0",
+          "name": "Грибы",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 6,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oi2000o0802g40v4y23",
+          "name": "Томаты свежие",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 7,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oi2000p08025ak25z5x",
+          "name": "Ананас",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 8,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oi2000q0802o5vrokr3",
+          "name": "Сыр Моцарелла",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 9,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oi2000r080201xo38vs",
+          "name": "Сыр Чеддер",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 10,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oi2000s08023uttsu46",
+          "name": "Сыр с голубой плесенью",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 11,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oi2000t08024j9p0vik",
+          "name": "Пепперони",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 12,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oi2000u0802gfjc5yr5",
+          "name": "Ветчина свиная",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 13,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oi2000v080246zwa5rz",
+          "name": "Говядина",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 14,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oi2000w0802ye8ghga7",
+          "name": "Бекон",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 15,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oi2000x0802ok5rts5a",
+          "name": "Куриное филе",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 16,
+          "isActive": true,
+          "featured": false
+        }
+      ],
+      "media": [
+        {
+          "id": "cmsu6581p00013k02dhfiomzd",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5p700057o028buvd60m/e5da525e-130d-4fe2-afcc-3fdd2c8af5f8.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5vm002z7o02u279s43d",
+      "categoryId": "cmsu5h5v7002w7o024a67t03f",
+      "name": "Набор Супер Восьмерка",
+      "description": "7 пицц 33 см: Цезарь, Жюльен, Карбонара, Пепперони, Ветчина и сыр, Мексиканская, Маргарита, Домашняя. Подходит для компании из 14-16-ти человек",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 1,
+      "variants": [
+        {
+          "id": "cmsu5h5vo00307o02vqfnewdw",
+          "label": "7 пицц 33 см",
+          "priceMinor": 599000,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65bq2000r3k02qjzufbht",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5vm002z7o02u279s43d/311ce6f7-d48f-4c8e-9e38-a38db2e19c4a.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5x1003e7o02ok1yv0v0",
+      "categoryId": "cmsu5h5wo00397o022rbnho01",
+      "name": "Адана Ролл курочка-картошка",
+      "description": "Тортилья, сыр моцарелла, куриное филе, картошка фри, томаты свежие, соус ранч.",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 1,
+      "variants": [
+        {
+          "id": "cmsu5h5x3003f7o020ixinye5",
+          "label": "Порция",
+          "priceMinor": 31900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65cg3000x3k02tiff17ft",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5x1003e7o02ok1yv0v0/8f8a9f43-8034-4c8f-99b0-bf6071561bfa.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5zq00467o02t9r1olb9",
+      "categoryId": "cmsu5h5zd00437o02q7nfk7cb",
+      "name": "Паста с Овощами",
+      "description": "Паста, сыр моцарелла, сыр пармезан, грибы, перец сладкий, томаты свежие, маслины, соус ранч, сыр чеддер.",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 1,
+      "variants": [
+        {
+          "id": "cmsu5h5zr00477o02lswquups",
+          "label": "Порция",
+          "priceMinor": 28900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65e6x001a3k029qixn71p",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5zq00467o02t9r1olb9/cccdd8a7-e8ed-406d-a8f1-d10df17d7160.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h60q004f7o020tycfvfp",
+      "categoryId": "cmsu5h60b004c7o0280awzmks",
+      "name": "Салат Цезарь с креветками",
+      "description": null,
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 1,
+      "variants": [
+        {
+          "id": "cmsu5h60s004g7o02t8npuic6",
+          "label": "Порция",
+          "priceMinor": 54900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65erx001e3k022zf66ykt",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h60q004f7o020tycfvfp/c0e2a602-f7fc-4a5d-a9ca-2fe52412bddc.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h61h004m7o02x3wqagws",
+      "categoryId": "cmsu5h614004j7o022twfdwip",
+      "name": "Соус Барбекю",
+      "description": "Порционный соус барбекю",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 1,
+      "variants": [
+        {
+          "id": "cmsu5h61j004n7o02nsdndu2r",
+          "label": "Порция",
+          "priceMinor": 4900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65f66001h3k0244qxd9ei",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h61h004m7o02x3wqagws/bf3915de-7ae1-4e1b-984b-74b54af478bd.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h62i004v7o021dhkezh1",
+      "categoryId": "cmsu5h622004s7o02r2bdv0hg",
+      "name": "Добрый Без сахара",
+      "description": null,
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 1,
+      "variants": [
+        {
+          "id": "cmsu5h62k004w7o02si42qujw",
+          "label": "0.3 л",
+          "priceMinor": 13900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h62k004x7o027eyfs3g7",
+          "label": "0.5 л",
+          "priceMinor": 15900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h62k004y7o02uz9l6lcr",
+          "label": "1 л",
+          "priceMinor": 22900,
+          "weightGrams": null,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65fn3001l3k024wqivz2h",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h62i004v7o021dhkezh1/f5f797d5-f843-4b08-b476-531fa72c92bd.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5pf00097o02rus7x4ib",
+      "categoryId": "cmsu5h5o000007o02fsaapz7m",
+      "name": "Дабл пепперони",
+      "description": "Пепперони, сыр моцарелла, сыр пармезан, фирменный томатный соус (36 см)",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 2,
+      "variants": [
+        {
+          "id": "cmsu5h5ph000a7o027bmmsixq",
+          "label": "24 см",
+          "priceMinor": 46900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5ph000b7o02f8d9cttq",
+          "label": "33 см",
+          "priceMinor": 89900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5ph000c7o024p1w18kd",
+          "label": "36 см",
+          "priceMinor": 110900,
+          "weightGrams": null,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "extras": [
+        {
+          "id": "cmsx16oid000y08025dpcxyci",
+          "name": "Сырный борт",
+          "priceMinor": 14900,
+          "maxQuantity": 1,
+          "sortOrder": 0,
+          "isActive": true,
+          "featured": true
+        },
+        {
+          "id": "cmsx16oid000z08026d31eq5m",
+          "name": "Лук Красный",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 1,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oid00100802adm9dry9",
+          "name": "Перец Сладкий",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 2,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oid00110802kluw53h4",
+          "name": "Маслины",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 3,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oid00120802ugf0fppo",
+          "name": "Перец халапеньо",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 4,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oid001308026d2nvf7m",
+          "name": "Огурцы Маринованные",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 5,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oid00140802wrmy9j70",
+          "name": "Грибы",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 6,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oid001508025idsvp42",
+          "name": "Томаты свежие",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 7,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oid00160802uxju2dkl",
+          "name": "Ананас",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 8,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oid00170802god34hqo",
+          "name": "Сыр Моцарелла",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 9,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oid001808025v4o0894",
+          "name": "Сыр Чеддер",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 10,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oid00190802612fjr4y",
+          "name": "Сыр с голубой плесенью",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 11,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oid001a08020oxeqyna",
+          "name": "Пепперони",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 12,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oid001b08022m45ozdh",
+          "name": "Ветчина свиная",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 13,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oid001c0802wni0mvcj",
+          "name": "Говядина",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 14,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oid001d0802hiwlk942",
+          "name": "Бекон",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 15,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oid001e08022cusw0bz",
+          "name": "Куриное филе",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 16,
+          "isActive": true,
+          "featured": false
+        }
+      ],
+      "media": [
+        {
+          "id": "cmsu6587a00023k02rinjx04d",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5pf00097o02rus7x4ib/2a1fd7a6-d79e-4f2d-8fa4-fb39551e5309.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5vu00317o025zrcrpo5",
+      "categoryId": "cmsu5h5v7002w7o024a67t03f",
+      "name": "Набор Супер Тройка",
+      "description": "3 пиццы 36 см: Пепперони,Карбонара,Домашняя.Подходит для компании из 8 ми человек",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 2,
+      "variants": [
+        {
+          "id": "cmsu5h5vv00327o02hbthlpqm",
+          "label": "3 пиццы 36 см",
+          "priceMinor": 159900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65bty000s3k02mvlbl6bd",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5vu00317o025zrcrpo5/f1831459-1fbc-4faa-b171-99a14580ab29.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5x8003g7o02k7zrveq3",
+      "categoryId": "cmsu5h5wo00397o022rbnho01",
+      "name": "Адана Ролл охотничий",
+      "description": "Тортилья, сыр моцарелла, охотничье колбаски, куриное филе, лук жареный, соус медово-горчичный, томаты свежие",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 2,
+      "variants": [
+        {
+          "id": "cmsu5h5xa003h7o02s9h1r67q",
+          "label": "Порция",
+          "priceMinor": 29900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65ckk000y3k02l0an1kqe",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5x8003g7o02k7zrveq3/5593bf4f-8394-4832-894e-19016e8c24a3.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5zw00487o02fdcvk5ue",
+      "categoryId": "cmsu5h5zd00437o02q7nfk7cb",
+      "name": "Паста Баварские колбаски",
+      "description": "Паста, сыр моцарелла, сыр пармезан, колбаски охотничьи, маринованные огурцы, соус ранч, соус медово-горчичный",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 2,
+      "variants": [
+        {
+          "id": "cmsu5h5zy00497o02k99d45pt",
+          "label": "Порция",
+          "priceMinor": 29900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65ec5001b3k029xs3okjj",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5zw00487o02fdcvk5ue/e6ede883-418b-45d2-a57a-19f318fda1f8.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h60y004h7o0260l7z9nv",
+      "categoryId": "cmsu5h60b004c7o0280awzmks",
+      "name": "Салат Цезарь",
+      "description": null,
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 2,
+      "variants": [
+        {
+          "id": "cmsu5h60z004i7o02mzyya3vo",
+          "label": "230 г",
+          "priceMinor": 38900,
+          "weightGrams": 230,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65ex3001f3k02uh8fm1dr",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h60y004h7o0260l7z9nv/6fbf284a-1163-49cf-9115-529329518aa9.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h61o004o7o02it8vdgs9",
+      "categoryId": "cmsu5h614004j7o022twfdwip",
+      "name": "Соус Чесночный",
+      "description": "Порционный соус чесночный",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 2,
+      "variants": [
+        {
+          "id": "cmsu5h61q004p7o02ratkjhf6",
+          "label": "Порция",
+          "priceMinor": 4900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65faz001i3k02ny6zkj59",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h61o004o7o02it8vdgs9/847cb10e-d81c-4409-8eca-de03af014659.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h62p004z7o026mqh6fnl",
+      "categoryId": "cmsu5h622004s7o02r2bdv0hg",
+      "name": "Морс Клюква",
+      "description": "Натуральный морс клюквенный. Бутылка 0,3",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 2,
+      "variants": [
+        {
+          "id": "cmsu5h62q00507o02hsm04fpx",
+          "label": "0.3 л",
+          "priceMinor": 17900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65fs4001m3k0241r5cvn5",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h62p004z7o026mqh6fnl/77859c5c-df6b-4ec5-a463-fa59ae699416.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5pr000d7o02q3inz0y7",
+      "categoryId": "cmsu5h5o000007o02fsaapz7m",
+      "name": "Ветчина грибы",
+      "description": "Соус томатный, сыр моцарелла, грибы, ветчина.",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 3,
+      "variants": [
+        {
+          "id": "cmsu5h5pt000e7o02ibzqk07o",
+          "label": "24 см",
+          "priceMinor": 47900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5pt000f7o026xd74pnf",
+          "label": "33 см",
+          "priceMinor": 65900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5pt000g7o02fizr0fjz",
+          "label": "36 см",
+          "priceMinor": 94900,
+          "weightGrams": null,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "extras": [
+        {
+          "id": "cmsx16oip001f0802463r233m",
+          "name": "Сырный борт",
+          "priceMinor": 14900,
+          "maxQuantity": 1,
+          "sortOrder": 0,
+          "isActive": true,
+          "featured": true
+        },
+        {
+          "id": "cmsx16oip001g0802al3cn368",
+          "name": "Лук Красный",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 1,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oip001h08029k9fphvi",
+          "name": "Перец Сладкий",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 2,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oip001i0802u7vb1160",
+          "name": "Маслины",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 3,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oip001j08020ecpnrtg",
+          "name": "Перец халапеньо",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 4,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oip001k0802mqn8ovw6",
+          "name": "Огурцы Маринованные",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 5,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oip001l0802wwsueas1",
+          "name": "Грибы",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 6,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oip001m0802aw063zfb",
+          "name": "Томаты свежие",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 7,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oip001n0802okp3tydl",
+          "name": "Ананас",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 8,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oip001o08026eke03en",
+          "name": "Сыр Моцарелла",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 9,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oip001p08026ra9str0",
+          "name": "Сыр Чеддер",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 10,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oip001q0802hjxbnqpy",
+          "name": "Сыр с голубой плесенью",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 11,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oip001r0802apnvbrfn",
+          "name": "Пепперони",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 12,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oip001s0802hdq06ljm",
+          "name": "Ветчина свиная",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 13,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oip001t08021cs3ks02",
+          "name": "Говядина",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 14,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oip001u08028puikfpl",
+          "name": "Бекон",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 15,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oip001v0802rm3mbjyo",
+          "name": "Куриное филе",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 16,
+          "isActive": true,
+          "featured": false
+        }
+      ],
+      "media": [
+        {
+          "id": "cmsu658cn00033k02wvhyxdb6",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5pr000d7o02q3inz0y7/b6d09cc7-7ff8-4c03-8abf-77223b25d04a.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5w100337o02v89xkdf6",
+      "categoryId": "cmsu5h5v7002w7o024a67t03f",
+      "name": "Набор Супер Пятёрка",
+      "description": "5 пицц 33 см: Ветчина грибы , Дабл пепперони, Четыре мяса, Маргарита, Мексиканская острая. Подходит для компании",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 3,
+      "variants": [
+        {
+          "id": "cmsu5h5w300347o02s0mb3sxa",
+          "label": "5 пицц 33 см",
+          "priceMinor": 339900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65bxx000t3k02sj1ccoex",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5w100337o02v89xkdf6/a4c3ddee-16f8-4cc9-8162-7f866046e7ce.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5xf003i7o02vts1if2t",
+      "categoryId": "cmsu5h5wo00397o022rbnho01",
+      "name": "Адана Ролл острый перчик",
+      "description": "Тортилья с курицей, сыр моцарелла, сервелат, бекон, соус барбекю, соус ранч, халапеньо, лук жареный",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 3,
+      "variants": [
+        {
+          "id": "cmsu5h5xg003j7o02za6w79im",
+          "label": "Порция",
+          "priceMinor": 28900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65cpq000z3k02kc8mtovu",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5xf003i7o02vts1if2t/cba79a7d-d588-4261-a02f-d5d72ed2bde1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h604004a7o02iy2pk0fz",
+      "categoryId": "cmsu5h5zd00437o02q7nfk7cb",
+      "name": "Паста Креветки и лосось",
+      "description": null,
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 3,
+      "variants": [
+        {
+          "id": "cmsu5h606004b7o02s3imp8jo",
+          "label": "Порция",
+          "priceMinor": 32900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65ehz001c3k02ap1at8jf",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h604004a7o02iy2pk0fz/2b207260-662d-451d-a526-dca3ba76854a.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h61v004q7o02ffmlh18b",
+      "categoryId": "cmsu5h614004j7o022twfdwip",
+      "name": "Соус Сырный",
+      "description": "Порционный соус сырный",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 3,
+      "variants": [
+        {
+          "id": "cmsu5h61w004r7o02y94zgl67",
+          "label": "Порция",
+          "priceMinor": 4900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65ff0001j3k02ztphh9r9",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h61v004q7o02ffmlh18b/6c1093e8-d146-477b-9035-e96d6ef2a6a0.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h62v00517o022np5irjm",
+      "categoryId": "cmsu5h622004s7o02r2bdv0hg",
+      "name": "Морс Смородина",
+      "description": "Натуральный морс из черной смородины. Бутылка 0,3",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 3,
+      "variants": [
+        {
+          "id": "cmsu5h62w00527o02jx0l26oj",
+          "label": "0.3 л",
+          "priceMinor": 17900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65fxa001n3k023v9oresp",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h62v00517o022np5irjm/903af885-75e5-4fa1-a483-88faba0139f5.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5pz000h7o02spq0tg6e",
+      "categoryId": "cmsu5h5o000007o02fsaapz7m",
+      "name": "Курочка барбекю",
+      "description": "Соус томатный, соус барбекю, сыр моцарелла, лук красный, грибы, куриное филе.",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 4,
+      "variants": [
+        {
+          "id": "cmsu5h5q1000i7o02lezgw8gm",
+          "label": "24 см",
+          "priceMinor": 63900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5q1000j7o02dj5ud1rt",
+          "label": "33 см",
+          "priceMinor": 81900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5q1000k7o0280q7skil",
+          "label": "36 см",
+          "priceMinor": 97900,
+          "weightGrams": null,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "extras": [
+        {
+          "id": "cmsx16oj1001w0802p9gs3kfp",
+          "name": "Сырный борт",
+          "priceMinor": 14900,
+          "maxQuantity": 1,
+          "sortOrder": 0,
+          "isActive": true,
+          "featured": true
+        },
+        {
+          "id": "cmsx16oj1001x0802hw02pj2v",
+          "name": "Лук Красный",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 1,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oj1001y0802kp78udvg",
+          "name": "Перец Сладкий",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 2,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oj1001z0802liawalcx",
+          "name": "Маслины",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 3,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oj100200802vl6s4sfi",
+          "name": "Перец халапеньо",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 4,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oj100210802cc4zaq2m",
+          "name": "Огурцы Маринованные",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 5,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oj1002208024xlinh1a",
+          "name": "Грибы",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 6,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oj1002308021wutc3pi",
+          "name": "Томаты свежие",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 7,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oj100240802f0cw8n0z",
+          "name": "Ананас",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 8,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oj100250802ttij3vhl",
+          "name": "Сыр Моцарелла",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 9,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oj10026080263uzzomf",
+          "name": "Сыр Чеддер",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 10,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oj100270802sp4c5yqi",
+          "name": "Сыр с голубой плесенью",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 11,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oj10028080269x70m3c",
+          "name": "Пепперони",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 12,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oj100290802zktisov5",
+          "name": "Ветчина свиная",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 13,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oj1002a08022uexzby3",
+          "name": "Говядина",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 14,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oj1002b0802ydpdijq6",
+          "name": "Бекон",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 15,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oj1002c080226t7yquf",
+          "name": "Куриное филе",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 16,
+          "isActive": true,
+          "featured": false
+        }
+      ],
+      "media": [
+        {
+          "id": "cmsu658hn00043k022it7vw39",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5pz000h7o02spq0tg6e/55d557c5-7512-4f9b-98f3-a3913d53410b.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5w900357o02h5hjfpqv",
+      "categoryId": "cmsu5h5v7002w7o024a67t03f",
+      "name": "Летний Сет",
+      "description": "3 пиццы 33 см: Ветчина-сыр, Четыре сезона, Пепперони. Подходит для компании из 3-х человек.",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 4,
+      "variants": [
+        {
+          "id": "cmsu5h5wa00367o02ny8rikb1",
+          "label": "3 пиццы 33 см",
+          "priceMinor": 169900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65c21000u3k02itpv88jo",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5w900357o02h5hjfpqv/47c53d0a-b336-4875-8f88-4e2d716d3bc9.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5xm003k7o02siac2v71",
+      "categoryId": "cmsu5h5wo00397o022rbnho01",
+      "name": "Адана Ролл Цезарь",
+      "description": "Тортилья, сыр моцарелла, соус ранч, куриное филе, салат айсберг, сыр пармезан, томаты свежие.",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 4,
+      "variants": [
+        {
+          "id": "cmsu5h5xn003l7o02pbwwzq4f",
+          "label": "Порция",
+          "priceMinor": 30900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65cu600103k02kqlm2q55",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5xm003k7o02siac2v71/77737f5e-dd4a-4577-9906-f5c3a029b7b6.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h63100537o028v3oxpk1",
+      "categoryId": "cmsu5h622004s7o02r2bdv0hg",
+      "name": "Добрый Лайм",
+      "description": null,
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 4,
+      "variants": [
+        {
+          "id": "cmsu5h63300547o020z1kt6ha",
+          "label": "0.5 л",
+          "priceMinor": 15900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65g1v001o3k02rrbk3bc7",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h63100537o028v3oxpk1/dbc79268-4c76-4ca8-b7f1-8152d013291c.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5q8000l7o02odtdkpk1",
+      "categoryId": "cmsu5h5o000007o02fsaapz7m",
+      "name": "Морская",
+      "description": "Соус Альфредо, сыр моцарелла, креветки, лосось, лук красный, томаты свежие, каперсы, салат рукола",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 5,
+      "variants": [
+        {
+          "id": "cmsu5h5qa000m7o023lieqdca",
+          "label": "24 см",
+          "priceMinor": 75900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5qa000n7o02bej6v8iq",
+          "label": "33 см",
+          "priceMinor": 99900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5qa000o7o02q08yk80f",
+          "label": "36 см",
+          "priceMinor": 124900,
+          "weightGrams": null,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "extras": [
+        {
+          "id": "cmsx16ojc002d0802q3vym60l",
+          "name": "Сырный борт",
+          "priceMinor": 14900,
+          "maxQuantity": 1,
+          "sortOrder": 0,
+          "isActive": true,
+          "featured": true
+        },
+        {
+          "id": "cmsx16ojc002e0802trl4nken",
+          "name": "Лук Красный",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 1,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojc002f0802dqiim4m0",
+          "name": "Перец Сладкий",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 2,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojc002g0802gf3qcwz7",
+          "name": "Маслины",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 3,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojc002h0802spfzw820",
+          "name": "Перец халапеньо",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 4,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojc002i0802rf1vlrg9",
+          "name": "Огурцы Маринованные",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 5,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojc002j0802vpf88qhi",
+          "name": "Грибы",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 6,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojc002k0802vo15lc64",
+          "name": "Томаты свежие",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 7,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojc002l0802ts6m3hgp",
+          "name": "Ананас",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 8,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojc002m0802yptgrv2w",
+          "name": "Сыр Моцарелла",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 9,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojc002n0802espxn9q8",
+          "name": "Сыр Чеддер",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 10,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojc002o0802b6zdazh5",
+          "name": "Сыр с голубой плесенью",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 11,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojc002p0802p6563i5r",
+          "name": "Пепперони",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 12,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojc002q0802hq0hddiq",
+          "name": "Ветчина свиная",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 13,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojc002r0802lez8irdk",
+          "name": "Говядина",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 14,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojc002s08022h2ezvxo",
+          "name": "Бекон",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 15,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojc002t08028g5depq7",
+          "name": "Куриное филе",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 16,
+          "isActive": true,
+          "featured": false
+        }
+      ],
+      "media": [
+        {
+          "id": "cmsu658mb00053k02v5atbcea",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5q8000l7o02odtdkpk1/a5182475-2682-4022-9ad7-841819b99798.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5wf00377o020u1x2twh",
+      "categoryId": "cmsu5h5v7002w7o024a67t03f",
+      "name": "Супер Бокс S",
+      "description": "Набор из 4 закусок: шампиньоны с беконом, наггетсы (5 шт.), крылья куриные (5 шт.), картофель фри. Подходит для двоих.",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 5,
+      "variants": [
+        {
+          "id": "cmsu5h5wh00387o022vat0k12",
+          "label": "Набор из 4 закусок",
+          "priceMinor": 89900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65c60000v3k02koud4hcc",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5wf00377o020u1x2twh/85a216b4-8517-45dc-8952-690ed7d20694.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5xt003m7o02vl19gpyr",
+      "categoryId": "cmsu5h5wo00397o022rbnho01",
+      "name": "Адана Ролл с креветкой",
+      "description": "Тортилья, сыр моцарелла,креветки, салат айсберг, лук жареный, томаты свежие, сыр дор-блю,соус ранч.",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 5,
+      "variants": [
+        {
+          "id": "cmsu5h5xu003n7o02tb0pu6rq",
+          "label": "Порция",
+          "priceMinor": 34900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65cye00113k02fp8h3x5q",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5xt003m7o02vl19gpyr/d9c641dc-fa2f-482d-b769-7a78cb91c52c.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5qg000p7o026id3zxwv",
+      "categoryId": "cmsu5h5o000007o02fsaapz7m",
+      "name": "Цезарь",
+      "description": "Соус Альфредо, сыр моцарелла, куриное филе, томаты черри, салат айсберг, соус Цезарь, сыр пармезан",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 6,
+      "variants": [
+        {
+          "id": "cmsu5h5qi000q7o02c5c1v7vy",
+          "label": "24 см",
+          "priceMinor": 60900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5qi000r7o02ll569e4z",
+          "label": "33 см",
+          "priceMinor": 86900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5qi000s7o02lno16x2k",
+          "label": "36 см",
+          "priceMinor": 108900,
+          "weightGrams": null,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "extras": [
+        {
+          "id": "cmsx16ojn002u0802467mu3hh",
+          "name": "Сырный борт",
+          "priceMinor": 14900,
+          "maxQuantity": 1,
+          "sortOrder": 0,
+          "isActive": true,
+          "featured": true
+        },
+        {
+          "id": "cmsx16ojn002v0802mrahu57t",
+          "name": "Лук Красный",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 1,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojn002w0802si2gcupt",
+          "name": "Перец Сладкий",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 2,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojn002x0802fy0f0q3s",
+          "name": "Маслины",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 3,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojn002y0802658v5635",
+          "name": "Перец халапеньо",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 4,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojn002z0802j8c4o3nl",
+          "name": "Огурцы Маринованные",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 5,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojn00300802q3nz55j9",
+          "name": "Грибы",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 6,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojn00310802opyo3i06",
+          "name": "Томаты свежие",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 7,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojn00320802pypb5g4i",
+          "name": "Ананас",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 8,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojn00330802u9lt1ebo",
+          "name": "Сыр Моцарелла",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 9,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojo003408025z0t1xrh",
+          "name": "Сыр Чеддер",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 10,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojo00350802p1lzr5iw",
+          "name": "Сыр с голубой плесенью",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 11,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojo00360802kylizthw",
+          "name": "Пепперони",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 12,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojo00370802z9d5ipc1",
+          "name": "Ветчина свиная",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 13,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojo00380802vz53603h",
+          "name": "Говядина",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 14,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojo003908029h82sh7z",
+          "name": "Бекон",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 15,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojo003a0802pgod5syl",
+          "name": "Куриное филе",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 16,
+          "isActive": true,
+          "featured": false
+        }
+      ],
+      "media": [
+        {
+          "id": "cmsu658rp00063k02gpbu4ycp",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5qg000p7o026id3zxwv/f1eec74c-c896-49c1-bacc-803e4c1c3ed4.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5y0003o7o02rwa6139d",
+      "categoryId": "cmsu5h5wo00397o022rbnho01",
+      "name": "Адана Ролл Ветчина-сыр",
+      "description": "Тортилья, сыр моцарелла, сыр чеддер, ветчина, соус медово-горчичный, соус ранч.",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 6,
+      "variants": [
+        {
+          "id": "cmsu5h5y1003p7o02o8lx8y6i",
+          "label": "Порция",
+          "priceMinor": 24900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65d2s00123k02llz8kg1i",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5y0003o7o02rwa6139d/ec96d22e-3c4c-43da-acf8-6ab0c40fa361.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5qo000t7o025bn92u46",
+      "categoryId": "cmsu5h5o000007o02fsaapz7m",
+      "name": "Лесные грибы",
+      "description": "Соус альфредо, сыр моцарелла, грибы, лук красный, сыр пармезан, жареный лук (после печи).",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 7,
+      "variants": [
+        {
+          "id": "cmsu5h5qp000u7o02xtckq46e",
+          "label": "24 см",
+          "priceMinor": 62900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5qp000v7o02wpa1t8k9",
+          "label": "33 см",
+          "priceMinor": 84900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5qp000w7o02fqx08al8",
+          "label": "36 см",
+          "priceMinor": 99500,
+          "weightGrams": null,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "extras": [
+        {
+          "id": "cmsx16ojy003b0802ep28i047",
+          "name": "Сырный борт",
+          "priceMinor": 14900,
+          "maxQuantity": 1,
+          "sortOrder": 0,
+          "isActive": true,
+          "featured": true
+        },
+        {
+          "id": "cmsx16ojy003c0802r2arjprj",
+          "name": "Лук Красный",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 1,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojy003d0802rcxldfl7",
+          "name": "Перец Сладкий",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 2,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojy003e0802v65ama8z",
+          "name": "Маслины",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 3,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojy003f08027ftbse71",
+          "name": "Перец халапеньо",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 4,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojy003g08021ljm8dc4",
+          "name": "Огурцы Маринованные",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 5,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojy003h0802au5m6fcv",
+          "name": "Грибы",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 6,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojy003i0802imemetqb",
+          "name": "Томаты свежие",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 7,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojy003j0802kjnxz1dw",
+          "name": "Ананас",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 8,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojy003k0802gg2kan9m",
+          "name": "Сыр Моцарелла",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 9,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojy003l0802t15zzcbx",
+          "name": "Сыр Чеддер",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 10,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojy003m08026o5oek7i",
+          "name": "Сыр с голубой плесенью",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 11,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojy003n08028d9nis7y",
+          "name": "Пепперони",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 12,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojy003o0802izw9y8tt",
+          "name": "Ветчина свиная",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 13,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojy003p0802aldzyvb8",
+          "name": "Говядина",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 14,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojy003q0802a6lexw90",
+          "name": "Бекон",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 15,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ojy003r0802ul9xk6f3",
+          "name": "Куриное филе",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 16,
+          "isActive": true,
+          "featured": false
+        }
+      ],
+      "media": [
+        {
+          "id": "cmsu658wv00073k02ankaove5",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5qo000t7o025bn92u46/4571d723-2c2c-4dd2-8ed7-54fbf4f24fc4.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5y6003q7o02ejuy60yl",
+      "categoryId": "cmsu5h5wo00397o022rbnho01",
+      "name": "Адана Ролл",
+      "description": "Тортилья с курицей, сыр моцарелла, жареный лук, томаты свежие, сыр пармезан, соус гриль",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 7,
+      "variants": [
+        {
+          "id": "cmsu5h5y8003r7o02lzcdnxcv",
+          "label": "Порция",
+          "priceMinor": 26900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65d6j00133k02x6u90b3l",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5y6003q7o02ejuy60yl/7a9f217e-664b-4a83-88df-d16b075df7b9.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5qv000x7o02n4ik52kb",
+      "categoryId": "cmsu5h5o000007o02fsaapz7m",
+      "name": "Ветчина и сыр",
+      "description": "Аппетитная пицца на тонком тесте с нежной ветчиной и богатым сочетанием сыров. Сливочный соус Альфредо, Моцарелла, пикантный Пармезан и ароматный Чеддер создают мягкий и насыщенный вкус",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 8,
+      "variants": [
+        {
+          "id": "cmsu5h5qw000y7o02ji7bfncr",
+          "label": "24 см",
+          "priceMinor": 59900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5qw000z7o02u7ro5ui4",
+          "label": "33 см",
+          "priceMinor": 72900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5qw00107o029m1pz08i",
+          "label": "36 см",
+          "priceMinor": 88900,
+          "weightGrams": null,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "extras": [
+        {
+          "id": "cmsx16ok7003s08028w1qb91k",
+          "name": "Сырный борт",
+          "priceMinor": 14900,
+          "maxQuantity": 1,
+          "sortOrder": 0,
+          "isActive": true,
+          "featured": true
+        },
+        {
+          "id": "cmsx16ok7003t08029o9bhlch",
+          "name": "Лук Красный",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 1,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ok7003u0802wrzfbyrb",
+          "name": "Перец Сладкий",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 2,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ok7003v0802ubfpi9lg",
+          "name": "Маслины",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 3,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ok7003w08025tf1agyc",
+          "name": "Перец халапеньо",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 4,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ok7003x0802j4efiyb2",
+          "name": "Огурцы Маринованные",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 5,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ok7003y0802szowo29b",
+          "name": "Грибы",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 6,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ok7003z0802b8tmjax7",
+          "name": "Томаты свежие",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 7,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ok700400802t0vdra5k",
+          "name": "Ананас",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 8,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ok7004108024yfanqun",
+          "name": "Сыр Моцарелла",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 9,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ok700420802xk2pdjii",
+          "name": "Сыр Чеддер",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 10,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ok700430802ysapokec",
+          "name": "Сыр с голубой плесенью",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 11,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ok700440802b9pevhpc",
+          "name": "Пепперони",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 12,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ok700450802b1pm48ja",
+          "name": "Ветчина свиная",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 13,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ok7004608021flus34r",
+          "name": "Говядина",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 14,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ok700470802cpdah51w",
+          "name": "Бекон",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 15,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ok700480802g7ynf297",
+          "name": "Куриное филе",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 16,
+          "isActive": true,
+          "featured": false
+        }
+      ],
+      "media": [
+        {
+          "id": "cmsu6591g00083k02qnxtzzxh",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5qv000x7o02n4ik52kb/cef88f86-2b18-4f89-8d0b-676a5ac3a034.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5ye003s7o02q8773n72",
+      "categoryId": "cmsu5h5wo00397o022rbnho01",
+      "name": "Шампиньоны с сыром и беконом",
+      "description": "Шампиньоны 5 шт. с сыром и беконом, вкусно и сочно.",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 8,
+      "variants": [
+        {
+          "id": "cmsu5h5yf003t7o02kmzokhre",
+          "label": "Порция",
+          "priceMinor": 20900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65ddj00143k021ph5uxxr",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5ye003s7o02q8773n72/926944e2-e18e-4a07-903a-79d770ee6149.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5r200117o02b8idxbse",
+      "categoryId": "cmsu5h5o000007o02fsaapz7m",
+      "name": "Домашняя",
+      "description": "Соус сырный, сыр моцарелла, ветчина, томаты черри, перец сладкий.",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 9,
+      "variants": [
+        {
+          "id": "cmsu5h5r300127o02pozwd6ec",
+          "label": "24 см",
+          "priceMinor": 62900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5r300137o02vm5x8sk2",
+          "label": "33 см",
+          "priceMinor": 71900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5r300147o02vr5a9997",
+          "label": "36 см",
+          "priceMinor": 87900,
+          "weightGrams": null,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "extras": [
+        {
+          "id": "cmsx16okh004908026v9pb5i5",
+          "name": "Сырный борт",
+          "priceMinor": 14900,
+          "maxQuantity": 1,
+          "sortOrder": 0,
+          "isActive": true,
+          "featured": true
+        },
+        {
+          "id": "cmsx16okh004a0802krg1ai21",
+          "name": "Лук Красный",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 1,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okh004b0802hn5ssmjv",
+          "name": "Перец Сладкий",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 2,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okh004c08029v7w7d4f",
+          "name": "Маслины",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 3,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okh004d0802nk3to3nr",
+          "name": "Перец халапеньо",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 4,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okh004e080201u0q8gu",
+          "name": "Огурцы Маринованные",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 5,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okh004f0802rpg7szom",
+          "name": "Грибы",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 6,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okh004g0802nna9fxyb",
+          "name": "Томаты свежие",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 7,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okh004h0802slkmt6rz",
+          "name": "Ананас",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 8,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okh004i08025bbz6a00",
+          "name": "Сыр Моцарелла",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 9,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okh004j0802ogdh2vdx",
+          "name": "Сыр Чеддер",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 10,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okh004k0802kg2jdqzv",
+          "name": "Сыр с голубой плесенью",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 11,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okh004l0802dwwd44xk",
+          "name": "Пепперони",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 12,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okh004m0802wwjsuchr",
+          "name": "Ветчина свиная",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 13,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okh004n0802c6tpcvyf",
+          "name": "Говядина",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 14,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okh004o0802d2xxf02s",
+          "name": "Бекон",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 15,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okh004p0802zdly1j4u",
+          "name": "Куриное филе",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 16,
+          "isActive": true,
+          "featured": false
+        }
+      ],
+      "media": [
+        {
+          "id": "cmsu6596o00093k0297bzfvwt",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5r200117o02b8idxbse/11caafb4-3932-4891-9fba-3dded142f640.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5ym003u7o02zdutpdae",
+      "categoryId": "cmsu5h5wo00397o022rbnho01",
+      "name": "Картофель фри",
+      "description": "Обжаренные во фритюре и слегка подсолённые",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 9,
+      "variants": [
+        {
+          "id": "cmsu5h5yn003v7o02l1f5ammo",
+          "label": "100 г",
+          "priceMinor": 21900,
+          "weightGrams": 100,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65di600153k02w0e5caq4",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5ym003u7o02zdutpdae/f19bf69e-adab-4f30-b414-e7e521f34d31.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5r900157o02ytx32mf4",
+      "categoryId": "cmsu5h5o000007o02fsaapz7m",
+      "name": "Пять Сыров",
+      "description": "Соус альфредо, сыр моцарелла, сыр чеддер, сыр пармезан, сыр с голубой плесенью, сыр фета. (36 см)",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 10,
+      "variants": [
+        {
+          "id": "cmsu5h5rb00167o027cdiyzse",
+          "label": "24 см",
+          "priceMinor": 67900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5rb00177o02sfvhe8yo",
+          "label": "33 см",
+          "priceMinor": 87900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5rb00187o02y69ieupe",
+          "label": "36 см",
+          "priceMinor": 104900,
+          "weightGrams": null,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "extras": [
+        {
+          "id": "cmsx16okq004q0802mob2hyx5",
+          "name": "Сырный борт",
+          "priceMinor": 14900,
+          "maxQuantity": 1,
+          "sortOrder": 0,
+          "isActive": true,
+          "featured": true
+        },
+        {
+          "id": "cmsx16okq004r0802vv1pnrr3",
+          "name": "Лук Красный",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 1,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okq004s0802slts0j9g",
+          "name": "Перец Сладкий",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 2,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okq004t080222onwc0v",
+          "name": "Маслины",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 3,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okq004u0802f524m6d3",
+          "name": "Перец халапеньо",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 4,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okq004v0802iktqcqg2",
+          "name": "Огурцы Маринованные",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 5,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okq004w0802ld0kt6pn",
+          "name": "Грибы",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 6,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okq004x0802r19w8w5k",
+          "name": "Томаты свежие",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 7,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okq004y08023j5bd0r4",
+          "name": "Ананас",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 8,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okq004z0802h9l0wldv",
+          "name": "Сыр Моцарелла",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 9,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okq00500802wdgr0iak",
+          "name": "Сыр Чеддер",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 10,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okq0051080283uusvjg",
+          "name": "Сыр с голубой плесенью",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 11,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okq00520802089egy6p",
+          "name": "Пепперони",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 12,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okq00530802l7el8pfc",
+          "name": "Ветчина свиная",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 13,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okq00540802p9y056ww",
+          "name": "Говядина",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 14,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okq00550802qr8j0peo",
+          "name": "Бекон",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 15,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16okq00560802j4796pj5",
+          "name": "Куриное филе",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 16,
+          "isActive": true,
+          "featured": false
+        }
+      ],
+      "media": [
+        {
+          "id": "cmsu659bw000a3k02q92val4b",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5r900157o02ytx32mf4/51aa808b-79e1-4014-85c8-37b522d9fddd.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5yt003w7o02lhnc7ro3",
+      "categoryId": "cmsu5h5wo00397o022rbnho01",
+      "name": "Креветки в хрустящей панировке",
+      "description": "Креветки в хрустящей панировке",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 10,
+      "variants": [
+        {
+          "id": "cmsu5h5yv003x7o02lc9qf71f",
+          "label": "6 шт",
+          "priceMinor": 41900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65dmj00163k02vnuquty3",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5yt003w7o02lhnc7ro3/e80559b8-4452-4324-a0ad-781cde9530a4.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5rg00197o02lthvinzz",
+      "categoryId": "cmsu5h5o000007o02fsaapz7m",
+      "name": "Вегетарианская",
+      "description": "Соус томатный, сыр моцарелла, грибы, перец сладкий, томаты свежие, маслины, фета, итальянские травы.",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 11,
+      "variants": [
+        {
+          "id": "cmsu5h5ri001a7o02ouhmwjqt",
+          "label": "24 см",
+          "priceMinor": 62900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5ri001b7o02jq74qry9",
+          "label": "33 см",
+          "priceMinor": 83900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5ri001c7o02k8qno7q3",
+          "label": "36 см",
+          "priceMinor": 94900,
+          "weightGrams": null,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "extras": [
+        {
+          "id": "cmsx16oky00570802puj4lyn0",
+          "name": "Сырный борт",
+          "priceMinor": 14900,
+          "maxQuantity": 1,
+          "sortOrder": 0,
+          "isActive": true,
+          "featured": true
+        },
+        {
+          "id": "cmsx16oky00580802lb2zxgr0",
+          "name": "Лук Красный",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 1,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oky00590802bn49wzgq",
+          "name": "Перец Сладкий",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 2,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oky005a0802qe68r2e6",
+          "name": "Маслины",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 3,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oky005b08020lkgzril",
+          "name": "Перец халапеньо",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 4,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oky005c08025rw7okhl",
+          "name": "Огурцы Маринованные",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 5,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oky005d0802m61aj3vq",
+          "name": "Грибы",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 6,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oky005e0802lb25mxa0",
+          "name": "Томаты свежие",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 7,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oky005f080289fybuvv",
+          "name": "Ананас",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 8,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oky005g08027pt6a3hn",
+          "name": "Сыр Моцарелла",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 9,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oky005h0802tf0jd96j",
+          "name": "Сыр Чеддер",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 10,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oky005i0802iazhmde6",
+          "name": "Сыр с голубой плесенью",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 11,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oky005j0802voz20y2b",
+          "name": "Пепперони",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 12,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oky005k0802j33tkki2",
+          "name": "Ветчина свиная",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 13,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oky005l080288fwavun",
+          "name": "Говядина",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 14,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oky005m08029zmuagkr",
+          "name": "Бекон",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 15,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oky005n0802ykxrecaf",
+          "name": "Куриное филе",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 16,
+          "isActive": true,
+          "featured": false
+        }
+      ],
+      "media": [
+        {
+          "id": "cmsu659gx000b3k02a4ilwe5t",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5rg00197o02lthvinzz/6fda8081-4a56-4032-b55b-3b7091393e9a.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5z0003y7o02kyo7u97d",
+      "categoryId": "cmsu5h5wo00397o022rbnho01",
+      "name": "Наггетсы",
+      "description": "Наггетсы в хрустящей панировке",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 11,
+      "variants": [
+        {
+          "id": "cmsu5h5z1003z7o0290p2vxgu",
+          "label": "6 шт",
+          "priceMinor": 29900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5z100407o02pr197y2w",
+          "label": "10 шт",
+          "priceMinor": 39900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65drn00173k02mei36t0j",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5z0003y7o02kyo7u97d/75e1a2d5-6cc0-4171-abe0-8e0161ecc1f6.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5ro001d7o025zm0pimi",
+      "categoryId": "cmsu5h5o000007o02fsaapz7m",
+      "name": "Четыре Мяса",
+      "description": "Ветчина, охотничьи колбаски, бекон, говядина, сыр моцарелла, сыр чеддер, фирменный томатный соус, перец молотый.",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 12,
+      "variants": [
+        {
+          "id": "cmsu5h5rp001e7o02euj6gc6e",
+          "label": "24 см",
+          "priceMinor": 72900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5rp001f7o0222942t99",
+          "label": "33 см",
+          "priceMinor": 88900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5rp001g7o0239iccq1e",
+          "label": "36 см",
+          "priceMinor": 101900,
+          "weightGrams": null,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "extras": [
+        {
+          "id": "cmsx16ol7005o0802yvdto4qf",
+          "name": "Сырный борт",
+          "priceMinor": 14900,
+          "maxQuantity": 1,
+          "sortOrder": 0,
+          "isActive": true,
+          "featured": true
+        },
+        {
+          "id": "cmsx16ol7005p0802m9213sqc",
+          "name": "Лук Красный",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 1,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ol7005q0802ihp6e0k5",
+          "name": "Перец Сладкий",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 2,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ol7005r0802wdhk4rf6",
+          "name": "Маслины",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 3,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ol7005s0802d84qg584",
+          "name": "Перец халапеньо",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 4,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ol7005t0802kw9qjg6z",
+          "name": "Огурцы Маринованные",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 5,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ol7005u0802ytz5yz9i",
+          "name": "Грибы",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 6,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ol7005v08022gflcalq",
+          "name": "Томаты свежие",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 7,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ol7005w080222538zbm",
+          "name": "Ананас",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 8,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ol7005x08027n5nqqny",
+          "name": "Сыр Моцарелла",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 9,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ol7005y0802faf94ygd",
+          "name": "Сыр Чеддер",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 10,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ol7005z0802acyn8l3y",
+          "name": "Сыр с голубой плесенью",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 11,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ol700600802krkwz1n0",
+          "name": "Пепперони",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 12,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ol700610802qw6wsqxe",
+          "name": "Ветчина свиная",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 13,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ol700620802u3p52ryt",
+          "name": "Говядина",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 14,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ol700630802lk9826rt",
+          "name": "Бекон",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 15,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ol7006408023fhr080r",
+          "name": "Куриное филе",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 16,
+          "isActive": true,
+          "featured": false
+        }
+      ],
+      "media": [
+        {
+          "id": "cmsu659mf000c3k02ij3afoj6",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5ro001d7o025zm0pimi/eb20dc28-b5d4-48ee-b067-6c3a5ff9f40a.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5z700417o02umjqobik",
+      "categoryId": "cmsu5h5wo00397o022rbnho01",
+      "name": "Картофельные дольки",
+      "description": "Горячие дольки картофеля, приготовленные во фритюре, с солью",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 12,
+      "variants": [
+        {
+          "id": "cmsu5h5z800427o02wham463j",
+          "label": "100 г",
+          "priceMinor": 20900,
+          "weightGrams": 100,
+          "sortOrder": 0,
+          "isActive": true
+        }
+      ],
+      "extras": [],
+      "media": [
+        {
+          "id": "cmsu65dvt00183k022zbcmqbb",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5z700417o02umjqobik/39feabaf-28d6-4ae6-9788-951387a5e0ff.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5rv001h7o02diiifgb1",
+      "categoryId": "cmsu5h5o000007o02fsaapz7m",
+      "name": "Мексиканская острая",
+      "description": "Сыр моцарелла, пепперони, говядина, перец сладкий, перец Халапеньо, сыр чеддер, фирменный томатный соус (36 см)",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 13,
+      "variants": [
+        {
+          "id": "cmsu5h5rw001i7o02pmtqw0t1",
+          "label": "24 см",
+          "priceMinor": 73900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5rx001j7o02cpced8z4",
+          "label": "33 см",
+          "priceMinor": 85900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5rx001k7o027fl0gy04",
+          "label": "36 см",
+          "priceMinor": 110900,
+          "weightGrams": null,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "extras": [
+        {
+          "id": "cmsx16olf00650802g3sj01ev",
+          "name": "Сырный борт",
+          "priceMinor": 14900,
+          "maxQuantity": 1,
+          "sortOrder": 0,
+          "isActive": true,
+          "featured": true
+        },
+        {
+          "id": "cmsx16olf00660802260e643o",
+          "name": "Лук Красный",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 1,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olf00670802il9nx0pg",
+          "name": "Перец Сладкий",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 2,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olf00680802laerulj1",
+          "name": "Маслины",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 3,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olf00690802hpk873mz",
+          "name": "Перец халапеньо",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 4,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olf006a0802eliy5fxo",
+          "name": "Огурцы Маринованные",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 5,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olf006b0802063zq8yn",
+          "name": "Грибы",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 6,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olf006c0802mdpsse3d",
+          "name": "Томаты свежие",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 7,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olf006d0802lfwd58zy",
+          "name": "Ананас",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 8,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olf006e080285ae2dw3",
+          "name": "Сыр Моцарелла",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 9,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olf006f0802mflfhgvk",
+          "name": "Сыр Чеддер",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 10,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olf006g08024anob110",
+          "name": "Сыр с голубой плесенью",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 11,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olf006h0802b8xqvuwh",
+          "name": "Пепперони",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 12,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olf006i0802gci80j78",
+          "name": "Ветчина свиная",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 13,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olf006j0802zdezw8cl",
+          "name": "Говядина",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 14,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olf006k08023s96dwm9",
+          "name": "Бекон",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 15,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olf006l08027iyzjvjo",
+          "name": "Куриное филе",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 16,
+          "isActive": true,
+          "featured": false
+        }
+      ],
+      "media": [
+        {
+          "id": "cmsu659rj000d3k02ivktojl1",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5rv001h7o02diiifgb1/fa230f8e-2117-4268-a397-7b2b90bd37df.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5s2001l7o02aael69ib",
+      "categoryId": "cmsu5h5o000007o02fsaapz7m",
+      "name": "Гавайская Делюкс",
+      "description": "Фирменный томатный соус, соус Альфредо, сыр моцарелла, ветчина, куриное филе, ананасы. (36 см)",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 14,
+      "variants": [
+        {
+          "id": "cmsu5h5s3001m7o025ckx1j38",
+          "label": "24 см",
+          "priceMinor": 62900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5s3001n7o02wm39vjwc",
+          "label": "33 см",
+          "priceMinor": 80900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5s3001o7o027y645j05",
+          "label": "36 см",
+          "priceMinor": 91900,
+          "weightGrams": null,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "extras": [
+        {
+          "id": "cmsx16olo006m0802dy8uh8zi",
+          "name": "Сырный борт",
+          "priceMinor": 14900,
+          "maxQuantity": 1,
+          "sortOrder": 0,
+          "isActive": true,
+          "featured": true
+        },
+        {
+          "id": "cmsx16olo006n0802g3mye22a",
+          "name": "Лук Красный",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 1,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olo006o0802znemnfal",
+          "name": "Перец Сладкий",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 2,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olo006p0802oxxebt4k",
+          "name": "Маслины",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 3,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olo006q0802idz1epu0",
+          "name": "Перец халапеньо",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 4,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olo006r0802msh77i7y",
+          "name": "Огурцы Маринованные",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 5,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olo006s0802x06e7ulq",
+          "name": "Грибы",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 6,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olo006t0802i3gmloz5",
+          "name": "Томаты свежие",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 7,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olo006u080246kbyizb",
+          "name": "Ананас",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 8,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olo006v0802obx93fh1",
+          "name": "Сыр Моцарелла",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 9,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olo006w0802yrysa8uy",
+          "name": "Сыр Чеддер",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 10,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olo006x0802eqn7d8cy",
+          "name": "Сыр с голубой плесенью",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 11,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olo006y0802n0ebks12",
+          "name": "Пепперони",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 12,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olo006z0802f81ug2gw",
+          "name": "Ветчина свиная",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 13,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olo007008023jz1tv7b",
+          "name": "Говядина",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 14,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olo00710802ai6xyso2",
+          "name": "Бекон",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 15,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olo00720802s4y8s95l",
+          "name": "Куриное филе",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 16,
+          "isActive": true,
+          "featured": false
+        }
+      ],
+      "media": [
+        {
+          "id": "cmsu659wi000e3k02ei1tz5z8",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5s2001l7o02aael69ib/2114c26d-0020-44ba-b229-c0a8fcf2822b.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5sc001p7o02tm4xvwle",
+      "categoryId": "cmsu5h5o000007o02fsaapz7m",
+      "name": "Адана",
+      "description": "Соус томатный, сыр моцарелла, лук красный, грибы, перец сладкий, огурцы маринованные, маслины, колбаски охотничьи, бекон, говядина, итальянские травы.",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 15,
+      "variants": [
+        {
+          "id": "cmsu5h5sd001q7o0270pseizy",
+          "label": "24 см",
+          "priceMinor": 83900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5sd001r7o02pz7ieoub",
+          "label": "33 см",
+          "priceMinor": 99900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5sd001s7o02wamphjp8",
+          "label": "36 см",
+          "priceMinor": 119900,
+          "weightGrams": null,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "extras": [
+        {
+          "id": "cmsx16olw00730802xj4iviar",
+          "name": "Сырный борт",
+          "priceMinor": 14900,
+          "maxQuantity": 1,
+          "sortOrder": 0,
+          "isActive": true,
+          "featured": true
+        },
+        {
+          "id": "cmsx16olx00740802pxnl7p0m",
+          "name": "Лук Красный",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 1,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olx00750802wzm47ldr",
+          "name": "Перец Сладкий",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 2,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olx007608026mrvn8om",
+          "name": "Маслины",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 3,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olx007708020ea1caj6",
+          "name": "Перец халапеньо",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 4,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olx007808025plzvfr0",
+          "name": "Огурцы Маринованные",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 5,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olx00790802aznqjx8s",
+          "name": "Грибы",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 6,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olx007a080221jd8n3o",
+          "name": "Томаты свежие",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 7,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olx007b0802qc1cmsd9",
+          "name": "Ананас",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 8,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olx007c08021s3uaqxe",
+          "name": "Сыр Моцарелла",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 9,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olx007d0802if0yecxg",
+          "name": "Сыр Чеддер",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 10,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olx007e080283cmsnrr",
+          "name": "Сыр с голубой плесенью",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 11,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olx007f08029ftl28io",
+          "name": "Пепперони",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 12,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olx007g0802rvg3gbbr",
+          "name": "Ветчина свиная",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 13,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olx007h0802bh314pou",
+          "name": "Говядина",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 14,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olx007i0802u35zqkrr",
+          "name": "Бекон",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 15,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16olx007j0802mtwjqehq",
+          "name": "Куриное филе",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 16,
+          "isActive": true,
+          "featured": false
+        }
+      ],
+      "media": [
+        {
+          "id": "cmsu65a3o000f3k020a8ybqqm",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5sc001p7o02tm4xvwle/98e2f4ee-31a5-40cc-be57-4882fc772e43.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5sq001t7o02dmndxu8a",
+      "categoryId": "cmsu5h5o000007o02fsaapz7m",
+      "name": "Карбонара",
+      "description": "Соус Альфредо, сыр моцарелла, бекон, пармезан, томаты свежие, перец черный.",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 16,
+      "variants": [
+        {
+          "id": "cmsu5h5sr001u7o02umf1i6rr",
+          "label": "24 см",
+          "priceMinor": 67900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5sr001v7o021ao3z05a",
+          "label": "33 см",
+          "priceMinor": 97900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5sr001w7o02we5mn9bn",
+          "label": "36 см",
+          "priceMinor": 115900,
+          "weightGrams": null,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "extras": [
+        {
+          "id": "cmsx16om4007k0802d865rszh",
+          "name": "Сырный борт",
+          "priceMinor": 14900,
+          "maxQuantity": 1,
+          "sortOrder": 0,
+          "isActive": true,
+          "featured": true
+        },
+        {
+          "id": "cmsx16om4007l0802gox8s785",
+          "name": "Лук Красный",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 1,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16om4007m08022cf5y27a",
+          "name": "Перец Сладкий",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 2,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16om4007n08024fhanszv",
+          "name": "Маслины",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 3,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16om4007o08021k3sakbr",
+          "name": "Перец халапеньо",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 4,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16om4007p0802asadwbw2",
+          "name": "Огурцы Маринованные",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 5,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16om4007q0802jhknplck",
+          "name": "Грибы",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 6,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16om4007r0802w9pane1d",
+          "name": "Томаты свежие",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 7,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16om4007s08020x3pic75",
+          "name": "Ананас",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 8,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16om4007t0802vd3yyl11",
+          "name": "Сыр Моцарелла",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 9,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16om4007u0802388nztrx",
+          "name": "Сыр Чеддер",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 10,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16om4007v0802af5yl2g2",
+          "name": "Сыр с голубой плесенью",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 11,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16om4007w0802x70gduqj",
+          "name": "Пепперони",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 12,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16om4007x0802z9kkntxf",
+          "name": "Ветчина свиная",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 13,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16om4007y0802zwpbjgl8",
+          "name": "Говядина",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 14,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16om4007z0802qgmijfw8",
+          "name": "Бекон",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 15,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16om4008008025k73t8ab",
+          "name": "Куриное филе",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 16,
+          "isActive": true,
+          "featured": false
+        }
+      ],
+      "media": [
+        {
+          "id": "cmsu65a82000g3k02oqsty7vo",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5sq001t7o02dmndxu8a/0cddf762-dd23-4025-8f3f-29ca4c6c8a71.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5t1001x7o02u5marodx",
+      "categoryId": "cmsu5h5o000007o02fsaapz7m",
+      "name": "Жюльен",
+      "description": "Соус грибной, сыр моцарелла, грибы, лук красный, куриное филе, сыр пармезан, жареный лук.",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 17,
+      "variants": [
+        {
+          "id": "cmsu5h5t3001y7o02p5whrkxq",
+          "label": "24 см",
+          "priceMinor": 73900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5t3001z7o02kqqjadba",
+          "label": "33 см",
+          "priceMinor": 90900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5t300207o02r210fttl",
+          "label": "36 см",
+          "priceMinor": 101900,
+          "weightGrams": null,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "extras": [
+        {
+          "id": "cmsx16ome00810802xm6flpm8",
+          "name": "Сырный борт",
+          "priceMinor": 14900,
+          "maxQuantity": 1,
+          "sortOrder": 0,
+          "isActive": true,
+          "featured": true
+        },
+        {
+          "id": "cmsx16ome00820802cz44ryhs",
+          "name": "Лук Красный",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 1,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ome008308022kjbnppa",
+          "name": "Перец Сладкий",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 2,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ome00840802g4hw0cqs",
+          "name": "Маслины",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 3,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ome008508025u2kav1q",
+          "name": "Перец халапеньо",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 4,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ome008608027lirel3j",
+          "name": "Огурцы Маринованные",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 5,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ome008708029dkzprvs",
+          "name": "Грибы",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 6,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ome00880802u0r351lr",
+          "name": "Томаты свежие",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 7,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ome00890802lys7cpxt",
+          "name": "Ананас",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 8,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ome008a08026g8eylu5",
+          "name": "Сыр Моцарелла",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 9,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ome008b0802dtu4ujub",
+          "name": "Сыр Чеддер",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 10,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ome008c0802w3jdjnd7",
+          "name": "Сыр с голубой плесенью",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 11,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ome008d0802e6cwa8yi",
+          "name": "Пепперони",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 12,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ome008e0802gjx7hvke",
+          "name": "Ветчина свиная",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 13,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ome008f0802bzuidacd",
+          "name": "Говядина",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 14,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ome008g08028cw4fgf6",
+          "name": "Бекон",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 15,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16ome008h0802tjt4unv5",
+          "name": "Куриное филе",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 16,
+          "isActive": true,
+          "featured": false
+        }
+      ],
+      "media": [
+        {
+          "id": "cmsu65acj000h3k02635uose7",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5t1001x7o02u5marodx/87e98ee3-c7a5-42ca-9168-c374237afbcd.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5t900217o026eug5ull",
+      "categoryId": "cmsu5h5o000007o02fsaapz7m",
+      "name": "Премьер",
+      "description": "Соус томатный, сыр моцарелла, пепперони, ветчина, бекон, сыр пармезан.",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 18,
+      "variants": [
+        {
+          "id": "cmsu5h5ta00227o02mj6l9ttb",
+          "label": "24 см",
+          "priceMinor": 64900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5ta00237o02792a8ig1",
+          "label": "33 см",
+          "priceMinor": 83900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5ta00247o021jr9tyy0",
+          "label": "36 см",
+          "priceMinor": 100900,
+          "weightGrams": null,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "extras": [
+        {
+          "id": "cmsx16omm008i0802qlalefos",
+          "name": "Сырный борт",
+          "priceMinor": 14900,
+          "maxQuantity": 1,
+          "sortOrder": 0,
+          "isActive": true,
+          "featured": true
+        },
+        {
+          "id": "cmsx16omm008j080257bgorjl",
+          "name": "Лук Красный",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 1,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omm008k0802neqllc0i",
+          "name": "Перец Сладкий",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 2,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omm008l0802c64xgjor",
+          "name": "Маслины",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 3,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omm008m0802siv9ctcc",
+          "name": "Перец халапеньо",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 4,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omm008n0802lmapnahx",
+          "name": "Огурцы Маринованные",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 5,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omm008o0802fhjly73h",
+          "name": "Грибы",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 6,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omm008p08027y2igr6j",
+          "name": "Томаты свежие",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 7,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omm008q0802145v8l3n",
+          "name": "Ананас",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 8,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omm008r0802pwu40eh8",
+          "name": "Сыр Моцарелла",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 9,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omm008s0802cicelg9s",
+          "name": "Сыр Чеддер",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 10,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omm008t0802b4tiwccv",
+          "name": "Сыр с голубой плесенью",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 11,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omm008u0802yi94uvuc",
+          "name": "Пепперони",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 12,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omm008v0802yzfru5be",
+          "name": "Ветчина свиная",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 13,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omm008w0802e31kwyji",
+          "name": "Говядина",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 14,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omm008x08025zo8ksiu",
+          "name": "Бекон",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 15,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omm008y0802lozrcct8",
+          "name": "Куриное филе",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 16,
+          "isActive": true,
+          "featured": false
+        }
+      ],
+      "media": [
+        {
+          "id": "cmsu65ahw000i3k021cm93c1h",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5t900217o026eug5ull/a11ba008-4cd6-458e-a652-fa3d8affb085.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5tg00257o0259xs040g",
+      "categoryId": "cmsu5h5o000007o02fsaapz7m",
+      "name": "Мясной Микс",
+      "description": "Соус томатный, сыр моцарелла, соус перечный, пепперони, колбаски охотничьи, бекон, говядина, свинина.",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 19,
+      "variants": [
+        {
+          "id": "cmsu5h5ti00267o02zyidy2bp",
+          "label": "24 см",
+          "priceMinor": 79900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5ti00277o02v0tyfoyr",
+          "label": "33 см",
+          "priceMinor": 93900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5ti00287o02mg30vban",
+          "label": "36 см",
+          "priceMinor": 116900,
+          "weightGrams": null,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "extras": [
+        {
+          "id": "cmsx16omv008z08022nhon0rz",
+          "name": "Сырный борт",
+          "priceMinor": 14900,
+          "maxQuantity": 1,
+          "sortOrder": 0,
+          "isActive": true,
+          "featured": true
+        },
+        {
+          "id": "cmsx16omv00900802drfolh6t",
+          "name": "Лук Красный",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 1,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omv00910802fptvpp8s",
+          "name": "Перец Сладкий",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 2,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omv00920802yvmk651c",
+          "name": "Маслины",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 3,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omv00930802xm49q5vw",
+          "name": "Перец халапеньо",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 4,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omv00940802qbdb7y3q",
+          "name": "Огурцы Маринованные",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 5,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omv009508024zy5r173",
+          "name": "Грибы",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 6,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omv00960802h5d3tymu",
+          "name": "Томаты свежие",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 7,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omv00970802g9d5nd6p",
+          "name": "Ананас",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 8,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omv00980802m2dimarj",
+          "name": "Сыр Моцарелла",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 9,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omv00990802v29was64",
+          "name": "Сыр Чеддер",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 10,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omv009a0802rm28bj1s",
+          "name": "Сыр с голубой плесенью",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 11,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omv009b0802obxd4jqc",
+          "name": "Пепперони",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 12,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omv009c0802g0tjbezp",
+          "name": "Ветчина свиная",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 13,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omv009d08026m8spfpv",
+          "name": "Говядина",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 14,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omv009e0802i1o2n3li",
+          "name": "Бекон",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 15,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16omv009f0802ld46hjkk",
+          "name": "Куриное филе",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 16,
+          "isActive": true,
+          "featured": false
+        }
+      ],
+      "media": [
+        {
+          "id": "cmsu65an0000j3k02xcujkuu2",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5tg00257o0259xs040g/ce25424a-c00e-4488-927b-383d9669fa8b.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5to00297o0257tpsow3",
+      "categoryId": "cmsu5h5o000007o02fsaapz7m",
+      "name": "Баварская",
+      "description": "Соус томатный, сыр моцарелла, колбаски охотничье, лук красный, огурцы маринованные,томаты черри, соус медово-горчичный.",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 20,
+      "variants": [
+        {
+          "id": "cmsu5h5tq002a7o027npa8u49",
+          "label": "24 см",
+          "priceMinor": 73900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5tq002b7o02cao3ry9z",
+          "label": "33 см",
+          "priceMinor": 88900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5tq002c7o02hbf9sq04",
+          "label": "36 см",
+          "priceMinor": 115900,
+          "weightGrams": null,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "extras": [
+        {
+          "id": "cmsx16on3009g0802pzrx65zu",
+          "name": "Сырный борт",
+          "priceMinor": 14900,
+          "maxQuantity": 1,
+          "sortOrder": 0,
+          "isActive": true,
+          "featured": true
+        },
+        {
+          "id": "cmsx16on3009h0802lbi9anca",
+          "name": "Лук Красный",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 1,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16on3009i0802xpedlkd0",
+          "name": "Перец Сладкий",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 2,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16on3009j0802l83ec9go",
+          "name": "Маслины",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 3,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16on3009k0802lpas1hnb",
+          "name": "Перец халапеньо",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 4,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16on3009l08028nz1gl3z",
+          "name": "Огурцы Маринованные",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 5,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16on3009m08025lnwcjt2",
+          "name": "Грибы",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 6,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16on3009n0802mvcbiqjx",
+          "name": "Томаты свежие",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 7,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16on3009o0802861lml2h",
+          "name": "Ананас",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 8,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16on3009p0802luyc846r",
+          "name": "Сыр Моцарелла",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 9,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16on3009q0802aazsyt4c",
+          "name": "Сыр Чеддер",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 10,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16on3009r08026t5ig4iy",
+          "name": "Сыр с голубой плесенью",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 11,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16on3009s0802vcr20pbp",
+          "name": "Пепперони",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 12,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16on3009t0802im89kfax",
+          "name": "Ветчина свиная",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 13,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16on3009u0802y5552c80",
+          "name": "Говядина",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 14,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16on3009v0802529b490k",
+          "name": "Бекон",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 15,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16on3009w0802l5fivzc9",
+          "name": "Куриное филе",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 16,
+          "isActive": true,
+          "featured": false
+        }
+      ],
+      "media": [
+        {
+          "id": "cmsu65asa000k3k02m945g4c0",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5to00297o0257tpsow3/804d6974-50c8-445f-a140-71ee51b53a3b.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5tw002d7o024j7v3wue",
+      "categoryId": "cmsu5h5o000007o02fsaapz7m",
+      "name": "Маргарита",
+      "description": "Соус томатный, сыр моцарелла, сыр пармезан, томаты черри, итальянские травы.",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 21,
+      "variants": [
+        {
+          "id": "cmsu5h5ty002e7o02vl42x4e8",
+          "label": "24 см",
+          "priceMinor": 64900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5ty002f7o02ijpk7oko",
+          "label": "33 см",
+          "priceMinor": 79900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5ty002g7o02dp8qs65i",
+          "label": "36 см",
+          "priceMinor": 89900,
+          "weightGrams": null,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "extras": [
+        {
+          "id": "cmsx16onb009x0802yparaniu",
+          "name": "Сырный борт",
+          "priceMinor": 14900,
+          "maxQuantity": 1,
+          "sortOrder": 0,
+          "isActive": true,
+          "featured": true
+        },
+        {
+          "id": "cmsx16onb009y0802bh6zlixb",
+          "name": "Лук Красный",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 1,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onb009z0802aaon1qer",
+          "name": "Перец Сладкий",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 2,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onb00a00802m00416kg",
+          "name": "Маслины",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 3,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onb00a10802qpfqxmao",
+          "name": "Перец халапеньо",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 4,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onb00a20802nieg7wsx",
+          "name": "Огурцы Маринованные",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 5,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onb00a30802fw0see7t",
+          "name": "Грибы",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 6,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onb00a40802y6tv0ft4",
+          "name": "Томаты свежие",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 7,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onb00a50802ttrfr6wo",
+          "name": "Ананас",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 8,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onb00a60802l282xryy",
+          "name": "Сыр Моцарелла",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 9,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onb00a70802t572d5p0",
+          "name": "Сыр Чеддер",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 10,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onb00a80802l13ndtbz",
+          "name": "Сыр с голубой плесенью",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 11,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onb00a90802xhtf50mx",
+          "name": "Пепперони",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 12,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onb00aa0802da906ng1",
+          "name": "Ветчина свиная",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 13,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onb00ab0802j0dazivc",
+          "name": "Говядина",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 14,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onb00ac08022ts89t74",
+          "name": "Бекон",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 15,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onb00ad0802kp7j1uuc",
+          "name": "Куриное филе",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 16,
+          "isActive": true,
+          "featured": false
+        }
+      ],
+      "media": [
+        {
+          "id": "cmsu65axf000l3k02iq3p2wj9",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5tw002d7o024j7v3wue/9d1ee98e-4dda-4caf-88ad-627084886450.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5u5002h7o02oq06yy3i",
+      "categoryId": "cmsu5h5o000007o02fsaapz7m",
+      "name": "Сырная",
+      "description": "Соус альфредо, сыр моцарелла, итальянские травы",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 22,
+      "variants": [
+        {
+          "id": "cmsu5h5u6002i7o02srl2p1i5",
+          "label": "24 см",
+          "priceMinor": 59900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5u6002j7o022ut7wa8d",
+          "label": "33 см",
+          "priceMinor": 74900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5u6002k7o02hrvgrbxv",
+          "label": "36 см",
+          "priceMinor": 82900,
+          "weightGrams": null,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "extras": [
+        {
+          "id": "cmsx16onj00ae08029sj1z92h",
+          "name": "Сырный борт",
+          "priceMinor": 14900,
+          "maxQuantity": 1,
+          "sortOrder": 0,
+          "isActive": true,
+          "featured": true
+        },
+        {
+          "id": "cmsx16onj00af0802hstvabvy",
+          "name": "Лук Красный",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 1,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onj00ag080215yjheec",
+          "name": "Перец Сладкий",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 2,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onj00ah08027gm8qz5y",
+          "name": "Маслины",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 3,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onj00ai08020g73njhh",
+          "name": "Перец халапеньо",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 4,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onj00aj08028k2f6m9y",
+          "name": "Огурцы Маринованные",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 5,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onj00ak0802ofj3pm4o",
+          "name": "Грибы",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 6,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onj00al0802jzhbr5lc",
+          "name": "Томаты свежие",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 7,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onj00am0802adbrikol",
+          "name": "Ананас",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 8,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onj00an0802n1w51u5i",
+          "name": "Сыр Моцарелла",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 9,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onj00ao0802rzigzjd1",
+          "name": "Сыр Чеддер",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 10,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onj00ap080228lfrta6",
+          "name": "Сыр с голубой плесенью",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 11,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onj00aq08021mj4e4qe",
+          "name": "Пепперони",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 12,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onj00ar0802mdarrqkl",
+          "name": "Ветчина свиная",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 13,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onj00as0802vgnxk5e8",
+          "name": "Говядина",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 14,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onj00at0802drkty89e",
+          "name": "Бекон",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 15,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onj00au0802te9owof5",
+          "name": "Куриное филе",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 16,
+          "isActive": true,
+          "featured": false
+        }
+      ],
+      "media": [
+        {
+          "id": "cmsu65b2o000m3k02iholy27j",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5u5002h7o02oq06yy3i/03de6250-e792-4a75-9bb8-d6814c7071f7.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5uc002l7o024wnr4tua",
+      "categoryId": "cmsu5h5o000007o02fsaapz7m",
+      "name": "Мясная Барбекю",
+      "description": "Соус томатный, сыр моцарелла, ветчина, колбаски охотничье, солями, бекон, говядина, сыр чеддер, соус барбекю",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 23,
+      "variants": [
+        {
+          "id": "cmsu5h5ue002m7o02uqyiph3l",
+          "label": "24 см",
+          "priceMinor": 71900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5ue002n7o027eqq3wf3",
+          "label": "33 см",
+          "priceMinor": 91900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5ue002o7o026vlshx4h",
+          "label": "36 см",
+          "priceMinor": 101900,
+          "weightGrams": null,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "extras": [
+        {
+          "id": "cmsx16onq00av0802qoua5jx2",
+          "name": "Сырный борт",
+          "priceMinor": 14900,
+          "maxQuantity": 1,
+          "sortOrder": 0,
+          "isActive": true,
+          "featured": true
+        },
+        {
+          "id": "cmsx16onq00aw08026iumjjrn",
+          "name": "Лук Красный",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 1,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onq00ax0802c4tlaivp",
+          "name": "Перец Сладкий",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 2,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onq00ay0802jviy112d",
+          "name": "Маслины",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 3,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onq00az0802umwdthbe",
+          "name": "Перец халапеньо",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 4,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onq00b00802zc2ppiwx",
+          "name": "Огурцы Маринованные",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 5,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onq00b10802hdizw4t5",
+          "name": "Грибы",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 6,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onq00b20802ysa3ueff",
+          "name": "Томаты свежие",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 7,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onq00b30802oijpj6lq",
+          "name": "Ананас",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 8,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onq00b40802k39jydjt",
+          "name": "Сыр Моцарелла",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 9,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onq00b508021upz8iis",
+          "name": "Сыр Чеддер",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 10,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onq00b60802wgis9oyf",
+          "name": "Сыр с голубой плесенью",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 11,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onq00b70802uxk3cxlv",
+          "name": "Пепперони",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 12,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onq00b80802v56li9bs",
+          "name": "Ветчина свиная",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 13,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onq00b90802ouzzo4za",
+          "name": "Говядина",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 14,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onq00ba08028duce4tm",
+          "name": "Бекон",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 15,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onq00bb0802syss24v7",
+          "name": "Куриное филе",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 16,
+          "isActive": true,
+          "featured": false
+        }
+      ],
+      "media": [
+        {
+          "id": "cmsu65b7g000n3k02c3rpw85v",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5uc002l7o024wnr4tua/b19194df-8a4e-4c0e-8b43-8c6517d28336.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5uk002p7o023198fnnl",
+      "categoryId": "cmsu5h5o000007o02fsaapz7m",
+      "name": "Пепперони",
+      "description": "Классическая пицца на тонком тесте с пикантными ломтиками Пепперони, тягучим сыром Моцарелла и фирменным томатным соусом. Идеальный выбор для любителей традиционных вкусов. Диаметр — 33 см.",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 24,
+      "variants": [
+        {
+          "id": "cmsu5h5um002q7o025bfozqma",
+          "label": "24 см",
+          "priceMinor": 46900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5um002r7o02gegfrf5q",
+          "label": "33 см",
+          "priceMinor": 80900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5um002s7o02zvdmgkcc",
+          "label": "36 см",
+          "priceMinor": 99900,
+          "weightGrams": null,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "extras": [
+        {
+          "id": "cmsx16onx00bc0802rftgoysq",
+          "name": "Сырный борт",
+          "priceMinor": 14900,
+          "maxQuantity": 1,
+          "sortOrder": 0,
+          "isActive": true,
+          "featured": true
+        },
+        {
+          "id": "cmsx16onx00bd080230rpxuha",
+          "name": "Лук Красный",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 1,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onx00be0802lpi9dh6p",
+          "name": "Перец Сладкий",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 2,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onx00bf08023nr5kq3n",
+          "name": "Маслины",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 3,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onx00bg0802g632bohf",
+          "name": "Перец халапеньо",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 4,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onx00bh08028q9peyyz",
+          "name": "Огурцы Маринованные",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 5,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onx00bi08022xomrzcj",
+          "name": "Грибы",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 6,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onx00bj0802149fmmoo",
+          "name": "Томаты свежие",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 7,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onx00bk0802i09s69j3",
+          "name": "Ананас",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 8,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onx00bl0802axtzqhan",
+          "name": "Сыр Моцарелла",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 9,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onx00bm0802w782gmio",
+          "name": "Сыр Чеддер",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 10,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onx00bn0802gp2d2f01",
+          "name": "Сыр с голубой плесенью",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 11,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onx00bo0802i73d3ypu",
+          "name": "Пепперони",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 12,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onx00bp08028tbnmsdz",
+          "name": "Ветчина свиная",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 13,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onx00bq0802v88r41y3",
+          "name": "Говядина",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 14,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onx00br08021j5f6pwg",
+          "name": "Бекон",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 15,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16onx00bs0802cnxlvn2y",
+          "name": "Куриное филе",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 16,
+          "isActive": true,
+          "featured": false
+        }
+      ],
+      "media": [
+        {
+          "id": "cmsu65bci000o3k02nbtyfxl5",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5uk002p7o023198fnnl/8fa48294-a636-439d-bd77-5cdc28c9e18d.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cmsu5h5us002t7o02vc5us7pm",
+      "categoryId": "cmsu5h5o000007o02fsaapz7m",
+      "name": "Четыре Сезона",
+      "description": "Соус томатный, сыр моцарелла, пепперони, куриное филе, ветчина, колбаски охотничьи, бекон, говядина, грибы, томаты свежие, маслины, фета, итальянские травы, перец сладкий, сыр чеддер.",
+      "caloriesPer100g": null,
+      "proteinPer100g": null,
+      "fatPer100g": null,
+      "carbsPer100g": null,
+      "isActive": true,
+      "sortOrder": 25,
+      "variants": [
+        {
+          "id": "cmsu5h5v0002u7o02571netj2",
+          "label": "33 см",
+          "priceMinor": 94900,
+          "weightGrams": null,
+          "sortOrder": 0,
+          "isActive": true
+        },
+        {
+          "id": "cmsu5h5v0002v7o02zn4shxnf",
+          "label": "36 см",
+          "priceMinor": 104900,
+          "weightGrams": null,
+          "sortOrder": 1,
+          "isActive": true
+        }
+      ],
+      "extras": [
+        {
+          "id": "cmsx16oo400bt0802wq3kkg8y",
+          "name": "Сырный борт",
+          "priceMinor": 14900,
+          "maxQuantity": 1,
+          "sortOrder": 0,
+          "isActive": true,
+          "featured": true
+        },
+        {
+          "id": "cmsx16oo400bu0802kz7yu6hy",
+          "name": "Лук Красный",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 1,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oo400bv0802eylaa5dv",
+          "name": "Перец Сладкий",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 2,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oo400bw0802v0cho4gf",
+          "name": "Маслины",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 3,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oo400bx0802jggd2ixa",
+          "name": "Перец халапеньо",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 4,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oo400by0802nbeh0k8m",
+          "name": "Огурцы Маринованные",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 5,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oo400bz0802n85gfq47",
+          "name": "Грибы",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 6,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oo400c008025s07luou",
+          "name": "Томаты свежие",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 7,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oo400c10802kf031iey",
+          "name": "Ананас",
+          "priceMinor": 6900,
+          "maxQuantity": 5,
+          "sortOrder": 8,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oo400c20802ol7i4uk9",
+          "name": "Сыр Моцарелла",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 9,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oo400c30802x201pwep",
+          "name": "Сыр Чеддер",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 10,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oo400c40802vmbhbk6c",
+          "name": "Сыр с голубой плесенью",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 11,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oo400c50802nfo25k43",
+          "name": "Пепперони",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 12,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oo400c608024y1ux5ql",
+          "name": "Ветчина свиная",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 13,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oo400c70802y0awrhk1",
+          "name": "Говядина",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 14,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oo400c808025w619v3e",
+          "name": "Бекон",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 15,
+          "isActive": true,
+          "featured": false
+        },
+        {
+          "id": "cmsx16oo400c90802bu8r4lhp",
+          "name": "Куриное филе",
+          "priceMinor": 9900,
+          "maxQuantity": 5,
+          "sortOrder": 16,
+          "isActive": true,
+          "featured": false
+        }
+      ],
+      "media": [
+        {
+          "id": "cmsu65bi0000p3k022dd7ew3g",
+          "type": "PHOTO",
+          "url": "/uploads/dishes/cmsu5h5us002t7o02vc5us7pm/e91dd3c1-9f07-4dd7-9538-08364f625b9a.jpg",
+          "isPrimary": true,
+          "sortOrder": 0
+        }
+      ]
+    }
+  ]
+}

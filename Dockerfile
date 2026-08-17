@@ -5,7 +5,7 @@
 # later stages — nothing gets recompiled, and the runtime image never needs a
 # C/C++ toolchain installed.
 
-FROM node:24-bookworm-slim AS deps
+FROM node:22-bookworm-slim AS deps
 WORKDIR /app
 RUN apt-get update \
     && apt-get install -y --no-install-recommends python3 make g++ \
@@ -24,7 +24,7 @@ RUN npm run build
 
 # `runner` is what actually serves traffic — devDependencies are pruned so
 # the image only carries what `next start` needs at runtime.
-FROM node:24-bookworm-slim AS runner
+FROM node:22-bookworm-slim AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3000
