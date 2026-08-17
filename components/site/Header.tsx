@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useCartStore, cartItemCount } from "@/lib/store/cart";
 import { useHasMounted } from "@/lib/useHasMounted";
-import { Stamp } from "@/components/ui/Stamp";
 
 const navLinks = [
   { href: "/menu", label: "Меню" },
@@ -20,9 +20,7 @@ export function Header({ isLoggedIn }: { isLoggedIn: boolean }) {
     <header className="sticky top-0 z-40 border-b border-char/10 bg-flatbread/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
         <Link href="/" className="flex items-center gap-2.5">
-          <Stamp tone="ember" className="h-10 w-10 text-sm font-display font-bold">
-            AP
-          </Stamp>
+          <Image src="/logo.png" alt="Adana Pizza" width={159} height={134} className="h-10 w-auto" priority />
           <span className="font-display text-lg font-semibold leading-tight text-char">
             Adana Pizza
           </span>

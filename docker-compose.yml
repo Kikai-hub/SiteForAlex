@@ -1,0 +1,79 @@
+name: adana-pizza
+
+services:
+  # One-shot: applies pending Prisma migrations, then exits. `web` waits for
+  # this to finish successfully before it starts, so the app never boots
+  # against a schema it doesn't match.
+  migrate:
+    build:
+      context: .
+      target: builder
+    env_file:
+      - .env
+    environment:
+      # SQLite lives on a named volume, not wherever DATABASE_URL in .env
+      # points at (that value is for local `npm run dev` only) — this wins.
+      DATABASE_URL: file:/app/data/prod.db
+      NODE_ENV: production
+    command: ["npx", "prisma", "migrate", "deploy"]
+    volumes:
+      - db_data:/app/data
+    restart: "no"
+
+  web:
+    build:
+      context: .
+      target: runner
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: file:/app/data/prod.db
+      NODE_ENV: production
+      # Caddy is the only way in (see below) and is exactly one hop away, and
+      # it always overwrites X-Forwarded-For itself (see Caddyfile) — so the
+      # value reaching the app here can be trusted for rate-limit decisions.
+      TRUSTED_PROXY_HOPS: "1"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    volumes:
+      - db_data:/app/data
+      - uploads_data:/app/public/uploads
+    expose:
+      - "3000"
+    # Deliberately NOT publishing a host port here — Caddy is the only public
+    # entry point (see below) so X-Forwarded-For can't be forged by talking
+    # to this container directly, which would otherwise defeat the app's
+    # login brute-force rate limiting.
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      start_period: 15s
+      retries: 3
+    restart: unless-stopped
+
+  # Reverse proxy + TLS termination — the only container exposed to the
+  # internet. Works immediately with no domain (plain HTTP on :80); set
+  # SITE_DOMAIN in .env once DNS points here and Caddy auto-provisions
+  # Let's Encrypt HTTPS on restart.
+  caddy:
+    image: caddy:2-alpine
+    depends_on:
+      - web
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      SITE_DOMAIN: ${SITE_DOMAIN:-:80}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    restart: unless-stopped
+
+volumes:
+  db_data:
+  uploads_data:
+  caddy_data:
+  caddy_config:

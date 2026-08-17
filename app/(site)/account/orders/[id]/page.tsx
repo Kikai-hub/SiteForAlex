@@ -18,7 +18,7 @@ export default async function OrderDetailPage({
 
   const order = await prisma.order.findUnique({
     where: { id: orderId },
-    include: { items: true },
+    include: { items: { include: { extras: true } } },
   });
 
   // Ownership check — a customer must never be able to view another
@@ -38,7 +38,14 @@ export default async function OrderDetailPage({
           {order.items.map((item) => (
             <li key={item.id} className="flex justify-between px-4 py-3 text-sm">
               <span>
-                {item.nameSnapshot} ({item.variantLabelSnapshot}) × {item.quantity}
+                {item.nameSnapshot} ({item.variantLabelSnapshot})
+                {item.extras.length > 0 && (
+                  <span className="text-char/40">
+                    {" "}
+                    · {item.extras.map((e) => `${e.nameSnapshot}${e.quantity > 1 ? ` ×${e.quantity}` : ""}`).join(", ")}
+                  </span>
+                )}{" "}
+                × {item.quantity}
               </span>
               <span className="font-medium">{formatMinor(item.lineTotalMinor)}</span>
             </li>

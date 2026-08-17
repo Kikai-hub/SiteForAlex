@@ -27,6 +27,7 @@ export function ReorderButton({ orderId }: { orderId: number }) {
             variantLabel: item.variantLabel,
             priceMinor: item.priceMinor,
             imageUrl: item.imageUrl,
+            extras: item.extras,
           },
           item.quantity
         );

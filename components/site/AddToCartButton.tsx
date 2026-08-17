@@ -25,7 +25,7 @@ export function AddToCartButton({
   const [added, setAdded] = useState(false);
 
   function handleClick() {
-    addItem({ dishId, dishVariantId, name, variantLabel, priceMinor, imageUrl });
+    addItem({ dishId, dishVariantId, name, variantLabel, priceMinor, imageUrl, extras: [] });
     setAdded(true);
     setTimeout(() => setAdded(false), 1400);
   }

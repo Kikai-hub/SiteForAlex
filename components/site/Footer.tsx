@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Stamp } from "@/components/ui/Stamp";
+import Image from "next/image";
 
 export function Footer() {
   return (
@@ -7,9 +7,7 @@ export function Footer() {
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-16 md:grid-cols-[1.2fr_1fr_1fr]">
         <div>
           <div className="flex items-center gap-2.5">
-            <Stamp tone="charcoal" className="h-10 w-10 text-sm font-display font-bold">
-              AP
-            </Stamp>
+            <Image src="/logo.png" alt="Adana Pizza" width={159} height={134} className="h-10 w-auto" />
             <span className="font-display text-lg font-semibold">Adana Pizza</span>
           </div>
           <p className="mt-4 max-w-xs font-display text-xl italic text-saffron">

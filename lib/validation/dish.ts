@@ -20,6 +20,9 @@ export const dishSchema = z.object({
     .number("Укажите калорийность")
     .int()
     .positive("Калорийность должна быть больше 0"),
+  proteinPer100g: z.coerce.number().min(0, "Не может быть отрицательным").optional().nullable(),
+  fatPer100g: z.coerce.number().min(0, "Не может быть отрицательным").optional().nullable(),
+  carbsPer100g: z.coerce.number().min(0, "Не может быть отрицательным").optional().nullable(),
   sortOrder: z.coerce.number().int().default(0),
   isActive: z.coerce.boolean().default(true),
 });
@@ -30,4 +33,13 @@ export const dishVariantSchema = z.object({
   weightGrams: z.coerce.number().int().positive().optional().nullable(),
   sortOrder: z.coerce.number().int().default(0),
   isActive: z.coerce.boolean().default(true),
+});
+
+export const dishExtraSchema = z.object({
+  name: z.string().trim().min(1, "Укажите название допа").max(80),
+  priceRubles: z.coerce.number().positive("Цена должна быть больше 0"),
+  maxQuantity: z.coerce.number().int().min(1).max(20).default(5),
+  sortOrder: z.coerce.number().int().default(0),
+  isActive: z.coerce.boolean().default(true),
+  featured: z.coerce.boolean().default(false),
 });

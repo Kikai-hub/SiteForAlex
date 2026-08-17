@@ -28,7 +28,15 @@ export default async function HomePage() {
     prisma.category.findMany({
       where: { isActive: true },
       orderBy: { sortOrder: "asc" },
-      include: { _count: { select: { dishes: true } } },
+      include: {
+        _count: { select: { dishes: true } },
+        dishes: {
+          where: { isActive: true },
+          orderBy: { sortOrder: "asc" },
+          take: 1,
+          include: { media: { orderBy: [{ isPrimary: "desc" }], take: 1 } },
+        },
+      },
     }),
     prisma.dish.findFirst({
       where: { name: "Адана", isActive: true },
@@ -92,19 +100,31 @@ export default async function HomePage() {
       {/* Categories teaser */}
       <section className="mx-auto max-w-6xl px-5 py-4">
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-          {categories.map((c) => (
-            <Link
-              key={c.id}
-              href={`/menu#${c.slug}`}
-              className="group rounded-2xl bg-flatbread-2 p-5 transition-transform hover:-translate-y-0.5"
-            >
-              <Stamp tone="flatbread" className="h-12 w-12 text-lg font-display font-semibold">
-                {c.name.slice(0, 1)}
-              </Stamp>
-              <p className="mt-3 font-display text-lg font-semibold text-char">{c.name}</p>
-              <p className="text-sm text-char/50">{c._count.dishes} позиций</p>
-            </Link>
-          ))}
+          {categories.map((c) => {
+            const photoUrl = c.dishes[0]?.media[0]?.url;
+            return (
+              <Link
+                key={c.id}
+                href={`/menu#${c.slug}`}
+                className="group rounded-2xl bg-flatbread-2 p-5 transition-transform hover:-translate-y-0.5"
+              >
+                {photoUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={photoUrl}
+                    alt=""
+                    className="h-12 w-12 rounded-full object-cover"
+                  />
+                ) : (
+                  <Stamp tone="flatbread" className="h-12 w-12 text-lg font-display font-semibold">
+                    {c.name.slice(0, 1)}
+                  </Stamp>
+                )}
+                <p className="mt-3 font-display text-lg font-semibold text-char">{c.name}</p>
+                <p className="text-sm text-char/50">{c._count.dishes} позиций</p>
+              </Link>
+            );
+          })}
         </div>
       </section>
 

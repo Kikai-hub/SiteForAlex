@@ -3,6 +3,9 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { DishGallery } from "@/components/site/DishGallery";
 import { DishPurchasePanel } from "@/components/site/DishPurchasePanel";
+import { DishRecommendations } from "@/components/site/DishRecommendations";
+import { DishReviews } from "@/components/site/DishReviews";
+import { getRecommendedDishCards } from "@/lib/recommendations";
 
 export default async function DishDetailPage({
   params,
@@ -16,10 +19,13 @@ export default async function DishDetailPage({
       category: true,
       variants: { where: { isActive: true }, orderBy: { sortOrder: "asc" } },
       media: { orderBy: [{ isPrimary: "desc" }, { sortOrder: "asc" }] },
+      extras: { where: { isActive: true }, orderBy: { sortOrder: "asc" } },
     },
   });
 
   if (!dish) notFound();
+
+  const recommendedDishes = await getRecommendedDishCards(dish.id);
 
   return (
     <div className="mx-auto max-w-5xl px-5 py-10">
@@ -43,17 +49,33 @@ export default async function DishDetailPage({
               dishId={dish.id}
               dishName={dish.name}
               imageUrl={dish.media[0]?.url ?? null}
-              caloriesPer100g={dish.caloriesPer100g}
+              nutrition={{
+                caloriesPer100g: dish.caloriesPer100g,
+                proteinPer100g: dish.proteinPer100g,
+                fatPer100g: dish.fatPer100g,
+                carbsPer100g: dish.carbsPer100g,
+              }}
               variants={dish.variants.map((v) => ({
                 id: v.id,
                 label: v.label,
                 priceMinor: v.priceMinor,
                 weightGrams: v.weightGrams,
               }))}
+              extras={dish.extras.map((e) => ({
+                id: e.id,
+                name: e.name,
+                priceMinor: e.priceMinor,
+                maxQuantity: e.maxQuantity,
+                featured: e.featured,
+              }))}
             />
           </div>
         </div>
       </div>
+
+      <DishRecommendations dishes={recommendedDishes} />
+
+      <DishReviews dishId={dish.id} />
     </div>
   );
 }

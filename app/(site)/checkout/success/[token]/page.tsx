@@ -15,7 +15,10 @@ export default async function CheckoutSuccessPage({
   // Looked up by the unguessable accessToken, never by the sequential Order.id —
   // otherwise anyone could enumerate /checkout/success/1, /2, ... and read other
   // customers' phone numbers and order details.
-  const order = await prisma.order.findUnique({ where: { accessToken: token }, include: { items: true } });
+  const order = await prisma.order.findUnique({
+    where: { accessToken: token },
+    include: { items: { include: { extras: true } } },
+  });
   if (!order) notFound();
 
   const awaitingOnlinePayment = order.paymentMethod === "ONLINE" && order.paymentStatus !== "SUCCEEDED";
@@ -39,7 +42,14 @@ export default async function CheckoutSuccessPage({
           {order.items.map((item) => (
             <li key={item.id} className="flex justify-between">
               <span>
-                {item.nameSnapshot} ({item.variantLabelSnapshot}) × {item.quantity}
+                {item.nameSnapshot} ({item.variantLabelSnapshot})
+                {item.extras.length > 0 && (
+                  <span className="text-char/40">
+                    {" "}
+                    · {item.extras.map((e) => `${e.nameSnapshot}${e.quantity > 1 ? ` ×${e.quantity}` : ""}`).join(", ")}
+                  </span>
+                )}{" "}
+                × {item.quantity}
               </span>
               <span>{formatMinor(item.lineTotalMinor)}</span>
             </li>

@@ -4,9 +4,10 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/auth/admin";
-import { dishSchema, dishVariantSchema } from "@/lib/validation/dish";
+import { dishSchema, dishVariantSchema, dishExtraSchema } from "@/lib/validation/dish";
 import { toMinor } from "@/lib/money";
 import { deleteDishMediaFile } from "@/lib/uploads";
+import { DEFAULT_PIZZA_EXTRAS, PIZZA_CATEGORY_SLUG } from "@/lib/pizzaExtras";
 
 export type ActionState = { error?: string; ok?: boolean };
 const OK: ActionState = { ok: true };
@@ -26,6 +27,9 @@ export async function createDish(
     name: formData.get("name"),
     description: formData.get("description"),
     caloriesPer100g: formData.get("caloriesPer100g") || undefined,
+    proteinPer100g: formData.get("proteinPer100g") || undefined,
+    fatPer100g: formData.get("fatPer100g") || undefined,
+    carbsPer100g: formData.get("carbsPer100g") || undefined,
     sortOrder: formData.get("sortOrder") || 0,
     isActive: true,
   });
@@ -33,15 +37,34 @@ export async function createDish(
     return { error: parsed.error.issues[0]?.message ?? "Некорректные данные" };
   }
 
+  const category = await prisma.category.findUnique({ where: { id: parsed.data.categoryId } });
+
   const dish = await prisma.dish.create({
     data: {
       categoryId: parsed.data.categoryId,
       name: parsed.data.name,
       description: parsed.data.description || null,
       caloriesPer100g: parsed.data.caloriesPer100g ?? null,
+      proteinPer100g: parsed.data.proteinPer100g ?? null,
+      fatPer100g: parsed.data.fatPer100g ?? null,
+      carbsPer100g: parsed.data.carbsPer100g ?? null,
       sortOrder: parsed.data.sortOrder,
     },
   });
+
+  if (category?.slug === PIZZA_CATEGORY_SLUG) {
+    await prisma.dishExtra.createMany({
+      data: DEFAULT_PIZZA_EXTRAS.map((extra, i) => ({
+        dishId: dish.id,
+        name: extra.name,
+        priceMinor: toMinor(extra.priceRubles),
+        maxQuantity: extra.maxQuantity,
+        sortOrder: i,
+        featured: extra.featured ?? false,
+      })),
+    });
+  }
+
   revalidateMenu();
   redirect(`/admin/dishes/${dish.id}`);
 }
@@ -57,6 +80,9 @@ export async function updateDish(
     name: formData.get("name"),
     description: formData.get("description"),
     caloriesPer100g: formData.get("caloriesPer100g") || undefined,
+    proteinPer100g: formData.get("proteinPer100g") || undefined,
+    fatPer100g: formData.get("fatPer100g") || undefined,
+    carbsPer100g: formData.get("carbsPer100g") || undefined,
     sortOrder: formData.get("sortOrder") || 0,
     isActive: formData.get("isActive") === "on",
   });
@@ -71,6 +97,9 @@ export async function updateDish(
       name: parsed.data.name,
       description: parsed.data.description || null,
       caloriesPer100g: parsed.data.caloriesPer100g ?? null,
+      proteinPer100g: parsed.data.proteinPer100g ?? null,
+      fatPer100g: parsed.data.fatPer100g ?? null,
+      carbsPer100g: parsed.data.carbsPer100g ?? null,
       sortOrder: parsed.data.sortOrder,
       isActive: parsed.data.isActive,
     },
@@ -176,4 +205,79 @@ export async function setPrimaryMedia(mediaId: string, dishId: string) {
   ]);
   revalidateMenu();
   revalidatePath(`/admin/dishes/${dishId}`);
+}
+
+export async function createExtra(
+  dishId: string,
+  _prevState: ActionState,
+  formData: FormData
+): Promise<ActionState> {
+  await requireAdmin();
+  const parsed = dishExtraSchema.safeParse({
+    name: formData.get("name"),
+    priceRubles: formData.get("priceRubles"),
+    maxQuantity: formData.get("maxQuantity") || 5,
+    sortOrder: formData.get("sortOrder") || 0,
+    isActive: true,
+    featured: formData.get("featured") === "on",
+  });
+  if (!parsed.success) {
+    return { error: parsed.error.issues[0]?.message ?? "Некорректные данные" };
+  }
+
+  await prisma.dishExtra.create({
+    data: {
+      dishId,
+      name: parsed.data.name,
+      priceMinor: toMinor(parsed.data.priceRubles),
+      maxQuantity: parsed.data.maxQuantity,
+      sortOrder: parsed.data.sortOrder,
+      featured: parsed.data.featured,
+    },
+  });
+  revalidatePath(`/admin/dishes/${dishId}`);
+  revalidatePath(`/dish/${dishId}`);
+  return OK;
+}
+
+export async function updateExtra(
+  extraId: string,
+  dishId: string,
+  _prevState: ActionState,
+  formData: FormData
+): Promise<ActionState> {
+  await requireAdmin();
+  const parsed = dishExtraSchema.safeParse({
+    name: formData.get("name"),
+    priceRubles: formData.get("priceRubles"),
+    maxQuantity: formData.get("maxQuantity") || 5,
+    sortOrder: formData.get("sortOrder") || 0,
+    isActive: formData.get("isActive") === "on",
+    featured: formData.get("featured") === "on",
+  });
+  if (!parsed.success) {
+    return { error: parsed.error.issues[0]?.message ?? "Некорректные данные" };
+  }
+
+  await prisma.dishExtra.update({
+    where: { id: extraId },
+    data: {
+      name: parsed.data.name,
+      priceMinor: toMinor(parsed.data.priceRubles),
+      maxQuantity: parsed.data.maxQuantity,
+      sortOrder: parsed.data.sortOrder,
+      isActive: parsed.data.isActive,
+      featured: parsed.data.featured,
+    },
+  });
+  revalidatePath(`/admin/dishes/${dishId}`);
+  revalidatePath(`/dish/${dishId}`);
+  return OK;
+}
+
+export async function deleteExtra(extraId: string, dishId: string) {
+  await requireAdmin();
+  await prisma.dishExtra.delete({ where: { id: extraId } });
+  revalidatePath(`/admin/dishes/${dishId}`);
+  revalidatePath(`/dish/${dishId}`);
 }

@@ -1,0 +1,9 @@
+[Unit]
+Description=Adana Pizza — check GitHub for a new commit and redeploy if found
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=__REPO_DIR__
+ExecStart=__REPO_DIR__/scripts/auto-update.sh

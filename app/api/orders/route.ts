@@ -24,13 +24,17 @@ export async function POST(request: NextRequest) {
   const session = await getCustomerSession();
   const customerId = session?.sub ?? null;
 
-  // Re-fetch live variants — never trust prices/availability from the client.
+  // Re-fetch live variants and extras — never trust prices/availability from the client.
   const variantIds = data.items.map((i) => i.dishVariantId);
   const variants = await prisma.dishVariant.findMany({
     where: { id: { in: variantIds } },
     include: { dish: true },
   });
   const variantMap = new Map(variants.map((v) => [v.id, v]));
+
+  const extraIds = data.items.flatMap((i) => i.extras.map((e) => e.dishExtraId));
+  const dishExtras = await prisma.dishExtra.findMany({ where: { id: { in: extraIds } } });
+  const extraMap = new Map(dishExtras.map((e) => [e.id, e]));
 
   const orderItemsData: {
     dishId: string;
@@ -40,6 +44,7 @@ export async function POST(request: NextRequest) {
     unitPriceMinor: number;
     quantity: number;
     lineTotalMinor: number;
+    extras: { dishExtraId: string; nameSnapshot: string; unitPriceMinor: number; quantity: number }[];
   }[] = [];
 
   for (const item of data.items) {
@@ -50,6 +55,32 @@ export async function POST(request: NextRequest) {
         { status: 409 }
       );
     }
+
+    const itemExtrasData: { dishExtraId: string; nameSnapshot: string; unitPriceMinor: number; quantity: number }[] = [];
+    for (const extraSel of item.extras) {
+      const extra = extraMap.get(extraSel.dishExtraId);
+      if (!extra || !extra.isActive || extra.dishId !== variant.dishId) {
+        return NextResponse.json(
+          { error: `Доп «${extra?.name ?? "неизвестно"}» больше недоступен` },
+          { status: 409 }
+        );
+      }
+      if (extraSel.quantity > extra.maxQuantity) {
+        return NextResponse.json(
+          { error: `Максимум «${extra.name}»: ${extra.maxQuantity}` },
+          { status: 409 }
+        );
+      }
+      itemExtrasData.push({
+        dishExtraId: extra.id,
+        nameSnapshot: extra.name,
+        unitPriceMinor: extra.priceMinor,
+        quantity: extraSel.quantity,
+      });
+    }
+
+    const extrasUnitTotal = itemExtrasData.reduce((sum, e) => sum + e.unitPriceMinor * e.quantity, 0);
+
     orderItemsData.push({
       dishId: variant.dishId,
       dishVariantId: variant.id,
@@ -57,7 +88,8 @@ export async function POST(request: NextRequest) {
       variantLabelSnapshot: variant.label,
       unitPriceMinor: variant.priceMinor,
       quantity: item.quantity,
-      lineTotalMinor: variant.priceMinor * item.quantity,
+      lineTotalMinor: (variant.priceMinor + extrasUnitTotal) * item.quantity,
+      extras: itemExtrasData,
     });
   }
 
@@ -145,7 +177,12 @@ export async function POST(request: NextRequest) {
           promoCodeSnapshot,
           notes: data.notes || null,
           ...addressFields,
-          items: { create: orderItemsData },
+          items: {
+            create: orderItemsData.map(({ extras, ...item }) => ({
+              ...item,
+              extras: { create: extras },
+            })),
+          },
         },
       });
       if (promoCodeId) {

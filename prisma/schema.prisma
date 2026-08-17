@@ -72,6 +72,7 @@ model Customer {
   updatedAt    DateTime @updatedAt
   addresses    Address[]
   orders       Order[]
+  comments     Comment[]
 }
 
 model Address {
@@ -106,6 +107,9 @@ model Dish {
   name            String
   description     String?
   caloriesPer100g Int?
+  proteinPer100g  Float?
+  fatPer100g      Float?
+  carbsPer100g    Float?
   isActive        Boolean  @default(true)
   sortOrder       Int      @default(0)
   createdAt       DateTime @default(now())
@@ -113,6 +117,8 @@ model Dish {
 
   variants DishVariant[]
   media    MediaAsset[]
+  extras   DishExtra[]
+  comments Comment[]
 }
 
 model DishVariant {
@@ -126,6 +132,48 @@ model DishVariant {
   isActive    Boolean  @default(true)
 
   orderItems OrderItem[]
+}
+
+/** Extra portions of an ingredient a customer can add to this dish (e.g. "double cheese").
+ *  Scoped per-dish because ingredients differ between dishes; the admin curates the list. */
+model DishExtra {
+  id          String   @id @default(cuid())
+  dishId      String
+  dish        Dish     @relation(fields: [dishId], references: [id], onDelete: Cascade)
+  name        String
+  priceMinor  Int
+  maxQuantity Int      @default(5)
+  sortOrder   Int      @default(0)
+  isActive    Boolean  @default(true)
+  /** Shown inline on the dish page (like the size picker) instead of tucked into the "Дополнительно" modal. */
+  featured    Boolean  @default(false)
+
+  orderItemExtras OrderItemExtra[]
+}
+
+enum CommentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+/** A review left by a registered customer under a dish: an optional text body plus a
+ *  required 1-5 star rating. Held as PENDING until an admin approves it for public display. */
+model Comment {
+  id           String        @id @default(cuid())
+  dishId       String
+  dish         Dish          @relation(fields: [dishId], references: [id], onDelete: Cascade)
+  customerId   String
+  customer     Customer      @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  body         String?
+  rating       Int
+  status       CommentStatus @default(PENDING)
+  adminReply   String?
+  adminReplyAt DateTime?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@index([dishId])
 }
 
 model MediaAsset {
@@ -223,4 +271,22 @@ model OrderItem {
   unitPriceMinor       Int
   quantity             Int
   lineTotalMinor       Int
+
+  extras OrderItemExtra[]
+}
+
+/** Snapshot of an extra chosen for one order line. quantity is per single unit of the
+ *  dish (e.g. 2 = "double cheese"); the actual charge is unitPriceMinor * quantity *
+ *  OrderItem.quantity, mirroring how OrderItem.unitPriceMinor relates to lineTotalMinor. */
+model OrderItemExtra {
+  id          String     @id @default(cuid())
+  orderItemId String
+  orderItem   OrderItem  @relation(fields: [orderItemId], references: [id], onDelete: Cascade)
+
+  dishExtraId String?
+  dishExtra   DishExtra? @relation(fields: [dishExtraId], references: [id], onDelete: SetNull)
+
+  nameSnapshot   String
+  unitPriceMinor Int
+  quantity       Int
 }

@@ -1,0 +1,15 @@
+# SITE_DOMAIN comes from .env (see .env.example). Left unset, this falls back
+# to plain HTTP on :80 — set SITE_DOMAIN=yourdomain.ru once DNS points here
+# and Caddy will fetch a Let's Encrypt cert and switch to HTTPS automatically.
+{$SITE_DOMAIN}
+
+encode gzip
+
+reverse_proxy web:3000 {
+	# Next.js/proxy.ts trusts the first X-Forwarded-For value for rate-limit
+	# lookups by IP — an internet client could otherwise prepend a fake IP of
+	# their choosing. Drop whatever the client sent and set it ourselves so
+	# the value reaching the app is always the real connecting IP.
+	header_up -X-Forwarded-For
+	header_up X-Forwarded-For {remote_host}
+}

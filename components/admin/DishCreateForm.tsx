@@ -56,6 +56,20 @@ export function DishCreateForm({
           />
         </div>
       </div>
+      <div className="flex items-end gap-4">
+        <div className="w-32">
+          <Label htmlFor="proteinPer100g">Белки, г/100 г</Label>
+          <Input id="proteinPer100g" name="proteinPer100g" type="number" step="0.1" min={0} placeholder="11" />
+        </div>
+        <div className="w-32">
+          <Label htmlFor="fatPer100g">Жиры, г/100 г</Label>
+          <Input id="fatPer100g" name="fatPer100g" type="number" step="0.1" min={0} placeholder="9" />
+        </div>
+        <div className="w-32">
+          <Label htmlFor="carbsPer100g">Углеводы, г/100 г</Label>
+          <Input id="carbsPer100g" name="carbsPer100g" type="number" step="0.1" min={0} placeholder="28" />
+        </div>
+      </div>
       <FieldError>{state.error}</FieldError>
       <Button type="submit" disabled={pending}>
         {pending ? "Создаём…" : "Создать блюдо"}

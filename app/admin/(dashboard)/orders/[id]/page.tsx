@@ -15,7 +15,7 @@ export default async function AdminOrderDetailPage({
 
   const order = await prisma.order.findUnique({
     where: { id: orderId },
-    include: { items: true, customer: true, promoCode: true },
+    include: { items: { include: { extras: true } }, customer: true, promoCode: true },
   });
   if (!order) notFound();
 
@@ -81,6 +81,11 @@ export default async function AdminOrderDetailPage({
               <tr key={item.id} className="border-b border-char/5 last:border-0">
                 <td className="px-4 py-3">
                   {item.nameSnapshot} <span className="text-char/50">· {item.variantLabelSnapshot}</span>
+                  {item.extras.length > 0 && (
+                    <div className="text-xs text-char/40">
+                      {item.extras.map((e) => `${e.nameSnapshot}${e.quantity > 1 ? ` ×${e.quantity}` : ""}`).join(", ")}
+                    </div>
+                  )}
                 </td>
                 <td className="px-4 py-3">{item.quantity}</td>
                 <td className="px-4 py-3">{formatMinor(item.unitPriceMinor)}</td>

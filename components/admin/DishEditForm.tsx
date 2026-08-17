@@ -18,6 +18,9 @@ export function DishEditForm({
     name: string;
     description: string | null;
     caloriesPer100g: number | null;
+    proteinPer100g: number | null;
+    fatPer100g: number | null;
+    carbsPer100g: number | null;
     sortOrder: number;
     isActive: boolean;
   };
@@ -76,6 +79,41 @@ export function DishEditForm({
           <input type="checkbox" name="isActive" defaultChecked={dish.isActive} className="h-4 w-4 accent-ember" />
           Показывать в меню
         </label>
+      </div>
+      <div className="flex flex-wrap items-end gap-4">
+        <div className="w-32">
+          <Label htmlFor="proteinPer100g">Белки, г/100 г</Label>
+          <Input
+            id="proteinPer100g"
+            name="proteinPer100g"
+            type="number"
+            step="0.1"
+            min={0}
+            defaultValue={dish.proteinPer100g ?? ""}
+          />
+        </div>
+        <div className="w-32">
+          <Label htmlFor="fatPer100g">Жиры, г/100 г</Label>
+          <Input
+            id="fatPer100g"
+            name="fatPer100g"
+            type="number"
+            step="0.1"
+            min={0}
+            defaultValue={dish.fatPer100g ?? ""}
+          />
+        </div>
+        <div className="w-32">
+          <Label htmlFor="carbsPer100g">Углеводы, г/100 г</Label>
+          <Input
+            id="carbsPer100g"
+            name="carbsPer100g"
+            type="number"
+            step="0.1"
+            min={0}
+            defaultValue={dish.carbsPer100g ?? ""}
+          />
+        </div>
       </div>
       <FieldError>{state.error}</FieldError>
       <div className="flex items-center justify-between pt-2">

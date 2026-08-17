@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { DishEditForm } from "@/components/admin/DishEditForm";
 import { VariantEditor } from "@/components/admin/VariantEditor";
+import { ExtraEditor } from "@/components/admin/ExtraEditor";
 import { MediaUploader } from "@/components/admin/MediaUploader";
 
 export default async function EditDishPage({
@@ -16,6 +17,7 @@ export default async function EditDishPage({
       include: {
         variants: { orderBy: { sortOrder: "asc" } },
         media: { orderBy: { sortOrder: "asc" } },
+        extras: { orderBy: { sortOrder: "asc" } },
       },
     }),
     prisma.category.findMany({ orderBy: { sortOrder: "asc" } }),
@@ -28,6 +30,7 @@ export default async function EditDishPage({
       <h1 className="font-display text-2xl font-semibold text-char">{dish.name}</h1>
       <DishEditForm dish={dish} categories={categories} />
       <VariantEditor dishId={dish.id} variants={dish.variants} />
+      <ExtraEditor dishId={dish.id} extras={dish.extras} />
       <MediaUploader dishId={dish.id} media={dish.media} />
     </div>
   );

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCartStore, cartSubtotalMinor } from "@/lib/store/cart";
+import { useCartStore, cartSubtotalMinor, cartLineUnitPriceMinor } from "@/lib/store/cart";
 import { useHasMounted } from "@/lib/useHasMounted";
 import { formatMinor } from "@/lib/money";
 import { Button } from "@/components/ui/Button";
@@ -34,7 +34,7 @@ export default function CartPage() {
         <>
           <div className="mt-6 space-y-3">
             {items.map((item) => (
-              <div key={item.dishVariantId} className="flex items-center gap-4 rounded-2xl bg-flatbread-2 p-4">
+              <div key={item.lineId} className="flex items-center gap-4 rounded-2xl bg-flatbread-2 p-4">
                 {item.imageUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={item.imageUrl} alt="" className="h-16 w-16 rounded-xl object-cover" />
@@ -46,10 +46,15 @@ export default function CartPage() {
                 <div className="flex-1">
                   <p className="font-display font-semibold text-char">{item.name}</p>
                   <p className="text-sm text-char/50">{item.variantLabel}</p>
+                  {item.extras.length > 0 && (
+                    <p className="mt-0.5 text-xs text-char/40">
+                      {item.extras.map((e) => `${e.name}${e.quantity > 1 ? ` ×${e.quantity}` : ""}`).join(", ")}
+                    </p>
+                  )}
                 </div>
                 <div className="flex items-center gap-2">
                   <button
-                    onClick={() => setQuantity(item.dishVariantId, item.quantity - 1)}
+                    onClick={() => setQuantity(item.lineId, item.quantity - 1)}
                     className="h-8 w-8 rounded-full bg-char/10 text-char hover:bg-char/15"
                     aria-label="Уменьшить количество"
                   >
@@ -57,7 +62,7 @@ export default function CartPage() {
                   </button>
                   <span className="w-6 text-center font-medium">{item.quantity}</span>
                   <button
-                    onClick={() => setQuantity(item.dishVariantId, item.quantity + 1)}
+                    onClick={() => setQuantity(item.lineId, item.quantity + 1)}
                     className="h-8 w-8 rounded-full bg-char/10 text-char hover:bg-char/15"
                     aria-label="Увеличить количество"
                   >
@@ -65,10 +70,10 @@ export default function CartPage() {
                   </button>
                 </div>
                 <div className="w-24 text-right font-semibold text-char">
-                  {formatMinor(item.priceMinor * item.quantity)}
+                  {formatMinor(cartLineUnitPriceMinor(item) * item.quantity)}
                 </div>
                 <button
-                  onClick={() => removeItem(item.dishVariantId)}
+                  onClick={() => removeItem(item.lineId)}
                   className="text-char/30 hover:text-red-600"
                   aria-label="Удалить"
                 >

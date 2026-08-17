@@ -52,3 +52,7 @@ next-env.d.ts
 
 # editor
 .vscode/
+
+# deployment (host-local, created by bin/site and scripts/auto-update.sh)
+/logs/
+/backups/

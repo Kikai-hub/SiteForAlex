@@ -1,7 +1,19 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
+export interface CartItemExtra {
+  dishExtraId: string;
+  name: string;
+  /** Display-only snapshot — see the note on CartItem.priceMinor below. */
+  priceMinor: number;
+  quantity: number;
+}
+
 export interface CartItem {
+  /** Identifies a cart line: the same variant with a different extras selection is a
+   *  separate line, so this is derived from dishVariantId + the sorted extras, not just
+   *  dishVariantId. Stable for a given selection, which lets addItem merge duplicates. */
+  lineId: string;
   dishVariantId: string;
   dishId: string;
   name: string;
@@ -12,13 +24,22 @@ export interface CartItem {
   priceMinor: number;
   imageUrl: string | null;
   quantity: number;
+  extras: CartItemExtra[];
+}
+
+function buildLineId(dishVariantId: string, extras: CartItemExtra[]): string {
+  const extrasKey = extras
+    .map((e) => `${e.dishExtraId}x${e.quantity}`)
+    .sort()
+    .join(",");
+  return `${dishVariantId}::${extrasKey}`;
 }
 
 interface CartState {
   items: CartItem[];
-  addItem: (item: Omit<CartItem, "quantity">, quantity?: number) => void;
-  removeItem: (dishVariantId: string) => void;
-  setQuantity: (dishVariantId: string, quantity: number) => void;
+  addItem: (item: Omit<CartItem, "quantity" | "lineId">, quantity?: number) => void;
+  removeItem: (lineId: string) => void;
+  setQuantity: (lineId: string, quantity: number) => void;
   clear: () => void;
 }
 
@@ -28,30 +49,27 @@ export const useCartStore = create<CartState>()(
       items: [],
       addItem: (item, quantity = 1) =>
         set((state) => {
-          const existing = state.items.find((i) => i.dishVariantId === item.dishVariantId);
+          const lineId = buildLineId(item.dishVariantId, item.extras);
+          const existing = state.items.find((i) => i.lineId === lineId);
           if (existing) {
             return {
               items: state.items.map((i) =>
-                i.dishVariantId === item.dishVariantId
-                  ? { ...i, quantity: i.quantity + quantity }
-                  : i
+                i.lineId === lineId ? { ...i, quantity: i.quantity + quantity } : i
               ),
             };
           }
-          return { items: [...state.items, { ...item, quantity }] };
+          return { items: [...state.items, { ...item, lineId, quantity }] };
         }),
-      removeItem: (dishVariantId) =>
+      removeItem: (lineId) =>
         set((state) => ({
-          items: state.items.filter((i) => i.dishVariantId !== dishVariantId),
+          items: state.items.filter((i) => i.lineId !== lineId),
         })),
-      setQuantity: (dishVariantId, quantity) =>
+      setQuantity: (lineId, quantity) =>
         set((state) => ({
           items:
             quantity <= 0
-              ? state.items.filter((i) => i.dishVariantId !== dishVariantId)
-              : state.items.map((i) =>
-                  i.dishVariantId === dishVariantId ? { ...i, quantity } : i
-                ),
+              ? state.items.filter((i) => i.lineId !== lineId)
+              : state.items.map((i) => (i.lineId === lineId ? { ...i, quantity } : i)),
         })),
       clear: () => set({ items: [] }),
     }),
@@ -62,8 +80,16 @@ export const useCartStore = create<CartState>()(
   )
 );
 
+export function cartLineExtrasMinor(item: Pick<CartItem, "extras">): number {
+  return item.extras.reduce((sum, e) => sum + e.priceMinor * e.quantity, 0);
+}
+
+export function cartLineUnitPriceMinor(item: Pick<CartItem, "priceMinor" | "extras">): number {
+  return item.priceMinor + cartLineExtrasMinor(item);
+}
+
 export function cartSubtotalMinor(items: CartItem[]): number {
-  return items.reduce((sum, i) => sum + i.priceMinor * i.quantity, 0);
+  return items.reduce((sum, i) => sum + cartLineUnitPriceMinor(i) * i.quantity, 0);
 }
 
 export function cartItemCount(items: CartItem[]): number {

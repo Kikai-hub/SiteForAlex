@@ -21,7 +21,7 @@ export async function POST(
 
   const order = await prisma.order.findUnique({
     where: { id: orderId },
-    include: { items: true },
+    include: { items: { include: { extras: true } } },
   });
   if (!order || order.customerId !== customer.id) {
     return NextResponse.json({ error: "Заказ не найден" }, { status: 404 });
@@ -36,6 +36,10 @@ export async function POST(
   });
   const variantMap = new Map(variants.map((v) => [v.id, v]));
 
+  const extraIds = order.items.flatMap((i) => i.extras.map((e) => e.dishExtraId)).filter((id): id is string => id != null);
+  const extras = await prisma.dishExtra.findMany({ where: { id: { in: extraIds } } });
+  const extraMap = new Map(extras.map((e) => [e.id, e]));
+
   const available: {
     dishId: string;
     dishVariantId: string;
@@ -44,12 +48,19 @@ export async function POST(
     priceMinor: number;
     imageUrl: string | null;
     quantity: number;
+    extras: { dishExtraId: string; name: string; priceMinor: number; quantity: number }[];
   }[] = [];
   const unavailable: string[] = [];
 
   for (const item of order.items) {
     const variant = item.dishVariantId ? variantMap.get(item.dishVariantId) : undefined;
     if (variant && variant.isActive && variant.dish.isActive) {
+      const itemExtras = item.extras
+        .filter((e) => e.dishExtraId && extraMap.get(e.dishExtraId)?.isActive)
+        .map((e) => {
+          const live = extraMap.get(e.dishExtraId!)!;
+          return { dishExtraId: live.id, name: live.name, priceMinor: live.priceMinor, quantity: e.quantity };
+        });
       available.push({
         dishId: variant.dishId,
         dishVariantId: variant.id,
@@ -58,6 +69,7 @@ export async function POST(
         priceMinor: variant.priceMinor,
         imageUrl: variant.dish.media[0]?.url ?? null,
         quantity: item.quantity,
+        extras: itemExtras,
       });
     } else {
       unavailable.push(item.nameSnapshot);

@@ -1,8 +1,14 @@
 import { z } from "zod";
 
+export const cartItemExtraSchema = z.object({
+  dishExtraId: z.string().min(1),
+  quantity: z.coerce.number().int().positive().max(20),
+});
+
 export const cartItemSchema = z.object({
   dishVariantId: z.string().min(1),
   quantity: z.coerce.number().int().positive().max(50),
+  extras: z.array(cartItemExtraSchema).max(20).default([]),
 });
 
 export const createOrderSchema = z.object({

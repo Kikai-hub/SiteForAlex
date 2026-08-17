@@ -21,6 +21,17 @@ export default async function MenuPage() {
 
   const nonEmptyCategories = categories.filter((c) => c.dishes.length > 0);
 
+  const dishIds = nonEmptyCategories.flatMap((c) => c.dishes.map((d) => d.id));
+  const ratingGroups = await prisma.comment.groupBy({
+    by: ["dishId"],
+    where: { status: "APPROVED", dishId: { in: dishIds } },
+    _avg: { rating: true },
+    _count: true,
+  });
+  const ratingByDishId = new Map(
+    ratingGroups.map((g) => [g.dishId, { avg: g._avg.rating ?? 0, count: g._count }])
+  );
+
   return (
     <div className="mx-auto max-w-6xl px-5 py-10">
       <h1 className="font-display text-4xl font-semibold text-char">Меню</h1>
@@ -55,6 +66,7 @@ export default async function MenuPage() {
                     label: v.label,
                     priceMinor: v.priceMinor,
                   })),
+                  rating: ratingByDishId.get(dish.id) ?? null,
                 }}
               />
             ))}

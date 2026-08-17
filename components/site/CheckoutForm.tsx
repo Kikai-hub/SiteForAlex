@@ -2,7 +2,7 @@
 
 import { useState, useRef, FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { useCartStore, cartSubtotalMinor } from "@/lib/store/cart";
+import { useCartStore, cartSubtotalMinor, cartLineUnitPriceMinor } from "@/lib/store/cart";
 import { useHasMounted } from "@/lib/useHasMounted";
 import { formatMinor } from "@/lib/money";
 import { Button } from "@/components/ui/Button";
@@ -86,7 +86,11 @@ export function CheckoutForm({
     const formData = new FormData(e.currentTarget);
 
     const payload = {
-      items: items.map((i) => ({ dishVariantId: i.dishVariantId, quantity: i.quantity })),
+      items: items.map((i) => ({
+        dishVariantId: i.dishVariantId,
+        quantity: i.quantity,
+        extras: i.extras.map((e) => ({ dishExtraId: e.dishExtraId, quantity: e.quantity })),
+      })),
       fulfillmentType,
       paymentMethod,
       guestName: formData.get("name"),
@@ -294,11 +298,15 @@ export function CheckoutForm({
         <h2 className="font-display text-lg font-semibold text-char">Ваш заказ</h2>
         <ul className="mt-3 space-y-2 text-sm">
           {items.map((i) => (
-            <li key={i.dishVariantId} className="flex justify-between text-char/70">
+            <li key={i.lineId} className="flex justify-between text-char/70">
               <span>
-                {i.name} ({i.variantLabel}) × {i.quantity}
+                {i.name} ({i.variantLabel})
+                {i.extras.length > 0 && (
+                  <span className="text-char/40"> · {i.extras.map((e) => e.name).join(", ")}</span>
+                )}{" "}
+                × {i.quantity}
               </span>
-              <span>{formatMinor(i.priceMinor * i.quantity)}</span>
+              <span>{formatMinor(cartLineUnitPriceMinor(i) * i.quantity)}</span>
             </li>
           ))}
         </ul>
