@@ -110,7 +110,13 @@ export function AddressAutocomplete({
 
   function selectSuggestion(s: Suggestion) {
     skipNextFetch.current = true;
-    setQuery(s.subtitle ? `${s.label}, ${s.subtitle}` : s.label);
+    // `s.label` is Yandex's display title, which for a house-level result
+    // already reads "Улица, дом" (and `s.subtitle` adds the city on top) —
+    // using it here duplicated the house number and city into the street
+    // field on top of the separate house/city inputs it also fills below.
+    // `s.street` is the same address already parsed into just the street
+    // name, which is what this field is actually for.
+    setQuery(s.street ?? s.label);
     setOpen(false);
     setSuggestions([]);
     // The suggest response already carries everything we need — no extra round trip.
