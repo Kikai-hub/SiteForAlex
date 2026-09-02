@@ -120,6 +120,11 @@ tail -f /opt/adana-pizza/logs/auto-update.log
 
 Отключить автообновление: `systemctl disable --now adana-autoupdate.timer`.
 
+Проверить механизм end-to-end (не дожидаясь реального изменения): запушь
+любой коммит в `main`, затем `systemctl start adana-autoupdate.service` —
+не нужно ждать до 5 минут таймера, сервис отработает сразу и запишет в
+`logs/auto-update.log`, что нашёл новый коммит и передеплоил.
+
 **Важно:** директория установки (`/opt/adana-pizza`) должна оставаться
 зеркалом GitHub-репозитория — `adanasite deploy` делает `git reset --hard`, так
 что любые правки прямо на сервере (не через git push) будут затёрты при
