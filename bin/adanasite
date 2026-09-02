@@ -1,0 +1,126 @@
+#!/usr/bin/env bash
+# Adana Pizza — console commands for running the site under Docker.
+#
+# Usage from the repo root:      ./bin/adanasite <command>
+# Or, after `ln -s "$(pwd)/bin/adanasite" /usr/local/bin/adanasite` (see
+# DEPLOY.md — install.sh does this for you), from anywhere:  adanasite <command>
+set -euo pipefail
+
+# `readlink -f` resolves the /usr/local/bin/adanasite symlink to its real
+# target first — without it, `dirname "${BASH_SOURCE[0]}"` on a symlink
+# invocation resolves relative to the symlink's own location (/usr/local/bin)
+# instead of the repo, and every docker compose call below fails with
+# "no configuration file provided".
+SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
+REPO_DIR="$(cd "$(dirname "$SCRIPT_PATH")/.." && pwd)"
+cd "$REPO_DIR"
+
+compose() {
+  docker compose "$@"
+}
+
+usage() {
+  cat <<'EOF'
+Usage: adanasite <command>
+
+  start         Bring the site up (builds images on first run)
+  stop          Stop and remove the site's containers (data is kept)
+  restart       Re-apply current config and restart — recreates any
+                container whose .env/compose config changed (e.g. after
+                editing SITE_DOMAIN, adding API keys). Safe to run anytime;
+                does nothing to containers that are already up to date.
+  rebuild       Force a clean image rebuild (no cache) and restart —
+                use if you suspect a stale/broken image, without pulling
+                new commits first.
+  status        Show container status
+  logs          Follow logs (optionally: adanasite logs web|migrate|caddy)
+  check         Check GitHub for a new commit without deploying it
+  deploy        Pull the latest commit from GitHub, rebuild, migrate, restart
+  seed          Run the one-time database seed (creates the admin account)
+  backup        Dump the database + uploaded media to ./backups/
+
+Examples:
+  adanasite start              # first boot
+  adanasite restart            # after editing .env
+  adanasite logs web           # tail just the app's logs
+  adanasite check              # "is there an update?" without applying it
+EOF
+}
+
+cmd="${1:-}"
+shift || true
+
+case "$cmd" in
+  start)
+    compose up -d
+    echo "Site is up. Check with: adanasite status"
+    ;;
+  stop)
+    compose down
+    ;;
+  restart)
+    echo "==> Re-applying config and restarting (recreates anything that changed)..."
+    compose up -d
+    echo "==> Done."
+    ;;
+  rebuild)
+    echo "==> Rebuilding images from scratch (no cache)..."
+    compose build --no-cache
+    compose up -d
+    echo "==> Done."
+    ;;
+  status)
+    compose ps
+    ;;
+  logs)
+    if [ "${1:-}" != "" ]; then
+      compose logs -f --tail=200 "$1"
+    else
+      compose logs -f --tail=200
+    fi
+    ;;
+  check)
+    echo "==> Checking GitHub for updates..."
+    git fetch origin --quiet
+    branch="$(git rev-parse --abbrev-ref HEAD)"
+    local_sha="$(git rev-parse HEAD)"
+    remote_sha="$(git rev-parse "origin/$branch")"
+    if [ "$local_sha" = "$remote_sha" ]; then
+      echo "Up to date ($(git rev-parse --short HEAD))."
+    else
+      echo "New commit available: $(git rev-parse --short HEAD) -> $(git rev-parse --short "origin/$branch")"
+      echo "Run 'adanasite deploy' to pull and apply it (or wait for auto-update — see DEPLOY.md)."
+    fi
+    ;;
+  deploy)
+    echo "==> Fetching latest commit from GitHub..."
+    git fetch origin
+    git reset --hard "origin/$(git rev-parse --abbrev-ref HEAD)"
+    echo "==> Rebuilding and restarting (migrations run automatically)..."
+    compose up -d --build
+    docker image prune -f >/dev/null 2>&1 || true
+    echo "==> Deployed $(git rev-parse --short HEAD)."
+    ;;
+  seed)
+    compose run --rm migrate npx prisma db seed
+    ;;
+  backup)
+    mkdir -p backups
+    stamp="$(date +%Y%m%d-%H%M%S)"
+    echo "==> Backing up database (pg_dump, while Postgres keeps running)..."
+    compose exec -T postgres sh -c 'pg_dump -U "$POSTGRES_USER" -d "$POSTGRES_DB"' \
+      | gzip >"backups/db-$stamp.sql.gz"
+    echo "==> Backing up uploaded media..."
+    docker run --rm -v adana-pizza_uploads_data:/data -v "$REPO_DIR/backups:/backup" \
+      alpine tar czf "/backup/uploads-$stamp.tar.gz" -C /data .
+    echo "==> Wrote backups/db-$stamp.sql.gz and backups/uploads-$stamp.tar.gz"
+    ;;
+  ""|help|-h|--help)
+    usage
+    ;;
+  *)
+    echo "Unknown command: $cmd" >&2
+    usage >&2
+    exit 1
+    ;;
+esac

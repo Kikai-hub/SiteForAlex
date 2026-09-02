@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 # One-command bootstrap for a fresh Linux host: installs Docker if needed,
-# clones (or updates) the repo, brings the site up, seeds the admin account,
-# and — on systemd hosts — installs the auto-update timer so the site keeps
-# itself in sync with GitHub from then on.
+# clones (or updates) the repo, asks for an admin login, brings the site up,
+# seeds the admin account, and — on systemd hosts — installs the auto-update
+# timer so the site keeps itself in sync with GitHub from then on.
 #
 # Usage (on the server, as root or via sudo):
 #   curl -fsSL https://raw.githubusercontent.com/Kikai-hub/SiteForAlex/main/scripts/install.sh | bash
 # or, with a custom install path / a domain you already have pointed here
 # (login cookies are HTTPS-only, so admin/account/courier login won't work
-# until this is set — either now or later via .env + `site restart`):
+# until this is set — either now or later via .env + `adanasite restart`):
 #   INSTALL_DIR=/srv/adana-pizza SITE_DOMAIN=yourdomain.ru bash install.sh
 set -euo pipefail
 
@@ -53,7 +53,7 @@ else
 fi
 cd "$INSTALL_DIR"
 
-chmod +x bin/site scripts/auto-update.sh
+chmod +x bin/adanasite scripts/auto-update.sh
 
 if [ ! -f .env ]; then
   log "No .env found — creating one from .env.example with a fresh SESSION_SECRET."
@@ -61,11 +61,58 @@ if [ ! -f .env ]; then
   generated_secret="$(openssl rand -base64 48)"
   # Portable in-place edit (BSD/GNU sed differ on -i syntax).
   sed -i.bak "s#^SESSION_SECRET=.*#SESSION_SECRET=\"$generated_secret\"#" .env && rm -f .env.bak
-  echo "  Edit $INSTALL_DIR/.env before going live: set SEED_ADMIN_PASSWORD, YANDEX_MAPS_API_KEY,"
-  echo "  and (optionally) YOOKASSA_SHOP_ID / YOOKASSA_SECRET_KEY. Then run: site deploy"
 else
   log ".env already exists — leaving it untouched."
 fi
+
+# Admin login: prompted here so the very first `adanasite seed` below
+# succeeds immediately. Without this, prisma/seed.ts deliberately refuses to
+# create the well-known dev admin/password in production (see that file) —
+# you'd otherwise have to edit .env and re-run `adanasite seed` by hand
+# before you could ever log into /admin/login.
+if ! grep -q '^SEED_ADMIN_PASSWORD=".\+"' .env; then
+  if [ -n "${SEED_ADMIN_USERNAME:-}" ] && [ -n "${SEED_ADMIN_PASSWORD:-}" ]; then
+    log "Using SEED_ADMIN_USERNAME/SEED_ADMIN_PASSWORD from the environment."
+  elif [ -r /dev/tty ]; then
+    # Reads from /dev/tty explicitly: this script is normally run as
+    # `curl ... | bash`, where stdin is the piped script itself, not a
+    # terminal — a plain `read` would silently consume that pipe instead of
+    # prompting, and the script would appear to hang or skip ahead.
+    log "Set up the admin panel login (used at /admin/login)."
+    read -r -p "  Admin username [admin]: " SEED_ADMIN_USERNAME </dev/tty
+    SEED_ADMIN_USERNAME="${SEED_ADMIN_USERNAME:-admin}"
+    while true; do
+      read -r -s -p "  Admin password (min 6 characters, no \" character): " SEED_ADMIN_PASSWORD </dev/tty
+      echo
+      if [ "${#SEED_ADMIN_PASSWORD}" -lt 6 ]; then
+        echo "  Too short — try again."
+        continue
+      fi
+      case "$SEED_ADMIN_PASSWORD" in
+        *'"'*)
+          echo "  Can't contain a \" character — try again."
+          continue
+          ;;
+      esac
+      read -r -s -p "  Confirm password: " password_confirm </dev/tty
+      echo
+      if [ "$SEED_ADMIN_PASSWORD" = "$password_confirm" ]; then
+        break
+      fi
+      echo "  Passwords didn't match — try again."
+    done
+  else
+    SEED_ADMIN_USERNAME="admin"
+    SEED_ADMIN_PASSWORD="$(openssl rand -base64 18)"
+    log "No terminal to prompt on — generated a random admin password instead (shown at the end, also saved to .env)."
+  fi
+  grep -v '^SEED_ADMIN_USERNAME=' .env | grep -v '^SEED_ADMIN_PASSWORD=' >.env.tmp
+  mv .env.tmp .env
+  printf 'SEED_ADMIN_USERNAME="%s"\n' "$SEED_ADMIN_USERNAME" >>.env
+  printf 'SEED_ADMIN_PASSWORD="%s"\n' "$SEED_ADMIN_PASSWORD" >>.env
+fi
+admin_username="$(grep '^SEED_ADMIN_USERNAME=' .env | cut -d'"' -f2)"
+admin_password="$(grep '^SEED_ADMIN_PASSWORD=' .env | cut -d'"' -f2)"
 
 if [ -n "${SITE_DOMAIN:-}" ]; then
   if grep -q '^# \?SITE_DOMAIN=' .env; then
@@ -76,18 +123,18 @@ if [ -n "${SITE_DOMAIN:-}" ]; then
   log "SITE_DOMAIN set to $SITE_DOMAIN — Caddy will fetch a Let's Encrypt certificate on start."
 else
   log "No SITE_DOMAIN given — serving plain HTTP for now. Login (admin/account/courier) needs" \
-      "HTTPS to work: set SITE_DOMAIN in .env once you have a domain, then run: site restart"
+      "HTTPS to work: set SITE_DOMAIN in .env once you have a domain, then run: adanasite restart"
 fi
 
 log "Building and starting the site (this can take a few minutes on first run)..."
-./bin/site start
+./bin/adanasite start
 
-log "Seeding the initial admin account (safe to re-run; it won't overwrite an existing one)..."
-./bin/site seed || echo "  Seed step failed — you can retry later with: site seed"
+log "Seeding the admin account..."
+./bin/adanasite seed
 
-if [ ! -e /usr/local/bin/site ]; then
-  ln -s "$INSTALL_DIR/bin/site" /usr/local/bin/site
-  log "Installed the 'site' command — you can now run 'site start/stop/restart/...' from anywhere."
+if [ ! -e /usr/local/bin/adanasite ]; then
+  ln -s "$INSTALL_DIR/bin/adanasite" /usr/local/bin/adanasite
+  log "Installed the 'adanasite' command — run 'adanasite' with no arguments from anywhere to see what it can do."
 fi
 
 if command -v systemctl >/dev/null 2>&1; then
@@ -109,14 +156,16 @@ cat <<EOF
 
    Site:   http://${server_ip:-<server-ip>}/
    Admin:  http://${server_ip:-<server-ip>}/admin/login
+   Login:  $admin_username / $admin_password
 
  Installed at: $INSTALL_DIR
- Commands:     site start | stop | restart | status | logs | deploy | seed | backup
+ Commands:     adanasite   (run with no arguments to see the full list)
  Auto-update:  every 5 min via systemd timer (if this host has systemd)
 
  Next steps:
-  - Edit $INSTALL_DIR/.env (API keys, admin password), then: site deploy
+  - Fill in YANDEX_MAPS_API_KEY / YOOKASSA_* in $INSTALL_DIR/.env if you
+    want address autocomplete / online card payment, then: adanasite restart
   - Point a domain at this server and set SITE_DOMAIN in .env for HTTPS,
-    then: site restart
+    then: adanasite restart
 ============================================================
 EOF

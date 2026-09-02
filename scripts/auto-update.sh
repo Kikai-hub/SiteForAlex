@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Polls GitHub for a new commit on the currently checked-out branch and, if
-# one exists, redeploys via `bin/site deploy`. Meant to run unattended on a
+# one exists, redeploys via `bin/adanasite deploy`. Meant to run unattended on a
 # schedule (systemd timer or cron) — see deploy/adana-autoupdate.* and
 # DEPLOY.md for how it's installed.
 set -euo pipefail
@@ -26,7 +26,7 @@ if [ "$local_sha" = "$remote_sha" ]; then
 fi
 
 log "New commit on $branch: $local_sha -> $remote_sha. Deploying..."
-if ./bin/site deploy >>"$LOG_FILE" 2>&1; then
+if ./bin/adanasite deploy >>"$LOG_FILE" 2>&1; then
   log "Deploy succeeded ($remote_sha)."
 else
   log "Deploy FAILED — site left running its previous build. Check $LOG_FILE above for the error."
