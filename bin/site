@@ -6,7 +6,13 @@
 # DEPLOY.md), from anywhere:     site <command>
 set -euo pipefail
 
-REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# `readlink -f` resolves the /usr/local/bin/site symlink (see DEPLOY.md) to
+# its real target first — without it, `dirname "${BASH_SOURCE[0]}"` on a
+# symlink invocation resolves relative to the symlink's own location
+# (/usr/local/bin) instead of the repo, and every docker compose call below
+# fails with "no configuration file provided".
+SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
+REPO_DIR="$(cd "$(dirname "$SCRIPT_PATH")/.." && pwd)"
 cd "$REPO_DIR"
 
 compose() {
