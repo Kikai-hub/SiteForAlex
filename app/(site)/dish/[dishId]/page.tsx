@@ -1,11 +1,10 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { prisma } from "@/lib/prisma";
 import { DishGallery } from "@/components/site/DishGallery";
 import { DishPurchasePanel } from "@/components/site/DishPurchasePanel";
 import { DishRecommendations } from "@/components/site/DishRecommendations";
 import { DishReviews } from "@/components/site/DishReviews";
-import { getRecommendedDishCards } from "@/lib/recommendations";
+import { getDishDetail, getRecommendedDishCardsCached } from "@/lib/cache/menu";
 
 export default async function DishDetailPage({
   params,
@@ -13,19 +12,11 @@ export default async function DishDetailPage({
   params: Promise<{ dishId: string }>;
 }) {
   const { dishId } = await params;
-  const dish = await prisma.dish.findUnique({
-    where: { id: dishId, isActive: true },
-    include: {
-      category: true,
-      variants: { where: { isActive: true }, orderBy: { sortOrder: "asc" } },
-      media: { orderBy: [{ isPrimary: "desc" }, { sortOrder: "asc" }] },
-      extras: { where: { isActive: true }, orderBy: { sortOrder: "asc" } },
-    },
-  });
+  const dish = await getDishDetail(dishId);
 
   if (!dish) notFound();
 
-  const recommendedDishes = await getRecommendedDishCards(dish.id);
+  const recommendedDishes = await getRecommendedDishCardsCached(dish.id);
 
   return (
     <div className="mx-auto max-w-5xl px-5 py-10">

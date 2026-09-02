@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 import type { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/auth/admin";
@@ -57,6 +57,7 @@ export async function createPromoCode(
 
   const promo = await prisma.promoCode.create({ data: toDbData(parsed.data) });
   revalidatePath("/admin/promo-codes");
+  updateTag("promo");
   redirect(`/admin/promo-codes/${promo.id}`);
 }
 
@@ -77,6 +78,7 @@ export async function updatePromoCode(
   await prisma.promoCode.update({ where: { id }, data: toDbData(parsed.data) });
   revalidatePath("/admin/promo-codes");
   revalidatePath(`/admin/promo-codes/${id}`);
+  updateTag("promo");
   return OK;
 }
 
@@ -84,5 +86,6 @@ export async function deletePromoCode(id: string) {
   await requireAdmin();
   await prisma.promoCode.delete({ where: { id } });
   revalidatePath("/admin/promo-codes");
+  updateTag("promo");
   redirect("/admin/promo-codes");
 }

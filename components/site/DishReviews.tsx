@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { prisma } from "@/lib/prisma";
+import { getDishReviews } from "@/lib/cache/menu";
 import { getCurrentCustomer } from "@/lib/auth/customer";
 import { StarRating } from "@/components/ui/StarRating";
 import { CommentForm } from "@/components/site/CommentForm";
@@ -9,18 +9,9 @@ function formatDate(date: Date): string {
 }
 
 export async function DishReviews({ dishId }: { dishId: string }) {
-  const [customer, comments, aggregate] = await Promise.all([
+  const [customer, { comments, aggregate }] = await Promise.all([
     getCurrentCustomer(),
-    prisma.comment.findMany({
-      where: { dishId, status: "APPROVED" },
-      include: { customer: { select: { name: true } } },
-      orderBy: { createdAt: "desc" },
-    }),
-    prisma.comment.aggregate({
-      where: { dishId, status: "APPROVED" },
-      _avg: { rating: true },
-      _count: true,
-    }),
+    getDishReviews(dishId),
   ]);
 
   const isLoggedIn = Boolean(customer);

@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/auth/admin";
 import { adminReplySchema } from "@/lib/validation/comment";
@@ -11,6 +11,7 @@ const OK: ActionState = { ok: true };
 async function revalidateComment(dishId: string) {
   revalidatePath("/admin/comments");
   revalidatePath(`/dish/${dishId}`);
+  updateTag("comments");
 }
 
 export async function moderateComment(commentId: string, status: "APPROVED" | "REJECTED") {

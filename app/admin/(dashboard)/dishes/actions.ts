@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/auth/admin";
 import { dishSchema, dishVariantSchema, dishExtraSchema } from "@/lib/validation/dish";
@@ -15,6 +15,7 @@ const OK: ActionState = { ok: true };
 function revalidateMenu() {
   revalidatePath("/admin/dishes");
   revalidatePath("/menu");
+  updateTag("menu");
 }
 
 export async function createDish(
@@ -237,6 +238,7 @@ export async function createExtra(
   });
   revalidatePath(`/admin/dishes/${dishId}`);
   revalidatePath(`/dish/${dishId}`);
+  updateTag("menu");
   return OK;
 }
 
@@ -272,6 +274,7 @@ export async function updateExtra(
   });
   revalidatePath(`/admin/dishes/${dishId}`);
   revalidatePath(`/dish/${dishId}`);
+  updateTag("menu");
   return OK;
 }
 
@@ -280,4 +283,5 @@ export async function deleteExtra(extraId: string, dishId: string) {
   await prisma.dishExtra.delete({ where: { id: extraId } });
   revalidatePath(`/admin/dishes/${dishId}`);
   revalidatePath(`/dish/${dishId}`);
+  updateTag("menu");
 }

@@ -70,7 +70,10 @@ export function Footer() {
       </div>
 
       <div className="border-t border-flatbread-2/10 px-5 py-5 text-center text-xs text-flatbread-2/40">
-        © {new Date().getFullYear()} Adana Pizza. Все права защищены.
+        © {new Date().getFullYear()} Adana Pizza. Все права защищены.{" "}
+        <Link href="/privacy" className="underline hover:text-saffron">
+          Политика конфиденциальности
+        </Link>
       </div>
     </footer>
   );

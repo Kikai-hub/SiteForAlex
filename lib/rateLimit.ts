@@ -1,40 +1,27 @@
-interface Bucket {
-  count: number;
-  resetAt: number;
-}
+import { redis } from "@/lib/redis";
 
 /**
- * In-memory fixed-window limiter. State lives in process memory, which only
- * works because this app runs as a single persistent Node process (VPS/Docker
- * per README) — it would silently stop limiting anything if ever deployed
- * across multiple serverless instances.
+ * Fixed-window limiter backed by Redis (not process memory) so the limit is
+ * shared across all PM2 cluster workers instead of being multiplied by
+ * however many of them are running. INCR + PEXPIRE is the standard Redis
+ * rate-limit idiom — not perfectly atomic across the two commands, but the
+ * only failure mode is a key that outlives its window after a crash between
+ * them, which is harmless for a security control like this one.
+ *
+ * Fails open (not limited) if Redis itself is unreachable: this guards login
+ * brute-forcing and a paid third-party API quota, and an outage taking down
+ * login/registration entirely would be worse than briefly losing that guard.
  */
-const buckets = new Map<string, Bucket>();
-
-let callsSinceSweep = 0;
-
-function sweep(now: number) {
-  for (const [key, bucket] of buckets) {
-    if (now >= bucket.resetAt) buckets.delete(key);
-  }
-}
-
-/** Returns true if `key` has exceeded `limit` requests within the current `windowMs` window. */
-export function isRateLimited(key: string, limit: number, windowMs: number): boolean {
-  const now = Date.now();
-
-  callsSinceSweep += 1;
-  if (callsSinceSweep >= 500) {
-    callsSinceSweep = 0;
-    sweep(now);
-  }
-
-  const bucket = buckets.get(key);
-  if (!bucket || now >= bucket.resetAt) {
-    buckets.set(key, { count: 1, resetAt: now + windowMs });
+export async function isRateLimited(key: string, limit: number, windowMs: number): Promise<boolean> {
+  const redisKey = `ratelimit:${key}`;
+  try {
+    const count = await redis.incr(redisKey);
+    if (count === 1) {
+      await redis.pexpire(redisKey, windowMs);
+    }
+    return count > limit;
+  } catch (err) {
+    console.error("[rateLimit] Redis unavailable, allowing request through:", err);
     return false;
   }
-
-  bucket.count += 1;
-  return bucket.count > limit;
 }

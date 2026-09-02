@@ -21,7 +21,7 @@ export async function createComment(
     return { error: "Войдите в аккаунт, чтобы оставить комментарий" };
   }
 
-  if (isRateLimited(`comment:${customer.id}`, 5, 10 * 60 * 1000)) {
+  if (await isRateLimited(`comment:${customer.id}`, 5, 10 * 60 * 1000)) {
     return { error: "Слишком много комментариев — попробуйте позже" };
   }
 

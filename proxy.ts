@@ -44,12 +44,12 @@ export async function proxy(request: NextRequest) {
   // Brute-force protection: password guessing against admin/courier/customer
   // login has no other defense (no lockout, no CAPTCHA) — cap attempts per IP.
   if (request.method === "POST" && LOGIN_PATHS.has(pathname)) {
-    if (isRateLimited(`login:${pathname}:${ip}`, 10, 5 * 60 * 1000)) {
+    if (await isRateLimited(`login:${pathname}:${ip}`, 10, 5 * 60 * 1000)) {
       return tooManyRequests();
     }
   }
   if (request.method === "POST" && pathname === "/api/auth/customer/register") {
-    if (isRateLimited(`register:${ip}`, 5, 60 * 60 * 1000)) {
+    if (await isRateLimited(`register:${ip}`, 5, 60 * 60 * 1000)) {
       return tooManyRequests();
     }
   }
@@ -57,7 +57,7 @@ export async function proxy(request: NextRequest) {
   // /api/address/* proxies to a paid, unauthenticated Yandex Geosuggest API —
   // without a cap here, anyone can run up the API bill or exhaust its quota.
   if (pathname === "/api/address/suggest" || pathname === "/api/address/resolve") {
-    if (isRateLimited(`address:${ip}`, 60, 60 * 1000)) {
+    if (await isRateLimited(`address:${ip}`, 60, 60 * 1000)) {
       return tooManyRequests();
     }
   }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, FormEvent } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCartStore, cartSubtotalMinor, cartLineUnitPriceMinor } from "@/lib/store/cart";
 import { useHasMounted } from "@/lib/useHasMounted";
@@ -110,6 +111,7 @@ export function CheckoutForm({
           : null,
       promoCode: promoResult?.code ?? null,
       notes: formData.get("notes"),
+      personalDataConsent: formData.get("personalDataConsent") === "on",
     };
 
     try {
@@ -346,6 +348,20 @@ export function CheckoutForm({
           </div>
         </div>
 
+        <label className="mt-4 flex items-start gap-2 text-sm text-char/70">
+          <input
+            type="checkbox"
+            name="personalDataConsent"
+            required
+            className="mt-0.5 h-4 w-4 accent-ember"
+          />
+          <span>
+            Я согласен(на) с{" "}
+            <Link href="/privacy" target="_blank" className="font-medium text-ember hover:underline">
+              обработкой персональных данных
+            </Link>
+          </span>
+        </label>
         <FieldError>{error}</FieldError>
         <Button type="submit" size="lg" className="mt-4 w-full" disabled={submitting}>
           {submitting ? "Оформляем…" : "Подтвердить заказ"}

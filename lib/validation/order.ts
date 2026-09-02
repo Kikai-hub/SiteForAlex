@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { personalDataConsentSchema } from "@/lib/validation/consent";
 
 export const cartItemExtraSchema = z.object({
   dishExtraId: z.string().min(1),
@@ -32,4 +33,5 @@ export const createOrderSchema = z.object({
     .nullable(),
   promoCode: z.string().trim().optional().nullable(),
   notes: z.string().trim().max(500).optional().or(z.literal("")),
+  personalDataConsent: personalDataConsentSchema,
 });

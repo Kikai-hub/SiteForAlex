@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
 
   // See app/api/auth/admin/login/route.ts — keyed on the account, not the
   // (spoofable) client IP that proxy.ts's limiter relies on.
-  if (isRateLimited(`login-id:courier:${username}`, 10, 5 * 60 * 1000)) {
+  if (await isRateLimited(`login-id:courier:${username}`, 10, 5 * 60 * 1000)) {
     return NextResponse.json(
       { error: "Слишком много попыток — попробуйте позже" },
       { status: 429 }

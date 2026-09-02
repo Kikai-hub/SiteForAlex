@@ -1,33 +1,16 @@
-import { prisma } from "@/lib/prisma";
+import { getMenuCategories, getApprovedDishRatings } from "@/lib/cache/menu";
 import { DishCard } from "@/components/site/DishCard";
 
 export const metadata = { title: "Меню — Adana Pizza" };
 
 export default async function MenuPage() {
-  const categories = await prisma.category.findMany({
-    where: { isActive: true },
-    orderBy: { sortOrder: "asc" },
-    include: {
-      dishes: {
-        where: { isActive: true },
-        orderBy: { sortOrder: "asc" },
-        include: {
-          variants: { where: { isActive: true }, orderBy: { sortOrder: "asc" } },
-          media: { orderBy: [{ isPrimary: "desc" }, { sortOrder: "asc" }], take: 1 },
-        },
-      },
-    },
-  });
+  const [categories, ratingGroups] = await Promise.all([
+    getMenuCategories(),
+    getApprovedDishRatings(),
+  ]);
 
   const nonEmptyCategories = categories.filter((c) => c.dishes.length > 0);
 
-  const dishIds = nonEmptyCategories.flatMap((c) => c.dishes.map((d) => d.id));
-  const ratingGroups = await prisma.comment.groupBy({
-    by: ["dishId"],
-    where: { status: "APPROVED", dishId: { in: dishIds } },
-    _avg: { rating: true },
-    _count: true,
-  });
   const ratingByDishId = new Map(
     ratingGroups.map((g) => [g.dishId, { avg: g._avg.rating ?? 0, count: g._count }])
   );

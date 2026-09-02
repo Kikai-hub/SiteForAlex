@@ -1,6 +1,40 @@
 name: adana-pizza
 
 services:
+  postgres:
+    image: postgres:17-alpine
+    # Default max_connections (100) is too tight once `web` runs as several
+    # PM2 workers, each with its own pool (see lib/prisma.ts) — 200 leaves
+    # headroom above the 150-connection budget that math divides up.
+    command: ["postgres", "-c", "max_connections=200"]
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-adana}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-adana}
+      POSTGRES_DB: ${POSTGRES_DB:-adana_pizza}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-adana} -d ${POSTGRES_DB:-adana_pizza}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  # Shared Next.js data-cache store (see cache-handler.js) and rate-limit
+  # counters (see lib/rateLimit.ts) — both need a store every `web` PM2
+  # worker sees the same view of, which process memory can't provide.
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
   # One-shot: applies pending Prisma migrations, then (only on a brand new,
   # empty database) loads the starter menu — see prisma/seed-initial-menu.ts.
   # `web` waits for this to finish successfully before it starts, so the app
@@ -12,13 +46,13 @@ services:
     env_file:
       - .env
     environment:
-      # SQLite lives on a named volume, not wherever DATABASE_URL in .env
-      # points at (that value is for local `npm run dev` only) — this wins.
-      DATABASE_URL: file:/app/data/prod.db
+      DATABASE_URL: postgresql://${POSTGRES_USER:-adana}:${POSTGRES_PASSWORD:-adana}@postgres:5432/${POSTGRES_DB:-adana_pizza}
       NODE_ENV: production
     command: ["sh", "-c", "npx prisma migrate deploy && npx tsx prisma/seed-initial-menu.ts"]
+    depends_on:
+      postgres:
+        condition: service_healthy
     volumes:
-      - db_data:/app/data
       - uploads_data:/app/public/uploads
     restart: "no"
 
@@ -29,17 +63,23 @@ services:
     env_file:
       - .env
     environment:
-      DATABASE_URL: file:/app/data/prod.db
+      DATABASE_URL: postgresql://${POSTGRES_USER:-adana}:${POSTGRES_PASSWORD:-adana}@postgres:5432/${POSTGRES_DB:-adana_pizza}
+      REDIS_URL: redis://redis:6379
       NODE_ENV: production
       # Caddy is the only way in (see below) and is exactly one hop away, and
       # it always overwrites X-Forwarded-For itself (see Caddyfile) — so the
       # value reaching the app here can be trusted for rate-limit decisions.
       TRUSTED_PROXY_HOPS: "1"
+      # Uncomment to pin a specific PM2 worker count (see ecosystem.config.js)
+      # instead of one per CPU core — lib/prisma.ts divides its connection
+      # budget by whatever this resolves to, so pool sizing follows automatically.
+      # WEB_CONCURRENCY: "4"
     depends_on:
       migrate:
         condition: service_completed_successfully
+      redis:
+        condition: service_healthy
     volumes:
-      - db_data:/app/data
       - uploads_data:/app/public/uploads
     expose:
       - "3000"
@@ -75,7 +115,8 @@ services:
     restart: unless-stopped
 
 volumes:
-  db_data:
+  postgres_data:
+  redis_data:
   uploads_data:
   caddy_data:
   caddy_config:

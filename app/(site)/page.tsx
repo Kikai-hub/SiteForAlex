@@ -2,7 +2,7 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 import Image from "next/image";
 import Link from "next/link";
-import { prisma } from "@/lib/prisma";
+import { getHomeCategories, getSignatureDish } from "@/lib/cache/menu";
 import { formatMinor } from "@/lib/money";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -25,23 +25,8 @@ function findHeroImage(): string | null {
 export default async function HomePage() {
   const heroImageSrc = findHeroImage();
   const [categories, signatureDish] = await Promise.all([
-    prisma.category.findMany({
-      where: { isActive: true },
-      orderBy: { sortOrder: "asc" },
-      include: {
-        _count: { select: { dishes: true } },
-        dishes: {
-          where: { isActive: true },
-          orderBy: { sortOrder: "asc" },
-          take: 1,
-          include: { media: { orderBy: [{ isPrimary: "desc" }], take: 1 } },
-        },
-      },
-    }),
-    prisma.dish.findFirst({
-      where: { name: "Адана", isActive: true },
-      include: { variants: { orderBy: { sortOrder: "asc" } }, media: true },
-    }),
+    getHomeCategories(),
+    getSignatureDish(),
   ]);
 
   return (

@@ -24,6 +24,10 @@ const cspHeader = `
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // Shared across PM2 cluster workers via Redis instead of Next's default
+  // per-process cache — see cache-handler.js for why that matters here.
+  cacheHandler: require.resolve("./cache-handler.js"),
+  cacheMaxMemorySize: 0,
   async headers() {
     return [
       {

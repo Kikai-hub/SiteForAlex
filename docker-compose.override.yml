@@ -1,0 +1,11 @@
+# Local-dev-only convenience, merged automatically on top of docker-compose.yml
+# by `docker compose up` (no -f needed). Publishes Postgres/Redis to the host
+# so `npm run dev` (running outside Docker) can reach them at localhost — the
+# production compose stack deliberately does NOT do this (see docker-compose.yml).
+services:
+  postgres:
+    ports:
+      - "5432:5432"
+  redis:
+    ports:
+      - "6379:6379"

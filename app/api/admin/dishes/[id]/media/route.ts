@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/auth/admin";
 import { saveDishMedia, UploadError } from "@/lib/uploads";
@@ -34,6 +34,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     });
     revalidatePath(`/admin/dishes/${dishId}`);
     revalidatePath("/menu");
+    revalidateTag("menu", { expire: 0 });
     return NextResponse.json({ media });
   } catch (e) {
     if (e instanceof UploadError) {

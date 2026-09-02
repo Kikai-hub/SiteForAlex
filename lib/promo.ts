@@ -1,4 +1,16 @@
+import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/prisma";
+
+/** Promo codes rarely change but are re-validated on every checkout keystroke
+ *  and again at order creation — cache the record lookup so a busy checkout
+ *  doesn't hammer Postgres. The hard usage cap is still enforced with a live,
+ *  atomic DB check inside the order-creation transaction (see app/api/orders/
+ *  route.ts), so a few seconds of staleness here can't let the cap be exceeded. */
+const getCachedPromoCode = unstable_cache(
+  async (code: string) => prisma.promoCode.findUnique({ where: { code } }),
+  ["promo-code"],
+  { tags: ["promo"], revalidate: 60 }
+);
 
 export interface PromoValidationResult {
   ok: true;
@@ -28,7 +40,7 @@ export async function validatePromoCode(params: {
   const code = params.code.trim().toUpperCase();
   if (!code) return { ok: false, message: "Введите промокод" };
 
-  const promo = await prisma.promoCode.findUnique({ where: { code } });
+  const promo = await getCachedPromoCode(code);
   if (!promo || !promo.isActive) {
     return { ok: false, message: "Промокод не найден или неактивен" };
   }

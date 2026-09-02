@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
   // as X-Forwarded-For — this second limiter is keyed on the account being
   // guessed instead, so brute-forcing one username stays capped no matter how
   // many source IPs (real or spoofed) the attempts come from.
-  if (isRateLimited(`login-id:admin:${username}`, 10, 5 * 60 * 1000)) {
+  if (await isRateLimited(`login-id:admin:${username}`, 10, 5 * 60 * 1000)) {
     return NextResponse.json(
       { error: "Слишком много попыток — попробуйте позже" },
       { status: 429 }

@@ -12,6 +12,7 @@ export default function RegisterPage() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  const [personalDataConsent, setPersonalDataConsent] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -23,7 +24,7 @@ export default function RegisterPage() {
       const res = await fetch("/api/auth/customer/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, password }),
+        body: JSON.stringify({ name, phone, password, personalDataConsent }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -67,6 +68,21 @@ export default function RegisterPage() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
+        <label className="flex items-start gap-2 text-sm text-char/70">
+          <input
+            type="checkbox"
+            required
+            checked={personalDataConsent}
+            onChange={(e) => setPersonalDataConsent(e.target.checked)}
+            className="mt-0.5 h-4 w-4 accent-ember"
+          />
+          <span>
+            Я согласен(на) с{" "}
+            <Link href="/privacy" target="_blank" className="font-medium text-ember hover:underline">
+              обработкой персональных данных
+            </Link>
+          </span>
+        </label>
         <FieldError>{error}</FieldError>
         <Button type="submit" size="lg" className="w-full" disabled={loading}>
           {loading ? "Создаём аккаунт…" : "Зарегистрироваться"}

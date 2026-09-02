@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { normalizePhone } from "@/lib/phone";
+import { personalDataConsentSchema } from "@/lib/validation/consent";
 
 const phoneSchema = z
   .string()
@@ -23,6 +24,7 @@ export const customerRegisterSchema = z.object({
   phone: phoneSchema,
   password: passwordSchema,
   name: z.string().trim().min(1).max(100).optional().or(z.literal("")),
+  personalDataConsent: personalDataConsentSchema,
 });
 
 export const customerLoginSchema = z.object({
