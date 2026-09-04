@@ -18,6 +18,7 @@ export default async function EditDishPage({
         variants: { orderBy: { sortOrder: "asc" } },
         media: { orderBy: { sortOrder: "asc" } },
         extras: { orderBy: { sortOrder: "asc" } },
+        heroSlides: { take: 1, select: { id: true, isActive: true } },
       },
     }),
     prisma.category.findMany({ orderBy: { sortOrder: "asc" } }),

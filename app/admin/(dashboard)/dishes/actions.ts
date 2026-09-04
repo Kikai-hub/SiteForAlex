@@ -6,7 +6,7 @@ import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/auth/admin";
 import { dishSchema, dishVariantSchema, dishExtraSchema } from "@/lib/validation/dish";
 import { toMinor } from "@/lib/money";
-import { deleteDishMediaFile } from "@/lib/uploads";
+import { deleteDishMediaFile, deleteHeroSlideImageFile } from "@/lib/uploads";
 import { DEFAULT_PIZZA_EXTRAS, PIZZA_CATEGORY_SLUG } from "@/lib/pizzaExtras";
 
 export type ActionState = { error?: string; ok?: boolean };
@@ -16,6 +16,45 @@ function revalidateMenu() {
   revalidatePath("/admin/dishes");
   revalidatePath("/menu");
   updateTag("menu");
+}
+
+function revalidateHeroSlides() {
+  revalidatePath("/");
+  updateTag("hero-slides");
+}
+
+/** Backs the "показывать в слайдере на главной" checkbox on the dish form.
+ *  A checked box always guarantees an active slide for this dish — creating one
+ *  with sensible defaults the first time, or just re-activating it afterwards
+ *  so any custom banner/text the admin set via /admin/slides is preserved.
+ *  Unchecking only deactivates the slide (never deletes it) for the same reason. */
+async function syncDishHeroSlide(dishId: string, showInSlider: boolean) {
+  const existing = await prisma.heroSlide.findFirst({ where: { dishId }, select: { id: true } });
+
+  if (showInSlider) {
+    if (existing) {
+      await prisma.heroSlide.update({ where: { id: existing.id }, data: { isActive: true } });
+    } else {
+      const dish = await prisma.dish.findUnique({
+        where: { id: dishId },
+        select: { name: true, description: true, media: { where: { isPrimary: true }, take: 1 } },
+      });
+      if (!dish) return;
+      await prisma.heroSlide.create({
+        data: {
+          dishId,
+          title: dish.name,
+          description: dish.description,
+          imageUrl: dish.media[0]?.url ?? null,
+        },
+      });
+    }
+  } else if (existing) {
+    await prisma.heroSlide.update({ where: { id: existing.id }, data: { isActive: false } });
+  } else {
+    return;
+  }
+  revalidateHeroSlides();
 }
 
 export async function createDish(
@@ -66,6 +105,10 @@ export async function createDish(
     });
   }
 
+  if (formData.get("showInSlider") === "on") {
+    await syncDishHeroSlide(dish.id, true);
+  }
+
   revalidateMenu();
   redirect(`/admin/dishes/${dish.id}`);
 }
@@ -105,6 +148,7 @@ export async function updateDish(
       isActive: parsed.data.isActive,
     },
   });
+  await syncDishHeroSlide(id, formData.get("showInSlider") === "on");
   revalidateMenu();
   revalidatePath(`/admin/dishes/${id}`);
   return OK;
@@ -112,10 +156,18 @@ export async function updateDish(
 
 export async function deleteDish(id: string) {
   await requireAdmin();
-  const media = await prisma.mediaAsset.findMany({ where: { dishId: id } });
+  const [media, heroSlides] = await Promise.all([
+    prisma.mediaAsset.findMany({ where: { dishId: id } }),
+    prisma.heroSlide.findMany({ where: { dishId: id }, select: { imageUrl: true } }),
+  ]);
+  // HeroSlide rows for this dish cascade-delete with it; only their files need explicit cleanup.
   await prisma.dish.delete({ where: { id } });
-  await Promise.all(media.map((m) => deleteDishMediaFile(m.url)));
+  await Promise.all([
+    ...media.map((m) => deleteDishMediaFile(m.url)),
+    ...heroSlides.map((s) => deleteHeroSlideImageFile(s.imageUrl)),
+  ]);
   revalidateMenu();
+  revalidateHeroSlides();
   redirect("/admin/dishes");
 }
 

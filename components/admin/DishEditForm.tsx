@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useActionState } from "react";
 import { useRouter } from "next/navigation";
 import { updateDish, deleteDish, type ActionState } from "@/app/admin/(dashboard)/dishes/actions";
@@ -23,9 +24,11 @@ export function DishEditForm({
     carbsPer100g: number | null;
     sortOrder: number;
     isActive: boolean;
+    heroSlides?: { id: string; isActive: boolean }[];
   };
   categories: { id: string; name: string }[];
 }) {
+  const heroSlide = dish.heroSlides?.[0];
   const router = useRouter();
   const boundAction = updateDish.bind(null, dish.id);
   const [state, formAction, pending] = useActionState(boundAction, initialState);
@@ -115,6 +118,28 @@ export function DishEditForm({
           />
         </div>
       </div>
+      <div className="rounded-xl border border-char/10 bg-flatbread p-4">
+        <label className="flex items-center gap-2 text-sm font-medium text-char/70">
+          <input
+            type="checkbox"
+            name="showInSlider"
+            defaultChecked={heroSlide?.isActive ?? false}
+            className="h-4 w-4 accent-ember"
+          />
+          Показывать в слайдере на главной
+        </label>
+        <p className="mt-1.5 pl-6 text-xs text-char/50">
+          Слайд создастся автоматически из названия и описания блюда.{" "}
+          {heroSlide ? (
+            <Link href={`/admin/slides/${heroSlide.id}`} className="font-medium text-ember hover:underline">
+              Настроить баннер, текст и картинку
+            </Link>
+          ) : (
+            "После сохранения его можно будет донастроить в разделе «Слайдер на главной»."
+          )}
+        </p>
+      </div>
+
       <FieldError>{state.error}</FieldError>
       <div className="flex items-center justify-between pt-2">
         <Button type="submit" disabled={pending}>

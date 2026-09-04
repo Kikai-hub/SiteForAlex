@@ -115,10 +115,37 @@ model Dish {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
-  variants DishVariant[]
-  media    MediaAsset[]
-  extras   DishExtra[]
-  comments Comment[]
+  variants   DishVariant[]
+  media      MediaAsset[]
+  extras     DishExtra[]
+  comments   Comment[]
+  heroSlides HeroSlide[]
+}
+
+/** A slide in the homepage hero carousel (promos, sets, featured dishes — the
+ *  "big pizza" banner block). Optionally linked to a Dish so its CTA can point
+ *  at that dish's page; imageUrl/title/description are always editable
+ *  independently so a slide can also be a pure marketing banner with no dish. */
+model HeroSlide {
+  id          String   @id @default(cuid())
+  title       String
+  subtitle    String?
+  description String?
+  imageUrl    String?
+  badgeText   String?
+  priceLabel  String?
+  ctaLabel    String   @default("Подробнее")
+  ctaHref     String?
+  isActive    Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  dishId String?
+  dish   Dish?   @relation(fields: [dishId], references: [id], onDelete: Cascade)
+
+  @@index([dishId])
+  @@index([isActive, sortOrder])
 }
 
 model DishVariant {

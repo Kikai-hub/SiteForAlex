@@ -2,12 +2,13 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 import Image from "next/image";
 import Link from "next/link";
-import { getHomeCategories, getSignatureDish } from "@/lib/cache/menu";
+import { getHomeCategories, getSignatureDish, getActiveHeroSlides } from "@/lib/cache/menu";
 import { formatMinor } from "@/lib/money";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Stamp } from "@/components/ui/Stamp";
 import { PizzaMark } from "@/components/site/PizzaMark";
+import { HeroSlider } from "@/components/site/HeroSlider";
 
 /** Drop a file named hero-pizza.(webp|jpg|jpeg|png) into /public to replace the
  *  placeholder illustration below with a real photo — no code changes needed. */
@@ -24,9 +25,10 @@ function findHeroImage(): string | null {
 
 export default async function HomePage() {
   const heroImageSrc = findHeroImage();
-  const [categories, signatureDish] = await Promise.all([
+  const [categories, signatureDish, heroSlides] = await Promise.all([
     getHomeCategories(),
     getSignatureDish(),
+    getActiveHeroSlides(),
   ]);
 
   return (
@@ -34,51 +36,56 @@ export default async function HomePage() {
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-x-0 top-0 -z-10 h-[520px] bg-gradient-to-b from-saffron/15 to-transparent" />
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 pb-16 pt-14 md:grid-cols-2 md:pb-24 md:pt-20">
-          <div>
-            <span className="text-sm font-bold uppercase tracking-widest text-ember">
-              Пиццерия на Боровском шоссе
-            </span>
-            <h1 className="mt-4 font-display text-5xl font-semibold leading-[1.05] text-char md:text-6xl">
-              Всё лучшее
-              <br />
-              <span className="italic text-ember">для вас</span>
-            </h1>
-            <p className="mt-5 max-w-md text-lg text-char/70">
-              Тонкое тесто, живой огонь и турецкий характер — Adana Pizza печёт
-              пиццу так, как её не делают в соседнем дворе.
-            </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Link href="/menu">
-                <Button size="lg">Смотреть меню</Button>
-              </Link>
-              <a href="tel:+79932590143">
-                <Button size="lg" variant="secondary">
-                  +7 (993) 259-01-43
-                </Button>
-              </a>
+        {heroSlides.length > 0 ? (
+          <HeroSlider slides={heroSlides} />
+        ) : (
+          <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 pb-10 pt-14 md:grid-cols-2 md:pt-20">
+            <div>
+              <span className="text-sm font-bold uppercase tracking-widest text-ember">
+                Пиццерия на Боровском шоссе
+              </span>
+              <h1 className="mt-4 font-display text-5xl font-semibold leading-[1.05] text-char md:text-6xl">
+                Всё лучшее
+                <br />
+                <span className="italic text-ember">для вас</span>
+              </h1>
+              <p className="mt-5 max-w-md text-lg text-char/70">
+                Тонкое тесто, живой огонь и турецкий характер — Adana Pizza печёт
+                пиццу так, как её не делают в соседнем дворе.
+              </p>
+
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <Link href="/menu">
+                  <Button size="lg">Смотреть меню</Button>
+                </Link>
+              </div>
             </div>
 
-            <div className="mt-8 flex flex-wrap gap-2">
-              <Badge tone="saffron">★ 4.8 · 71 отзыв</Badge>
-              <Badge tone="neutral">Открыто до 23:00</Badge>
-              <Badge tone="neutral">Доставка и самовывоз</Badge>
-            </div>
+            {heroImageSrc ? (
+              <Image
+                src={heroImageSrc}
+                alt="Пицца Adana"
+                width={640}
+                height={640}
+                priority
+                className="mx-auto w-full max-w-sm object-contain drop-shadow-2xl md:max-w-md"
+              />
+            ) : (
+              <PizzaMark className="mx-auto w-full max-w-sm md:max-w-md" />
+            )}
           </div>
+        )}
 
-          {heroImageSrc ? (
-            <Image
-              src={heroImageSrc}
-              alt="Пицца Adana"
-              width={640}
-              height={640}
-              priority
-              className="mx-auto w-full max-w-sm object-contain drop-shadow-2xl md:max-w-md"
-            />
-          ) : (
-            <PizzaMark className="mx-auto w-full max-w-sm md:max-w-md" />
-          )}
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-3 px-5 pb-16 md:pb-24">
+          <a href="tel:+79932590143">
+            <Button size="lg" variant="secondary">
+              +7 (993) 259-01-43
+            </Button>
+          </a>
+          <Badge tone="saffron">★ 4.8 · 71 отзыв</Badge>
+          <Badge tone="neutral">Открыто до 23:00</Badge>
+          <Badge tone="neutral">Доставка и самовывоз</Badge>
         </div>
       </section>
 

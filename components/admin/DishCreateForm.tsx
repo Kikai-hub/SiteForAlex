@@ -70,6 +70,11 @@ export function DishCreateForm({
           <Input id="carbsPer100g" name="carbsPer100g" type="number" step="0.1" min={0} placeholder="28" />
         </div>
       </div>
+      <label className="flex items-center gap-2 text-sm font-medium text-char/70">
+        <input type="checkbox" name="showInSlider" className="h-4 w-4 accent-ember" />
+        Показывать в слайдере на главной
+      </label>
+
       <FieldError>{state.error}</FieldError>
       <Button type="submit" disabled={pending}>
         {pending ? "Создаём…" : "Создать блюдо"}

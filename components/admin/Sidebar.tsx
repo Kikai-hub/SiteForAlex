@@ -8,6 +8,7 @@ const links = [
   { href: "/admin/orders", label: "Заказы" },
   { href: "/admin/dishes", label: "Меню" },
   { href: "/admin/categories", label: "Категории" },
+  { href: "/admin/slides", label: "Слайдер на главной" },
   { href: "/admin/comments", label: "Комментарии" },
   { href: "/admin/promo-codes", label: "Промокоды" },
   { href: "/admin/couriers", label: "Курьеры" },

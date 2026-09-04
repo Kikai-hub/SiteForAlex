@@ -1,6 +1,7 @@
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { getRecommendedDishCards } from "@/lib/recommendations";
+import { formatMinor } from "@/lib/money";
 
 /**
  * Public menu/homepage data (categories, dishes, prices, ratings) is read on
@@ -32,6 +33,51 @@ export const getHomeCategories = unstable_cache(
   },
   ["home-categories"],
   { tags: ["menu"], revalidate: MENU_REVALIDATE_SECONDS }
+);
+
+/** Homepage hero carousel slides (promos/sets/featured dishes), admin-managed
+ *  under /admin/slides or via the "показывать в слайдере" toggle on a dish.
+ *  When a slide is linked to a dish, its cheapest active variant backs the
+ *  price badge unless the admin set a custom priceLabel. */
+export const getActiveHeroSlides = unstable_cache(
+  async () => {
+    const slides = await prisma.heroSlide.findMany({
+      where: { isActive: true },
+      orderBy: { sortOrder: "asc" },
+      include: {
+        dish: {
+          select: {
+            id: true,
+            isActive: true,
+            variants: {
+              where: { isActive: true },
+              orderBy: { priceMinor: "asc" },
+              take: 1,
+              select: { priceMinor: true },
+            },
+          },
+        },
+      },
+    });
+
+    return slides
+      .filter((s) => !s.dishId || s.dish?.isActive)
+      .map((s) => ({
+        id: s.id,
+        title: s.title,
+        subtitle: s.subtitle,
+        description: s.description,
+        imageUrl: s.imageUrl,
+        badgeText: s.badgeText,
+        priceLabel:
+          s.priceLabel ||
+          (s.dish?.variants[0] ? `от ${formatMinor(s.dish.variants[0].priceMinor)}` : null),
+        ctaLabel: s.ctaLabel,
+        ctaHref: s.ctaHref || (s.dishId ? `/dish/${s.dishId}` : "/menu"),
+      }));
+  },
+  ["active-hero-slides"],
+  { tags: ["hero-slides"], revalidate: MENU_REVALIDATE_SECONDS }
 );
 
 export const getSignatureDish = unstable_cache(
