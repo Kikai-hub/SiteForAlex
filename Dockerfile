@@ -35,7 +35,7 @@ ENV PORT=3000
 ENV PM2_HOME=/app/.pm2
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends openssl \
+    && apt-get install -y --no-install-recommends openssl gosu \
     && rm -rf /var/lib/apt/lists/*
 
 RUN groupadd --system --gid 1001 nodejs \
@@ -56,12 +56,20 @@ COPY --from=builder /app/cache-handler.js ./cache-handler.js
 COPY --from=builder /app/server.js ./server.js
 
 # Bind mounts (see docker-compose.yml) land here as root-owned directories —
-# pre-create them so the app user can actually write to them.
-RUN mkdir -p /app/public/uploads/dishes "$PM2_HOME" \
+# pre-create them so the app user can actually write to them. This only fixes
+# the image layer, though: docker-entrypoint.sh re-applies it to the actual
+# mounted volume on every container start, since a volume's ownership isn't
+# guaranteed to match what's baked into the image (see its comment).
+RUN mkdir -p /app/public/uploads/dishes /app/public/uploads/hero-slides "$PM2_HOME" \
     && chown -R nextjs:nodejs /app
 
-USER nextjs
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+# Deliberately still root here — the entrypoint chowns the mounted uploads
+# volume, then drops to `nextjs` (via gosu) before exec'ing the real command.
 EXPOSE 3000
+ENTRYPOINT ["docker-entrypoint.sh"]
 
 # pm2-runtime (not `pm2 start`) keeps PM2 in the foreground as PID 1 and
 # forwards container signals correctly — `pm2 start` daemonizes and would

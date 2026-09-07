@@ -22,13 +22,20 @@ export function HeroSlideImageUploader({ slideId, imageUrl }: { slideId: string;
         method: "POST",
         body: formData,
       });
-      const data = await res.json();
+      let data: { error?: string } = {};
+      try {
+        data = await res.json();
+      } catch {
+        // Non-JSON response (e.g. a raw 500) — fall through to the generic error below.
+      }
       if (!res.ok) {
-        setError(data.error ?? "Не удалось загрузить файл");
+        setError(data.error ?? `Не удалось загрузить файл (ошибка сервера ${res.status})`);
         return;
       }
       if (inputRef.current) inputRef.current.value = "";
       router.refresh();
+    } catch {
+      setError("Не удалось загрузить файл — проверьте соединение и попробуйте ещё раз.");
     } finally {
       setUploading(false);
     }

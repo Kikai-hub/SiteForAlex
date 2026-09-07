@@ -99,6 +99,9 @@ export function HeroSlideForm({
       </div>
 
       <FieldError>{state.error}</FieldError>
+      {!pending && !state.error && state.ok && (
+        <p className="text-sm font-medium text-green-700">Сохранено.</p>
+      )}
       <Button type="submit" disabled={pending}>
         {pending ? "Сохраняем…" : slide ? "Сохранить" : "Создать слайд"}
       </Button>

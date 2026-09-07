@@ -52,8 +52,6 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    volumes:
-      - uploads_data:/app/public/uploads
     restart: "no"
 
   web:

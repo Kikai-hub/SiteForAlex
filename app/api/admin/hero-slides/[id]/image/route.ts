@@ -38,6 +38,12 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     if (e instanceof UploadError) {
       return NextResponse.json({ error: e.message }, { status: e.status });
     }
-    throw e;
+    // Anything else (e.g. EACCES writing to the uploads volume) would otherwise
+    // reach the client as a bare, non-JSON 500 that the uploader can't parse.
+    console.error(`Hero slide image upload failed for slide ${slideId}:`, e);
+    return NextResponse.json(
+      { error: "Не удалось сохранить файл на сервере. Сообщите администратору." },
+      { status: 500 }
+    );
   }
 }
