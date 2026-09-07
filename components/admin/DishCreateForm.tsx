@@ -74,6 +74,10 @@ export function DishCreateForm({
         <input type="checkbox" name="showInSlider" className="h-4 w-4 accent-ember" />
         Показывать в слайдере на главной
       </label>
+      <label className="flex items-center gap-2 text-sm font-medium text-char/70">
+        <input type="checkbox" name="bonusRedeemable" defaultChecked className="h-4 w-4 accent-ember" />
+        Можно оплачивать бонусными баллами
+      </label>
 
       <FieldError>{state.error}</FieldError>
       <Button type="submit" disabled={pending}>

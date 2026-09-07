@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { requireCourier } from "@/lib/auth/courier";
+import { awardBonusPointsForOrder } from "@/lib/bonus";
 
 export type ActionState = { error?: string; ok?: boolean };
 
@@ -45,6 +46,7 @@ export async function markDelivered(orderId: number): Promise<ActionState> {
     return { error: "Не удалось обновить заказ — возможно, он уже отмечен доставленным" };
   }
 
+  await awardBonusPointsForOrder(orderId);
   revalidatePath("/courier");
   return { ok: true };
 }

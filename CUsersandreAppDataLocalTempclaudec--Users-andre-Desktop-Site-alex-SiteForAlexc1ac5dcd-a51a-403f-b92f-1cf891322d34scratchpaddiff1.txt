@@ -1,0 +1,852 @@
+warning: in the working copy of 'cache-handler.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/api/bonus/preview/route.ts', LF will be replaced by CRLF the next time Git touches it
+diff --git a/app/admin/(dashboard)/orders/actions.ts b/app/admin/(dashboard)/orders/actions.ts
+index f13bfa6..df9f0fb 100644
+--- a/app/admin/(dashboard)/orders/actions.ts
++++ b/app/admin/(dashboard)/orders/actions.ts
+@@ -3,6 +3,7 @@
+ import { revalidatePath } from "next/cache";
+ import { prisma } from "@/lib/prisma";
+ import { requireAdmin } from "@/lib/auth/admin";
++import { awardBonusPointsForOrder, refundBonusRedemptionForOrder } from "@/lib/bonus";
+ 
+ const STATUSES = ["NEW", "CONFIRMED", "PREPARING", "OUT_FOR_DELIVERY", "DELIVERED", "CANCELLED"] as const;
+ 
+@@ -15,6 +16,8 @@ export async function updateOrderStatus(orderId: number, status: string) {
+     where: { id: orderId },
+     data: { status: status as (typeof STATUSES)[number] },
+   });
++  if (status === "DELIVERED") await awardBonusPointsForOrder(orderId);
++  if (status === "CANCELLED") await refundBonusRedemptionForOrder(orderId);
+   revalidatePath("/admin/orders");
+   revalidatePath(`/admin/orders/${orderId}`);
+ }
+diff --git a/app/api/bonus/preview/route.ts b/app/api/bonus/preview/route.ts
+new file mode 100644
+index 0000000..1ced25a
+--- /dev/null
++++ b/app/api/bonus/preview/route.ts
+@@ -0,0 +1,74 @@
++import { NextRequest, NextResponse } from "next/server";
++import { prisma } from "@/lib/prisma";
++import { getCustomerSession } from "@/lib/auth/customer";
++import { priceCartItems, cartTotals, CheckoutItemError } from "@/lib/checkout";
++import { previewBonusRedemption } from "@/lib/bonus";
++import { validatePromoCode } from "@/lib/promo";
++import { cartItemSchema } from "@/lib/validation/order";
++import { z } from "zod";
++
++const bonusPreviewSchema = z.object({
++  items: z.array(cartItemSchema).min(1),
++  requestedPoints: z.coerce.number().int().nonnegative().max(1_000_000),
++  /** The promo code already applied on the checkout screen, if any — re-validated
++   *  here (never trusted as-is) so the bonus cap reflects what's actually still
++   *  owed after it, matching how app/api/orders/route.ts computes the same thing
++   *  at order-creation time. */
++  promoCode: z.string().trim().optional().nullable(),
++});
++
++/** Live preview of "how many of the points I asked for can actually be
++ *  applied" for the checkout screen — always recomputed server-side from the
++ *  cart (see lib/checkout.ts) and re-validated again at order creation, so
++ *  nothing here is trusted as the final discount. Redemption requires an
++ *  authenticated account — a guest can earn points but never spend them just
++ *  by typing a phone number, see app/api/orders/route.ts. */
++export async function POST(request: NextRequest) {
++  const session = await getCustomerSession();
++  if (!session) {
++    return NextResponse.json({ error: "Войдите в аккаунт, чтобы использовать баллы" }, { status: 401 });
++  }
++
++  const body = await request.json().catch(() => null);
++  const parsed = bonusPreviewSchema.safeParse(body);
++  if (!parsed.success) {
++    return NextResponse.json({ error: "Некорректные данные" }, { status: 400 });
++  }
++
++  const customer = await prisma.customer.findUnique({ where: { id: session.sub } });
++  if (!customer) {
++    return NextResponse.json({ error: "Аккаунт не найден" }, { status: 401 });
++  }
++
++  let pricedItems;
++  try {
++    pricedItems = await priceCartItems(parsed.data.items);
++  } catch (e) {
++    if (e instanceof CheckoutItemError) {
++      return NextResponse.json({ error: e.message }, { status: e.status });
++    }
++    throw e;
++  }
++
++  const { subtotalMinor, eligibleSubtotalMinor } = cartTotals(pricedItems);
++
++  let discountMinor = 0;
++  if (parsed.data.promoCode) {
++    const promoResult = await validatePromoCode({
++      code: parsed.data.promoCode,
++      subtotalMinor,
++      customerId: session.sub,
++    });
++    if (promoResult.ok) discountMinor = promoResult.discountMinor;
++  }
++
++  const result = await previewBonusRedemption({
++    phone: customer.phone,
++    subtotalMinor,
++    discountMinor,
++    eligibleSubtotalMinor,
++    requestedPoints: parsed.data.requestedPoints,
++  });
++
++  return NextResponse.json(result);
++}
+diff --git a/app/api/orders/route.ts b/app/api/orders/route.ts
+index 9e60a3f..76804d4 100644
+--- a/app/api/orders/route.ts
++++ b/app/api/orders/route.ts
+@@ -4,6 +4,8 @@ import { getCustomerSession } from "@/lib/auth/customer";
+ import { createOrderSchema } from "@/lib/validation/order";
+ import { normalizePhone } from "@/lib/phone";
+ import { validatePromoCode } from "@/lib/promo";
++import { priceCartItems, cartTotals, CheckoutItemError } from "@/lib/checkout";
++import { previewBonusRedemption, redeemBonusPoints, BONUS_INSUFFICIENT } from "@/lib/bonus";
+ 
+ export async function POST(request: NextRequest) {
+   const body = await request.json().catch(() => null);
+@@ -23,77 +25,34 @@ export async function POST(request: NextRequest) {
+ 
+   const session = await getCustomerSession();
+   const customerId = session?.sub ?? null;
++  // Bonus points are only ever redeemed against the authenticated account's own
++  // phone — never a phone number just typed into the contact field — so a
++  // logged-in customer can't spend another phone's balance by editing it, and a
++  // guest checkout (no session) can't redeem at all, only earn.
++  const customer = customerId ? await prisma.customer.findUnique({ where: { id: customerId } }) : null;
++  // If the client asked to spend points but the session turned out to be
++  // missing/expired by the time this request landed, fail loudly instead of
++  // silently charging full price — the checkout screen already showed the
++  // customer a lower total with the bonus discount applied, so quietly
++  // dropping it here would charge more than what they saw and agreed to.
++  if (!customer && data.useBonusPoints) {
++    return NextResponse.json(
++      { error: "Сессия истекла — войдите в аккаунт заново, чтобы использовать баллы, либо оформите заказ без них" },
++      { status: 401 }
++    );
++  }
+ 
+-  // Re-fetch live variants and extras — never trust prices/availability from the client.
+-  const variantIds = data.items.map((i) => i.dishVariantId);
+-  const variants = await prisma.dishVariant.findMany({
+-    where: { id: { in: variantIds } },
+-    include: { dish: true },
+-  });
+-  const variantMap = new Map(variants.map((v) => [v.id, v]));
+-
+-  const extraIds = data.items.flatMap((i) => i.extras.map((e) => e.dishExtraId));
+-  const dishExtras = await prisma.dishExtra.findMany({ where: { id: { in: extraIds } } });
+-  const extraMap = new Map(dishExtras.map((e) => [e.id, e]));
+-
+-  const orderItemsData: {
+-    dishId: string;
+-    dishVariantId: string;
+-    nameSnapshot: string;
+-    variantLabelSnapshot: string;
+-    unitPriceMinor: number;
+-    quantity: number;
+-    lineTotalMinor: number;
+-    extras: { dishExtraId: string; nameSnapshot: string; unitPriceMinor: number; quantity: number }[];
+-  }[] = [];
+-
+-  for (const item of data.items) {
+-    const variant = variantMap.get(item.dishVariantId);
+-    if (!variant || !variant.isActive || !variant.dish.isActive) {
+-      return NextResponse.json(
+-        { error: `Позиция «${variant?.dish.name ?? "неизвестно"}» больше недоступна` },
+-        { status: 409 }
+-      );
+-    }
+-
+-    const itemExtrasData: { dishExtraId: string; nameSnapshot: string; unitPriceMinor: number; quantity: number }[] = [];
+-    for (const extraSel of item.extras) {
+-      const extra = extraMap.get(extraSel.dishExtraId);
+-      if (!extra || !extra.isActive || extra.dishId !== variant.dishId) {
+-        return NextResponse.json(
+-          { error: `Доп «${extra?.name ?? "неизвестно"}» больше недоступен` },
+-          { status: 409 }
+-        );
+-      }
+-      if (extraSel.quantity > extra.maxQuantity) {
+-        return NextResponse.json(
+-          { error: `Максимум «${extra.name}»: ${extra.maxQuantity}` },
+-          { status: 409 }
+-        );
+-      }
+-      itemExtrasData.push({
+-        dishExtraId: extra.id,
+-        nameSnapshot: extra.name,
+-        unitPriceMinor: extra.priceMinor,
+-        quantity: extraSel.quantity,
+-      });
++  let orderItemsData;
++  try {
++    orderItemsData = await priceCartItems(data.items);
++  } catch (e) {
++    if (e instanceof CheckoutItemError) {
++      return NextResponse.json({ error: e.message }, { status: e.status });
+     }
+-
+-    const extrasUnitTotal = itemExtrasData.reduce((sum, e) => sum + e.unitPriceMinor * e.quantity, 0);
+-
+-    orderItemsData.push({
+-      dishId: variant.dishId,
+-      dishVariantId: variant.id,
+-      nameSnapshot: variant.dish.name,
+-      variantLabelSnapshot: variant.label,
+-      unitPriceMinor: variant.priceMinor,
+-      quantity: item.quantity,
+-      lineTotalMinor: (variant.priceMinor + extrasUnitTotal) * item.quantity,
+-      extras: itemExtrasData,
+-    });
++    throw e;
+   }
+ 
+-  const subtotalMinor = orderItemsData.reduce((sum, i) => sum + i.lineTotalMinor, 0);
++  const { subtotalMinor, eligibleSubtotalMinor } = cartTotals(orderItemsData);
+ 
+   let addressFields: {
+     addressCity?: string | null;
+@@ -156,7 +115,23 @@ export async function POST(request: NextRequest) {
+     promoMaxUsesTotal = result.maxUsesTotal;
+   }
+ 
+-  const totalMinor = Math.max(subtotalMinor - discountMinor, 0);
++  // Only ever redeem against the logged-in account's own phone (see the
++  // `customer` lookup above) — a guest checkout can't redeem at all.
++  let bonusPointsRedeemed = 0;
++  let bonusDiscountMinor = 0;
++  if (customer && data.useBonusPoints) {
++    const bonusResult = await previewBonusRedemption({
++      phone: customer.phone,
++      subtotalMinor,
++      discountMinor,
++      eligibleSubtotalMinor,
++      requestedPoints: data.useBonusPoints,
++    });
++    bonusPointsRedeemed = bonusResult.pointsRedeemed;
++    bonusDiscountMinor = bonusResult.discountMinor;
++  }
++
++  const totalMinor = Math.max(subtotalMinor - discountMinor - bonusDiscountMinor, 0);
+ 
+   const PROMO_EXHAUSTED = Symbol("PROMO_EXHAUSTED");
+ 
+@@ -175,13 +150,15 @@ export async function POST(request: NextRequest) {
+           totalMinor,
+           promoCodeId,
+           promoCodeSnapshot,
++          bonusPointsRedeemed,
++          bonusDiscountMinor,
+           notes: data.notes || null,
+           ...addressFields,
+           items: {
+-            create: orderItemsData.map(({ extras, ...item }) => ({
+-              ...item,
+-              extras: { create: extras },
+-            })),
++            create: orderItemsData.map(({ extras, bonusRedeemable, ...item }) => {
++              void bonusRedeemable; // pricing-only field — OrderItem has no such column
++              return { ...item, extras: { create: extras } };
++            }),
+           },
+         },
+       });
+@@ -201,6 +178,9 @@ export async function POST(request: NextRequest) {
+           throw PROMO_EXHAUSTED;
+         }
+       }
++      if (bonusPointsRedeemed > 0) {
++        await redeemBonusPoints(tx, { phone: customer!.phone, points: bonusPointsRedeemed, orderId: created.id });
++      }
+       return created;
+     });
+   } catch (err) {
+@@ -210,6 +190,12 @@ export async function POST(request: NextRequest) {
+         { status: 409 }
+       );
+     }
++    if (err === BONUS_INSUFFICIENT) {
++      return NextResponse.json(
++        { error: "Недостаточно баллов — баланс изменился, оформите заказ без них или обновите страницу" },
++        { status: 409 }
++      );
++    }
+     throw err;
+   }
+ 
+diff --git a/app/courier/(dashboard)/actions.ts b/app/courier/(dashboard)/actions.ts
+index 7b4e66d..7e785a2 100644
+--- a/app/courier/(dashboard)/actions.ts
++++ b/app/courier/(dashboard)/actions.ts
+@@ -3,6 +3,7 @@
+ import { revalidatePath } from "next/cache";
+ import { prisma } from "@/lib/prisma";
+ import { requireCourier } from "@/lib/auth/courier";
++import { awardBonusPointsForOrder } from "@/lib/bonus";
+ 
+ export type ActionState = { error?: string; ok?: boolean };
+ 
+@@ -45,6 +46,7 @@ export async function markDelivered(orderId: number): Promise<ActionState> {
+     return { error: "Не удалось обновиwarning: in the working copy of 'lib/bonus.ts', LF will be replaced by CRLF the next time Git touches it
+ть заказ — возможно, он уже отмечен доставленным" };
+   }
+ 
++  await awardBonusPointsForOrder(orderId);
+   revalidatePath("/courier");
+   return { ok: true };
+ }
+diff --git a/cache-handler.js b/cache-handler.js
+index c5ccdb5..ceebaad 100644
+--- a/cache-handler.js
++++ b/cache-handler.js
+@@ -27,6 +27,37 @@ const TAG_PREFIX = "nextcache:tag:";
+ // that stops being requested after a deploy) doesn't live in Redis forever.
+ const ENTRY_TTL_SECONDS = 60 * 60 * 24;
+ 
++// Since `images.customCacheHandler` (next.config.ts) routes next/image's
++// optimized-image cache through this same handler, `data` can carry a raw
++// Buffer (the IMAGE kind's `buffer` field) — plain JSON.stringify/parse would
++// silently turn that into a `{type:"Buffer",data:[...]}` plain object instead
++// of a real Buffer on the way back out, which is exactly the kind of "looks
++// cached but is actually broken" failure this is here to prevent. Walk the
++// tree ourselves so any Buffer, wherever it's nested, survives the round trip.
++function encodeBuffers(value) {
++  if (Buffer.isBuffer(value)) {
++    return { __buffer__: true, base64: value.toString("base64") };
++  }
++  if (Array.isArray(value)) {
++    return value.map(encodeBuffers);
++  }
++  if (value && typeof value === "object") {
++    const out = {};
++    for (const [k, v] of Object.entries(value)) {
++      out[k] = encodeBuffers(v);
++    }
++    return out;
++  }
++  return value;
++}
++
++function decodeBuffersReviver(_key, value) {
++  if (value && typeof value === "object" && value.__buffer__ === true) {
++    return Buffer.from(value.base64, "base64");
++  }
++  return value;
++}
++
+ module.exports = class RedisCacheHandler {
+   constructor(options) {
+     this.options = options;
+@@ -35,14 +66,14 @@ module.exports = class RedisCacheHandler {
+   // Next does not wrap cache-handler calls in try/catch — an exception here
+   // propagates straight into page rendering as a 500. Since this handler
+   // backs every unstable_cache call on the site (home, menu, dish detail,
+-  // promo lookup — see lib/cache/menu.ts and lib/promo.ts), a Redis blip
+-  // must degrade to "treat as uncached" instead of taking the whole site
+-  // down with it.
++  // promo lookup — see lib/cache/menu.ts and lib/promo.ts) as well as
++  // next/image's cache, a Redis blip must degrade to "treat as uncached"
++  // instead of taking the whole site (or an image) down with it.
+   async get(key) {
+     try {
+       const raw = await redis.get(KEY_PREFIX + key);
+       if (!raw) return null;
+-      return JSON.parse(raw);
++      return JSON.parse(raw, decodeBuffersReviver);
+     } catch (err) {
+       console.error("[cache-handler] get failed, treating as cache miss:", err);
+       return null;
+@@ -52,7 +83,7 @@ module.exports = class RedisCacheHandler {
+   async set(key, data, ctx) {
+     try {
+       const tags = ctx?.tags ?? [];
+-      const entry = JSON.stringify({ value: data, lastModified: Date.now(), tags });
++      const entry = JSON.stringify(encodeBuffers({ value: data, lastModified: Date.now(), tags }));
+ 
+       const pipeline = redis.pipeline();
+       pipeline.set(KEY_PREFIX + key, entry, "EX", ENTRY_TTL_SECONDS);
+diff --git a/lib/bonus.ts b/lib/bonus.ts
+new file mode 100644
+index 0000000..8bb3967
+--- /dev/null
++++ b/lib/bonus.ts
+@@ -0,0 +1,261 @@
++import { unstable_cache } from "next/cache";
++import { prisma } from "@/lib/prisma";
++import type { Prisma } from "@/app/generated/prisma/client";
++
++const SETTINGS_ID = "singleton";
++
++/** 1 bonus point is worth exactly 1 ruble of discount. */
++export const POINT_VALUE_MINOR = 100;
++
++type TxClient = Prisma.TransactionClient;
++
++const getCachedSettings = unstable_cache(
++  async () => {
++    const settings = await prisma.bonusSettings.findUnique({ where: { id: SETTINGS_ID } });
++    return { earnPercent: settings?.earnPercent ?? 5, maxRedeemPercent: settings?.maxRedeemPercent ?? 50 };
++  },
++  ["bonus-settings"],
++  { tags: ["bonus-settings"], revalidate: 60 }
++);
++
++/** Cached read of the admin-configured earn/redeem rates — falls back to the
++ *  schema defaults if the settings row hasn't been created yet (it's created
++ *  lazily the first time an admin saves the settings form). */
++export async function getBonusSettings() {
++  return getCachedSettings();
++}
++
++async function getOrCreateWallet(tx: TxClient, phone: string) {
++  return tx.bonusWallet.upsert({ where: { phone }, create: { phone }, update: {} });
++}
++
++/** Current balance for a phone number, 0 if it has never earned any points. */
++export async function getWalletBalance(phone: string): Promise<number> {
++  const wallet = await prisma.bonusWallet.findUnique({ where: { phone }, select: { balance: true } });
++  return wallet?.balance ?? 0;
++}
++
++export interface BonusRedemptionPreview {
++  walletBalance: number;
++  eligibleSubtotalMinor: number;
++  maxRedeemablePoints: number;
++  pointsRedeemed: number;
++  discountMinor: number;
++}
++
++/**
++ * Re-validates a requested points redemption against the live wallet balance,
++ * the admin-configured max-redeem-% cap, and how much of the order is
++ * actually eligible (see Dish.bonusRedeemable / lib/checkout.ts). Called both
++ * for the checkout preview AND again at order-creation time — never trust a
++ * discount amount computed on the client, mirroring lib/promo.ts.
++ */
++export async function previewBonusRedemption(params: {
++  phone: string;
++  subtotalMinor: number;
++  /** Discount already applied by a promo code (0 if none) — the bonus cap is
++   *  sized against what's actually still owed after that, not the gross
++   *  subtotal. Without this, promo and bonus discounts are each capped
++   *  independently against the same gross amount and can stack past the
++   *  order's real value, spending points for zero benefit. */
++  discountMinor?: number;
++  eligibleSubtotalMinor: number;
++  requestedPoints: number;
++}): Promise<BonusRedemptionPreview> {
++  const { phone, subtotalMinor, eligibleSubtotalMinor, requestedPoints } = params;
++  const discountMinor = params.discountMinor ?? 0;
++  const [wallet, settings] = await Promise.all([
++    prisma.bonusWallet.findUnique({ where: { phone }, select: { balance: true } }),
++    getBonusSettings(),
++  ]);
++
++  const walletBalance = wallet?.balance ?? 0;
++  const remainingAfterPromoMinor = Math.max(subtotalMinor - discountMinor, 0);
++  const capByOrderMinor = Math.floor((remainingAfterPromoMinor * settings.maxRedeemPercent) / 100);
++  const maxDiscountMinor = Math.max(
++    0,
++    Math.min(eligibleSubtotalMinor, capByOrderMinor, remainingAfterPromoMinor, walletBalance * POINT_VALUE_MINOR)
++  );
++  const maxRedeemablePoints = Math.floor(maxDiscountMinor / POINT_VALUE_MINOR);
++  const pointsRedeemed = Math.max(0, Math.min(Math.floor(requestedPoints), maxRedeemablePoints));
++
++  return {
++    walletBalance,
++    eligibleSubtotalMinor,
++    maxRedeemablePoints,
++    pointsRedeemed,
++    discountMinor: pointsRedeemed * POINT_VALUE_MINOR,
++  };
++}
++
++export const BONUS_INSUFFICIENT = Symbol("BONUS_INSUFFICIENT");
++
++/**
++ * Atomically spends points from a phone's wallet as part of an order-creation
++ * transaction — conditional on the live balance (not the value read earlier
++ * by previewBonusRedemption) so two concurrent orders can't both spend the
++ * same points, mirroring the promo-code usedCount guard in
++ * app/api/orders/route.ts. Throws BONUS_INSUFFICIENT if the balance dropped
++ * below `points` in the meantime.
++ */
++export async function redeemBonusPoints(
++  tx: TxClient,
++  params: { phone: string; points: number; orderId: number }
++) {
++  const { phone, points, orderId } = params;
++  if (points <= 0) return;
++
++  const wallet = await getOrCreateWallet(tx, phone);
++  const updated = await tx.bonusWallet.updateMany({
++    where: { id: wallet.id, balance: { gte: points } },
++    data: { balance: { decrement: points } },
++  });
++  if (updated.count === 0) throw BONUS_INSUFFICIENT;
++
++  await tx.bonusTransaction.create({
++    data: {
++      walletId: wallet.id,
++      type: "REDEEM",
++      amount: -points,
++      orderId,
++      note: `Списание за заказ №${orderId}`,
++    },
++  });
++}
++
++/**
++ * Idempotently credits the points an order earned once it reaches DELIVERED —
++ * safe to call from both the admin ("updateOrderStatus") and courier
++ * ("markDelivered") actions. Guarded by an atomic conditional `updateMany`
++ * (not a plain `update` after a separate read) so two concurrent calls for
++ * the same order — e.g. an admin and a courier both marking it delivered at
++ * nearly the same moment — can't both pass the "not yet credited" check and
++ * double-credit the wallet; only one's `updateMany` matches and wins.
++ */
++export async function awardBonusPointsForOrder(orderId: number) {
++  await prisma.$transaction(async (tx) => {
++    const order = await tx.order.findUnique({
++      where: { id: orderId },
++      select: {
++        id: true,
++        status: true,
++        totalMinor: true,
++        bonusEarnedAt: true,
++        guestPhone: true,
++        customer: { select: { phone: true } },
++      },
++    });
++    if (!order || order.status !== "DELIVERED" || order.bonusEarnedAt) return;
++
++    const settings = await getBonusSettings();
++    const points = Math.floor((order.totalMinor * settings.earnPercent) / (100 * POINT_VALUE_MINOR));
++    const phone = order.customer?.phone ?? order.guestPhone;
++
++    const claimed = await tx.order.updateMany({
++      where: { id: order.id, status: "DELIVERED", bonusEarnedAt: null },
++      data: { bonusPointsEarned: points, bonusEarnedAt: new Date() },
++    });
++    if (claimed.count === 0) return; // another concurrent call already credited this order
++    if (points <= 0) return;
++
++    const wallet = await getOrCreateWallet(tx, phone);
++    await tx.bonusWallet.update({ where: { id: wallet.id }, data: { balance: { increment: points } } });
++    await tx.bonusTransaction.create({
++      data: {
++        walletId: wallet.id,
++        type: "EARN",
++        amount: points,
++        orderId: order.id,
++        note: `Начисление за заказ №${order.id}`,
++      },
++    });
++  });
++}
++
++/**
++ * Idempotently reverses an order's bonus effects once it's CANCELLED:
++ * - REDEEM: any points spent on it are returned to the wallet.
++ * - EARN: if it had already reached DELIVERED (and so already earned
++ *   points — see awardBonusPointsForOrder) before being cancelled, those
++ *   points are clawed back too, since the order they were earned for no
++ *   longer stands. Recorded as an ADJUSTMENT (negative), since REFUND is
++ *   specifically the REDEEM-reversal type.
++ * - Order.totalMinor is recomputed without the (now-reversed) bonus
++ *   discount, so the stored total still equals subtotal − promo discount.
++ *
++ * Guarded by an atomic conditional `updateMany` keyed on the exact values
++ * just read (not a plain `update` after a separate read), so two concurrent
++ * cancellations of the same order — two admin tabs, a retried request —
++ * can't both pass the guard and double-refund/double-claw-back; only one's
++ * `updateMany` matches and wins, mirroring redeemBonusPoints/
++ * awardBonusPointsForOrder's guards.
++ */
++export async function refundBonusRedemptionForOrder(orderId: number) {
++  await prisma.$transaction(async (tx) => {
++    const order = await tx.order.findUnique({
++      where: { id: orderId },
++      select: {
++        id: true,
++        status: true,
++        subtotalMinor: true,
++        discountMinor: true,
++        bonusPointsRedeemed: true,
++        bonusPointsEarned: true,
++        bonusEarnedAt: true,
++        guestPhone: true,
++        customer: { select: { phone: true } },
++      },
++    });
++    if (!order || order.status !== "CANCELLED") return;
++
++    const redeemPoints = order.bonusPointsRedeemed;
++    const earnedPoints = order.bonusEarnedAt ? order.bonusPointsEarned : 0;
++    if (redeemPoints <= 0 && earnedPoints <= 0) return;
++
++    const claimed = await tx.order.updateMany({
++      where: {
++        id: order.id,
++        status: "CANCELLED",
++        bonusPointsRedeemed: order.bonusPointsRedeemed,
++        bonusPointsEarned: order.bonusPointsEarned,
++        bonusEarnedAt: order.bonusEarnedAt,
++    warning: in the working copy of 'lib/checkout.ts', LF will be replaced by CRLF the next time Git touches it
+  },
++      data: {
++        bonusPointsRedeemed: 0,
++        bonusDiscountMinor: 0,
++        ...(earnedPoints > 0 ? { bonusPointsEarned: 0, bonusEarnedAt: null } : {}),
++        totalMinor: Math.max(order.subtotalMinor - order.discountMinor, 0),
++      },
++    });
++    if (claimed.count === 0) return; // another concurrent call already reversed this order
++
++    const phone = order.customer?.phone ?? order.guestPhone;
++    const wallet = await getOrCreateWallet(tx, phone);
++    const netPoints = redeemPoints - earnedPoints;
++    if (netPoints !== 0) {
++      await tx.bonusWallet.update({ where: { id: wallet.id }, data: { balance: { increment: netPoints } } });
++    }
++    if (redeemPoints > 0) {
++      await tx.bonusTransaction.create({
++        data: {
++          walletId: wallet.id,
++          type: "REFUND",
++          amount: redeemPoints,
++          orderId: order.id,
++          note: `Возврат баллов за отменённый заказ №${order.id}`,
++        },
++      });
++    }
++    if (earnedPoints > 0) {
++      await tx.bonusTransaction.create({
++        data: {
++          walletId: wallet.id,
++          type: "ADJUSTMENT",
++          amount: -earnedPoints,
++          orderId: order.id,
++          note: `Списание начисленных баллов — заказ №${order.id} отменён после доставки`,
++        },
++      });
++    }
++  });
++}
+diff --git a/lib/checkout.ts b/lib/checkout.ts
+new file mode 100644
+index 0000000..c4efcc9
+--- /dev/null
++++ b/lib/checkout.ts
+@@ -0,0 +1,95 @@
++import { prisma } from "@/lib/prisma";
++
++export class CheckoutItemError extends Error {
++  status: number;
++  constructor(message: string, status = 409) {
++    super(message);
++    this.status = status;
++  }
++}
++
++export interface PricedCartItem {
++  dishId: string;
++  dishVariantId: string;
++  nameSnapshot: string;
++  variantLabelSnapshot: string;
++  unitPriceMinor: number;
++  quantity: number;
++  lineTotalMinor: number;
++  /** Snapshotted from Dish.bonusRedeemable at price time — determines whether
++   *  this line counts toward the order's bonus-points-eligible subtotal. */
++  bonusRedeemable: boolean;
++  extras: { dishExtraId: string; nameSnapshot: string; unitPriceMinor: number; quantity: number }[];
++}
++
++/**
++ * Re-fetches live variant/extra prices and availability for a cart's items —
++ * client-supplied prices are never trusted. Shared by order creation
++ * (app/api/orders/route.ts) and the bonus-points checkout preview
++ * (app/api/bonus/preview/route.ts) so both price a cart identically and agree
++ * on which lines are bonus-eligible.
++ */
++export async function priceCartItems(
++  items: { dishVariantId: string; quantity: number; extras: { dishExtraId: string; quantity: number }[] }[]
++): Promise<PricedCartItem[]> {
++  const variantIds = items.map((i) => i.dishVariantId);
++  const variants = await prisma.dishVariant.findMany({
++    where: { id: { in: variantIds } },
++    include: { dish: true },
++  });
++  const variantMap = new Map(variants.map((v) => [v.id, v]));
++
++  const extraIds = items.flatMap((i) => i.extras.map((e) => e.dishExtraId));
++  const dishExtras = await prisma.dishExtra.findMany({ where: { id: { in: extraIds } } });
++  const extraMap = new Map(dishExtras.map((e) => [e.id, e]));
++
++  const priced: PricedCartItem[] = [];
++
++  for (const item of items) {
++    const variant = variantMap.get(item.dishVariantId);
++    if (!variant || !variant.isActive || !variant.dish.isActive) {
++      throw new CheckoutItemError(`Позиция «${variant?.dish.name ?? "неизвестно"}» больше недоступна`);
++    }
++
++    const itemExtrasData: PricedCartItem["extras"] = [];
++    for (const extraSel of item.extras) {
++      const extra = extraMap.get(extraSel.dishExtraId);
++      if (!extra || !extra.isActive || extra.dishId !== variant.dishId) {
++        throw new CheckoutItemError(`Доп «${extra?.name ?? "неизвестно"}» больше недоступен`);
++      }
++      if (extraSel.quantity > extra.maxQuantity) {
++        throw new CheckoutItemError(`Максимум «${extra.name}»: ${extra.maxQuantity}`);
++      }
++      itemExtrasData.push({
++        dishExtraId: extra.id,
++        nameSnapshot: extra.name,
++        unitPriceMinor: extra.priceMinor,
++        quantity: extraSel.quantity,
++      });
++    }
++
++    const extrasUnitTotal = itemExtrasData.reduce((sum, e) => sum + e.unitPriceMinor * e.quantity, 0);
++
++    priced.push({
++      dishId: variant.dishId,
++      dishVariantId: variant.id,
++      nameSnapshot: variant.dish.name,
++      variantLabelSnapshot: variant.label,
++      unitPriceMinor: variant.priceMinor,
++      quantity: item.quantity,
++      lineTotalMinor: (variant.priceMinor + extrasUnitTotal) * item.quantity,
++      bonusRedeemable: variant.dish.bonusRedeemable,
++      extras: itemExtrasData,
++    });
++  }
++
++  return priced;
++}
++
++export function cartTotals(items: PricedCartItem[]) {
++  const subtotalMinor = items.reduce((sum, i) => sum + i.lineTotalMinor, 0);
++  const eligibleSubtotalMinor = items
++    .filter((i) => i.bonusRedeemable)
++    .reduce((sum, i) => sum + i.lineTotalMinor, 0);
++  return { subtotalMinor, eligibleSubtotalMinor };
++}
+diff --git a/prisma/schema.prisma b/prisma/schema.prisma
+index 0e39298..808e0e9 100644
+--- a/prisma/schema.prisma
++++ b/prisma/schema.prisma
+@@ -75,6 +75,62 @@ model Customer {
+   comments     Comment[]
+ }
+ 
++/** Bonus-points balance, keyed by phone number rather than Customer — points
++ *  accrue for a phone from its very first order, whether or not that phone
++ *  has registered an account yet. Once someone registers with that phone
++ *  (Customer.phone is unique, same normalized format — see lib/phone.ts),
++ *  looking their wallet up by phone just finds it; no migration/merge step
++ *  is needed. */
++model BonusWallet {
++  id        String   @id @default(cuid())
++  phone     String   @unique
++  balance   Int      @default(0)
++  createdAt DateTime @default(now())
++  updatedAt DateTime @updatedAt
++
++  transactions BonusTransaction[]
++}
++
++enum BonusTransactionType {
++  /** Awarded when an order reaches DELIVERED (see Order.bonusEarnedAt). */
++  EARN
++  /** Spent as a discount on an order at checkout. */
++  REDEEM
++  /** A REDEEM reversed because its order was cancelled after the discount was applied. */
++  REFUND
++  /** Manual balance change made by an admin (goodwill credit, correction, etc). */
++  ADJUSTMENT
++}
++
++model BonusTransaction {
++  id        String               @id @default(cuid())
++  walletId  String
++  wallet    BonusWallet          @relation(fields: [walletId], references: [id], onDelete: Cascade)
++  type      BonusTransactionType
++  /** Positive for EARN/REFUND/positive ADJUSTMENT, negative for REDEEM/negative ADJUSTMENT. */
++  amount    Int
++  orderId   Int?
++  order     Order?               @relation(fields: [orderId], references: [id], onDelete: SetNull)
++  note      String?
++  createdAt DateTime             @default(now())
++
++  @@index([walletId])
++  @@index([orderId])
++}
++
++/** Single-row table holding the bonus program's admin-configurable rules — a
++ *  BonusSettings row is looked up/created by the fixed id "singleton" rather
++ *  than through a separate feature-flag/config system this project doesn't
++ *  otherwise have. */
++model BonusSettings {
++  id                String   @id @default("singleton")
++  /** % of an order's paid total (see Order.bonusPointsEarned) credited as points once it's DELIVERED. */
++  earnPercent       Int      @default(5)
++  /** Max % of an order's subtotal that bonus points are allowed to discount. */
++  maxRedeemPercent  Int      @default(50)
++  updatedAt         DateTime @updatedAt
++}
++
+ model Address {
+   id         String   @id @default(cuid())
+   customerId String
+@@ -111,6 +167,11 @@ model Dish {
+   fatPer100g      Float?
+   carbsPer100g    Float?
+   isActive        Boolean  @default(true)
++  /** Whether bonus points can be redeemed as a discount against this dish
++   *  (see BonusSettings) — the admin can turn this off per dish (e.g. items
++   *  already running at a promo margin). Defaults on since most dishes are
++   *  expected to allow it. */
++  bonusRedeemable Boolean  @default(true)
+   sortOrder       Int      @default(0)
+   createdAt       DateTime @default(now())
+   updatedAt       DateTime @updatedAt
+@@ -276,12 +337,25 @@ model Order {
+   promoCode         PromoCode? @relation(fields: [promoCodeId], references: [id])
+   promoCodeSnapshot String?
+ 
++  /** Points redeemed as a discount on this order (see bonusDiscountMinor) —
++   *  0 if none were used. Refunded back to the wallet if the order is later
++   *  CANCELLED (see BonusTransactionType.REFUND). */
++  bonusPointsRedeemed Int       @default(0)
++  bonusDiscountMinor  Int       @default(0)
++  /** Points credited to the customer's/guest's wallet for this order — 0
++   *  until it happens. Only ever set once, when status transitions to
++   *  DELIVERED (see lib/bonus.ts) — bonusEarnedAt guards against crediting
++   *  twice if the status is (re)set to DELIVERED again. */
++  bonusPointsEarned   Int       @default(0)
++  bonusEarnedAt       DateTime?
++
+   notes String?
+ 
+   createdAt DateTime @default(now())
+   updatedAt DateTime @updatedAt
+ 
+-  items OrderItem[]
++  items             OrderItem[]
++  bonusTransactions BonusTransaction[]
+ }
+ 
+ model OrderItem {

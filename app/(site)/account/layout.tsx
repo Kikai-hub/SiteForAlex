@@ -8,6 +8,7 @@ const links = [
   { href: "/account", label: "Профиль" },
   { href: "/account/addresses", label: "Адреса" },
   { href: "/account/orders", label: "Заказы" },
+  { href: "/account/bonus", label: "Баллы" },
 ];
 
 export default async function AccountLayout({ children }: { children: React.ReactNode }) {

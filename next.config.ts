@@ -28,6 +28,16 @@ const nextConfig: NextConfig = {
   // per-process cache — see cache-handler.js for why that matters here.
   cacheHandler: require.resolve("./cache-handler.js"),
   cacheMaxMemorySize: 0,
+  images: {
+    // Without this, next/image's optimized-image cache is per-PM2-worker and
+    // in-memory (same problem cache-handler.js exists to solve for page/data
+    // caching, just not extended to images by default) — one worker caching a
+    // bad result for a URL (e.g. hit right as a file was mid-write) keeps
+    // serving that failure for up to `minimumCacheTTL` until it's restarted.
+    // Routing images through the same Redis-backed handler shares one
+    // consistent cache across every worker instead.
+    customCacheHandler: true,
+  },
   async headers() {
     return [
       {

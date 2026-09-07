@@ -27,6 +27,46 @@ const TAG_PREFIX = "nextcache:tag:";
 // that stops being requested after a deploy) doesn't live in Redis forever.
 const ENTRY_TTL_SECONDS = 60 * 60 * 24;
 
+// Since `images.customCacheHandler` (next.config.ts) routes next/image's
+// optimized-image cache through this same handler, `data` can carry a raw
+// Buffer (the IMAGE kind's `buffer` field) — plain JSON.stringify/parse would
+// silently turn that into a `{type:"Buffer",data:[...]}` plain object instead
+// of a real Buffer on the way back out, which is exactly the kind of "looks
+// cached but is actually broken" failure this is here to prevent. Walk the
+// tree ourselves so any Buffer, wherever it's nested, survives the round trip.
+function encodeBuffers(value) {
+  if (Buffer.isBuffer(value)) {
+    return { __buffer__: true, base64: value.toString("base64") };
+  }
+  if (Array.isArray(value)) {
+    return value.map(encodeBuffers);
+  }
+  if (value && typeof value === "object") {
+    const out = {};
+    for (const [k, v] of Object.entries(value)) {
+      out[k] = encodeBuffers(v);
+    }
+    return out;
+  }
+  return value;
+}
+
+function decodeBuffersReviver(_key, value) {
+  if (value && typeof value === "object" && value.__buffer__ === true) {
+    return Buffer.from(value.base64, "base64");
+  }
+  return value;
+}
+
+// Only `images.customCacheHandler`'s IMAGE-kind entries carry a raw Buffer
+// (as `data.buffer` — see incrementalCacheHandlerPath.md's "Image
+// Optimization Caching" section), never ordinary page/unstable_cache data —
+// this cheap top-level check skips encodeBuffers' full recursive tree walk
+// on the common (non-image) path instead of paying for it on every write.
+function needsBufferEncoding(data) {
+  return Buffer.isBuffer(data?.buffer);
+}
+
 module.exports = class RedisCacheHandler {
   constructor(options) {
     this.options = options;
@@ -35,14 +75,14 @@ module.exports = class RedisCacheHandler {
   // Next does not wrap cache-handler calls in try/catch — an exception here
   // propagates straight into page rendering as a 500. Since this handler
   // backs every unstable_cache call on the site (home, menu, dish detail,
-  // promo lookup — see lib/cache/menu.ts and lib/promo.ts), a Redis blip
-  // must degrade to "treat as uncached" instead of taking the whole site
-  // down with it.
+  // promo lookup — see lib/cache/menu.ts and lib/promo.ts) as well as
+  // next/image's cache, a Redis blip must degrade to "treat as uncached"
+  // instead of taking the whole site (or an image) down with it.
   async get(key) {
     try {
       const raw = await redis.get(KEY_PREFIX + key);
       if (!raw) return null;
-      return JSON.parse(raw);
+      return JSON.parse(raw, decodeBuffersReviver);
     } catch (err) {
       console.error("[cache-handler] get failed, treating as cache miss:", err);
       return null;
@@ -52,7 +92,8 @@ module.exports = class RedisCacheHandler {
   async set(key, data, ctx) {
     try {
       const tags = ctx?.tags ?? [];
-      const entry = JSON.stringify({ value: data, lastModified: Date.now(), tags });
+      const payload = { value: data, lastModified: Date.now(), tags };
+      const entry = JSON.stringify(needsBufferEncoding(data) ? encodeBuffers(payload) : payload);
 
       const pipeline = redis.pipeline();
       pipeline.set(KEY_PREFIX + key, entry, "EX", ENTRY_TTL_SECONDS);

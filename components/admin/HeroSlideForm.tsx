@@ -7,6 +7,25 @@ import { Input, Label, Select, Textarea, FieldError } from "@/components/ui/Inpu
 
 const initialState: ActionState = {};
 
+/** Auto-appends " ₽" (in the same "от 585 ₽" style lib/cache/menu.ts uses to
+ *  auto-fill this same field from a linked dish's price) when the admin just
+ *  typed a plain number — so they don't have to type the ₽ sign themselves.
+ *  Free text that isn't just a number (e.g. "Бесплатно") is left untouched. */
+function autoFormatPriceLabel(raw: string): string {
+  const trimmed = raw.trim();
+  if (!trimmed) return raw;
+  const match = trimmed.match(/^(от\s+)?(\d+(?:[.,]\d+)?)\s*₽?$/i);
+  if (!match) return raw;
+  const [, fromPrefix, numStr] = match;
+  const num = Number(numStr.replace(",", "."));
+  if (!Number.isFinite(num)) return raw;
+  const formatted = num.toLocaleString("ru-RU", {
+    minimumFractionDigits: num % 1 === 0 ? 0 : 2,
+    maximumFractionDigits: 2,
+  });
+  return `${fromPrefix ?? ""}${formatted} ₽`;
+}
+
 export function HeroSlideForm({
   slide,
   dishes,
@@ -57,7 +76,15 @@ export function HeroSlideForm({
         </div>
         <div className="w-40">
           <Label htmlFor="priceLabel">Цена на баннере</Label>
-          <Input id="priceLabel" name="priceLabel" defaultValue={slide?.priceLabel ?? ""} placeholder="от 585 ₽" />
+          <Input
+            id="priceLabel"
+            name="priceLabel"
+            defaultValue={slide?.priceLabel ?? ""}
+            placeholder="от 585 ₽"
+            onBlur={(e) => {
+              e.currentTarget.value = autoFormatPriceLabel(e.currentTarget.value);
+            }}
+          />
         </div>
       </div>
 

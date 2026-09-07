@@ -24,6 +24,7 @@ export function DishEditForm({
     carbsPer100g: number | null;
     sortOrder: number;
     isActive: boolean;
+    bonusRedeemable: boolean;
     heroSlides?: { id: string; isActive: boolean }[];
   };
   categories: { id: string; name: string }[];
@@ -118,6 +119,15 @@ export function DishEditForm({
           />
         </div>
       </div>
+      <label className="flex items-center gap-2 text-sm font-medium text-char/70">
+        <input
+          type="checkbox"
+          name="bonusRedeemable"
+          defaultChecked={dish.bonusRedeemable}
+          className="h-4 w-4 accent-ember"
+        />
+        Можно оплачивать бонусными баллами
+      </label>
       <div className="rounded-xl border border-char/10 bg-flatbread p-4">
         <label className="flex items-center gap-2 text-sm font-medium text-char/70">
           <input

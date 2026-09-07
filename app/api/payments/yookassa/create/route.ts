@@ -23,6 +23,12 @@ export async function POST(request: NextRequest) {
   if (order.paymentStatus === "SUCCEEDED") {
     return NextResponse.json({ error: "Заказ уже оплачен" }, { status: 409 });
   }
+  // A cancelled order's totalMinor can have since been recomputed (see
+  // refundBonusRedemptionForOrder) — never start a real payment against a
+  // stale checkout tab for an order that no longer stands.
+  if (order.status === "CANCELLED") {
+    return NextResponse.json({ error: "Заказ отменён" }, { status: 409 });
+  }
 
   const returnUrl = `${request.nextUrl.origin}/checkout/success/${order.accessToken}`;
 

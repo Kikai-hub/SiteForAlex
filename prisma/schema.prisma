@@ -75,6 +75,62 @@ model Customer {
   comments     Comment[]
 }
 
+/** Bonus-points balance, keyed by phone number rather than Customer — points
+ *  accrue for a phone from its very first order, whether or not that phone
+ *  has registered an account yet. Once someone registers with that phone
+ *  (Customer.phone is unique, same normalized format — see lib/phone.ts),
+ *  looking their wallet up by phone just finds it; no migration/merge step
+ *  is needed. */
+model BonusWallet {
+  id        String   @id @default(cuid())
+  phone     String   @unique
+  balance   Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  transactions BonusTransaction[]
+}
+
+enum BonusTransactionType {
+  /** Awarded when an order reaches DELIVERED (see Order.bonusEarnedAt). */
+  EARN
+  /** Spent as a discount on an order at checkout. */
+  REDEEM
+  /** A REDEEM reversed because its order was cancelled after the discount was applied. */
+  REFUND
+  /** Manual balance change made by an admin (goodwill credit, correction, etc). */
+  ADJUSTMENT
+}
+
+model BonusTransaction {
+  id        String               @id @default(cuid())
+  walletId  String
+  wallet    BonusWallet          @relation(fields: [walletId], references: [id], onDelete: Cascade)
+  type      BonusTransactionType
+  /** Positive for EARN/REFUND/positive ADJUSTMENT, negative for REDEEM/negative ADJUSTMENT. */
+  amount    Int
+  orderId   Int?
+  order     Order?               @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  note      String?
+  createdAt DateTime             @default(now())
+
+  @@index([walletId])
+  @@index([orderId])
+}
+
+/** Single-row table holding the bonus program's admin-configurable rules — a
+ *  BonusSettings row is looked up/created by the fixed id "singleton" rather
+ *  than through a separate feature-flag/config system this project doesn't
+ *  otherwise have. */
+model BonusSettings {
+  id                String   @id @default("singleton")
+  /** % of an order's paid total (see Order.bonusPointsEarned) credited as points once it's DELIVERED. */
+  earnPercent       Int      @default(5)
+  /** Max % of an order's subtotal that bonus points are allowed to discount. */
+  maxRedeemPercent  Int      @default(50)
+  updatedAt         DateTime @updatedAt
+}
+
 model Address {
   id         String   @id @default(cuid())
   customerId String
@@ -111,6 +167,11 @@ model Dish {
   fatPer100g      Float?
   carbsPer100g    Float?
   isActive        Boolean  @default(true)
+  /** Whether bonus points can be redeemed as a discount against this dish
+   *  (see BonusSettings) — the admin can turn this off per dish (e.g. items
+   *  already running at a promo margin). Defaults on since most dishes are
+   *  expected to allow it. */
+  bonusRedeemable Boolean  @default(true)
   sortOrder       Int      @default(0)
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
@@ -276,12 +337,25 @@ model Order {
   promoCode         PromoCode? @relation(fields: [promoCodeId], references: [id])
   promoCodeSnapshot String?
 
+  /** Points redeemed as a discount on this order (see bonusDiscountMinor) —
+   *  0 if none were used. Refunded back to the wallet if the order is later
+   *  CANCELLED (see BonusTransactionType.REFUND). */
+  bonusPointsRedeemed Int       @default(0)
+  bonusDiscountMinor  Int       @default(0)
+  /** Points credited to the customer's/guest's wallet for this order — 0
+   *  until it happens. Only ever set once, when status transitions to
+   *  DELIVERED (see lib/bonus.ts) — bonusEarnedAt guards against crediting
+   *  twice if the status is (re)set to DELIVERED again. */
+  bonusPointsEarned   Int       @default(0)
+  bonusEarnedAt       DateTime?
+
   notes String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  items OrderItem[]
+  items             OrderItem[]
+  bonusTransactions BonusTransaction[]
 }
 
 model OrderItem {

@@ -72,6 +72,7 @@ export async function createDish(
     carbsPer100g: formData.get("carbsPer100g") || undefined,
     sortOrder: formData.get("sortOrder") || 0,
     isActive: true,
+    bonusRedeemable: formData.get("bonusRedeemable") === "on",
   });
   if (!parsed.success) {
     return { error: parsed.error.issues[0]?.message ?? "Некорректные данные" };
@@ -89,6 +90,7 @@ export async function createDish(
       fatPer100g: parsed.data.fatPer100g ?? null,
       carbsPer100g: parsed.data.carbsPer100g ?? null,
       sortOrder: parsed.data.sortOrder,
+      bonusRedeemable: parsed.data.bonusRedeemable,
     },
   });
 
@@ -129,6 +131,7 @@ export async function updateDish(
     carbsPer100g: formData.get("carbsPer100g") || undefined,
     sortOrder: formData.get("sortOrder") || 0,
     isActive: formData.get("isActive") === "on",
+    bonusRedeemable: formData.get("bonusRedeemable") === "on",
   });
   if (!parsed.success) {
     return { error: parsed.error.issues[0]?.message ?? "Некорректные данные" };
@@ -146,6 +149,7 @@ export async function updateDish(
       carbsPer100g: parsed.data.carbsPer100g ?? null,
       sortOrder: parsed.data.sortOrder,
       isActive: parsed.data.isActive,
+      bonusRedeemable: parsed.data.bonusRedeemable,
     },
   });
   await syncDishHeroSlide(id, formData.get("showInSlider") === "on");

@@ -62,10 +62,22 @@ export default async function OrderDetailPage({
               <span>−{formatMinor(order.discountMinor)}</span>
             </div>
           )}
+          {order.bonusDiscountMinor > 0 && (
+            <div className="flex justify-between text-herb">
+              <span>Оплачено баллами ({order.bonusPointsRedeemed})</span>
+              <span>−{formatMinor(order.bonusDiscountMinor)}</span>
+            </div>
+          )}
           <div className="flex justify-between text-base font-semibold text-char">
             <span>Итого</span>
             <span>{formatMinor(order.totalMinor)}</span>
           </div>
+          {order.bonusPointsEarned > 0 && (
+            <div className="flex justify-between pt-1 text-xs text-char/50">
+              <span>Начислено баллов</span>
+              <span>+{order.bonusPointsEarned}</span>
+            </div>
+          )}
         </div>
       </div>
 

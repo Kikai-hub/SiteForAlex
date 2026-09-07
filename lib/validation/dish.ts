@@ -25,6 +25,7 @@ export const dishSchema = z.object({
   carbsPer100g: z.coerce.number().min(0, "Не может быть отрицательным").optional().nullable(),
   sortOrder: z.coerce.number().int().default(0),
   isActive: z.coerce.boolean().default(true),
+  bonusRedeemable: z.coerce.boolean().default(true),
 });
 
 export const dishVariantSchema = z.object({

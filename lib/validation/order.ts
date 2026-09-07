@@ -32,6 +32,11 @@ export const createOrderSchema = z.object({
     .optional()
     .nullable(),
   promoCode: z.string().trim().optional().nullable(),
+  /** How many bonus points the customer wants to redeem as a discount — 0/absent
+   *  means none. Ignored server-side unless the request is from a logged-in
+   *  customer (see app/api/orders/route.ts); re-clamped there against the live
+   *  wallet balance, never trusted as-is. */
+  useBonusPoints: z.coerce.number().int().nonnegative().max(1_000_000).optional().default(0),
   notes: z.string().trim().max(500).optional().or(z.literal("")),
   personalDataConsent: personalDataConsentSchema,
 });

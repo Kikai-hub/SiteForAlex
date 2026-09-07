@@ -11,6 +11,7 @@ const links = [
   { href: "/admin/slides", label: "Слайдер на главной" },
   { href: "/admin/comments", label: "Комментарии" },
   { href: "/admin/promo-codes", label: "Промокоды" },
+  { href: "/admin/bonus-settings", label: "Бонусные баллы" },
   { href: "/admin/couriers", label: "Курьеры" },
 ];
 

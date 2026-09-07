@@ -11,6 +11,16 @@ import { Input, Label, Select, Textarea, FieldError } from "@/components/ui/Inpu
 import { PhoneInput } from "@/components/ui/PhoneInput";
 import { AddressAutocomplete } from "@/components/site/AddressAutocomplete";
 
+/** Identifies "what the cart looked like" for comparing against what a bonus
+ *  preview was computed for — a cart/promo change after that makes the
+ *  previously-applied discount stale (see the render-time staleness check
+ *  below, and lib/checkout.ts server-side, which re-validates regardless). */
+function cartSignature(items: { dishVariantId: string; quantity: number; extras: { dishExtraId: string; quantity: number }[] }[]) {
+  return JSON.stringify(
+    items.map((i) => [i.dishVariantId, i.quantity, i.extras.map((e) => [e.dishExtraId, e.quantity])])
+  );
+}
+
 interface SavedAddress {
   id: string;
   label: string | null;
@@ -24,10 +34,12 @@ interface SavedAddress {
 export function CheckoutForm({
   customer,
   addresses,
+  bonusBalance = 0,
   onlinePaymentEnabled = false,
 }: {
   customer: { name: string | null; phone: string } | null;
   addresses: SavedAddress[];
+  bonusBalance?: number;
   onlinePaymentEnabled?: boolean;
 }) {
   const router = useRouter();
@@ -45,6 +57,18 @@ export function CheckoutForm({
   const [promoResult, setPromoResult] = useState<{ discountMinor: number; code: string } | null>(null);
   const [promoError, setPromoError] = useState<string | null>(null);
   const [checkingPromo, setCheckingPromo] = useState(false);
+  const [bonusPointsInput, setBonusPointsInput] = useState(String(bonusBalance));
+  const [bonusResult, setBonusResult] = useState<{ pointsRedeemed: number; discountMinor: number } | null>(null);
+  // What the cart/promo looked like when bonusResult was computed — used below
+  // to detect a since-changed cart/promo without needing an effect to clear
+  // state on every render (see cartSignature).
+  const [bonusAppliedFor, setBonusAppliedFor] = useState<{
+    cartSig: string;
+    promoCode: string | null;
+    requestedPoints: number;
+  } | null>(null);
+  const [bonusError, setBonusError] = useState<string | null>(null);
+  const [checkingBonus, setCheckingBonus] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -52,7 +76,20 @@ export function CheckoutForm({
 
   const subtotal = cartSubtotalMinor(items);
   const discount = promoResult?.discountMinor ?? 0;
-  const total = Math.max(subtotal - discount, 0);
+  // A previously-applied bonus discount is only valid for the exact cart/promo
+  // /requested-points it was computed against — if any changed since (including
+  // the customer editing the points field back down without re-clicking
+  // "Списать"), treat it as not-applied rather than showing a total that no
+  // longer matches what the server will actually charge (the server re-clamps
+  // it again at submit time regardless).
+  const bonusStale =
+    bonusAppliedFor !== null &&
+    (bonusAppliedFor.cartSig !== cartSignature(items) ||
+      bonusAppliedFor.promoCode !== (promoResult?.code ?? null) ||
+      bonusAppliedFor.requestedPoints !== Number(bonusPointsInput));
+  const effectiveBonusResult = bonusStale ? null : bonusResult;
+  const bonusDiscount = effectiveBonusResult?.discountMinor ?? 0;
+  const total = Math.max(subtotal - discount - bonusDiscount, 0);
 
   async function checkPromo() {
     if (!promoCode.trim()) return;
@@ -77,6 +114,50 @@ export function CheckoutForm({
       setPromoResult(data);
     } finally {
       setCheckingPromo(false);
+    }
+  }
+
+  async function checkBonus() {
+    const requestedPoints = Number(bonusPointsInput);
+    if (!requestedPoints || requestedPoints <= 0) {
+      setBonusResult(null);
+      setBonusAppliedFor(null);
+      setBonusError(null);
+      return;
+    }
+    setCheckingBonus(true);
+    setBonusError(null);
+    try {
+      const res = await fetch("/api/bonus/preview", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          items: items.map((i) => ({
+            dishVariantId: i.dishVariantId,
+            quantity: i.quantity,
+            extras: i.extras.map((e) => ({ dishExtraId: e.dishExtraId, quantity: e.quantity })),
+          })),
+          requestedPoints,
+          promoCode: promoResult?.code ?? null,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setBonusError(data.error ?? "Не удалось списать баллы");
+        setBonusResult(null);
+        setBonusAppliedFor(null);
+        return;
+      }
+      if (data.pointsRedeemed <= 0) {
+        setBonusError("Баллы недоступны для этого заказа");
+        setBonusResult(null);
+        setBonusAppliedFor(null);
+        return;
+      }
+      setBonusResult(data);
+      setBonusAppliedFor({ cartSig: cartSignature(items), promoCode: promoResult?.code ?? null, requestedPoints });
+    } finally {
+      setCheckingBonus(false);
     }
   }
 
@@ -110,6 +191,7 @@ export function CheckoutForm({
             }
           : null,
       promoCode: promoResult?.code ?? null,
+      useBonusPoints: effectiveBonusResult?.pointsRedeemed ?? 0,
       notes: formData.get("notes"),
       personalDataConsent: formData.get("personalDataConsent") === "on",
     };
@@ -331,6 +413,36 @@ export function CheckoutForm({
           </p>
         )}
 
+        {customer && bonusBalance > 0 && (
+          <div className="mt-3 border-t border-char/10 pt-3">
+            <p className="text-sm text-char/70">Бонусные баллы: доступно {bonusBalance} ₽</p>
+            <div className="mt-2 flex gap-2">
+              <Input
+                type="number"
+                min={0}
+                max={bonusBalance}
+                value={bonusPointsInput}
+                onChange={(e) => setBonusPointsInput(e.target.value)}
+                className="flex-1"
+              />
+              <Button type="button" variant="secondary" onClick={checkBonus} disabled={checkingBonus}>
+                {checkingBonus ? "…" : "Списать"}
+              </Button>
+            </div>
+            {bonusError && <FieldError>{bonusError}</FieldError>}
+            {effectiveBonusResult && effectiveBonusResult.pointsRedeemed > 0 && (
+              <p className="mt-1 text-sm font-medium text-herb">
+                Списано {effectiveBonusResult.pointsRedeemed} баллов: −{formatMinor(effectiveBonusResult.discountMinor)}
+              </p>
+            )}
+            {bonusStale && (
+              <p className="mt-1 text-sm text-char/50">
+                Корзина или промокод изменились — нажмите «Списать» ещё раз, чтобы применить баллы.
+              </p>
+            )}
+          </div>
+        )}
+
         <div className="mt-4 space-y-1 border-t border-char/10 pt-4 text-sm">
           <div className="flex justify-between text-char/70">
             <span>Сумма</span>
@@ -340,6 +452,12 @@ export function CheckoutForm({
             <div className="flex justify-between text-herb">
               <span>Скидка</span>
               <span>−{formatMinor(discount)}</span>
+            </div>
+          )}
+          {bonusDiscount > 0 && (
+            <div className="flex justify-between text-herb">
+              <span>Оплата баллами</span>
+              <span>−{formatMinor(bonusDiscount)}</span>
             </div>
           )}
           <div className="flex justify-between text-lg font-semibold text-char">
